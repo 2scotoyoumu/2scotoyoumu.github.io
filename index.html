@@ -12,6 +12,12 @@
     font-size: 48px;
     line-height: 1.5;
     color: #ffffff;
+    position: absolute; /* 绝对定位 */
+    top: 50%; /* 距离顶部 50% */
+    left: 50%; /* 距离左侧 50% */
+    transform: translate(-50%, -50%); /* 向上和向左移动自身宽高的 50% */
+    text-align: center;
+    padding: 20px;
 }
 
 body {
@@ -26,6 +32,7 @@ body {
 </head>
 
 <body>
-
+    <div class="text-mihon">
+        <p>テキスト見本</p>
+    </div>
 </body>
-<p class="text-mihon"><b>テキスト見本</b></p>
