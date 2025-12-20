@@ -9,7 +9,7 @@
     background-color: #000000;
     margin: 0;
     padding: 0;
-    position: relative; /* 使 body 成为定位上下文 */
+    position: fixed; /* 使 body 成为定位上下文 */
     }
 
     .text-mihon {
@@ -21,6 +21,17 @@
         transform: translate(-50%, -50%);/* 调整位置使其真正居中 */
         color: #ffffff; /* 白色文字 */
         text-align: center; /* 文本居中对齐 */
+    }
+
+    footer {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        background-color: #111111;
+        color: #888888;
+        text-align: center;
+        padding: 10px 0;
+        font-size: 14px;
     }
 
 </style>
@@ -43,3 +54,5 @@
     -->
 
 </body>
+
+<footer>This website is designed and complicated by 2scompliment.</footer>
