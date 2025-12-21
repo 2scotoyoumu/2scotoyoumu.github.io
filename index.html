@@ -13,30 +13,17 @@
 
 <body>
     <header>2scompliment's Weblog
-        <ul direction="horizontal" style="list-style-type: none; margin: 0; padding: 0; display: inline-block;">
-            <li><a href="./index.html" style="color: #888888; text-decoration: none; margin: 0 10px;">Home</a></li>
-            <li><a href="./about/about.html" style="color: #888888; text-decoration: none; margin: 0 10px;">About</a></li>
-            <li><a href="./posts/posts.html" style="color: #888888; text-decoration: none; margin: 0 10px;">Posts</a></li>
-            <li><a href="./contact/contact.html" style="color: #888888; text-decoration: none; margin: 0 10px;">Contact</a></li>
+        <ul class="nav-list">
+            <li><a href="./index.html" class="nav-link">Home</a></li>
+            <li><a href="./about/about.html" class="nav-link">About</a></li>
+            <li><a href="./posts/posts.html" class="nav-link">Posts</a></li>
+            <li><a href="./contact/contact.html" class="nav-link">Contact</a></li>
         </ul>
     </header>
     <div class="text-mihon">
         <p>テキスト見本</p>
     </div>
-
-    <section id="content">
-        <script>
-            loadContent();
-        </script>
     </section>
-    
-    <!--
-    <iframe width="100%" height="166" weight="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1210490998&color=%23b6b6b6&auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>-->
-    <!--<div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;">
-        <a href="https://soundcloud.com/n_n_n_5gou" title="5号" target="_blank" style="color: #cccccc; text-decoration: none;">5号</a> ·
-        <a href="https://soundcloud.com/n_n_n_5gou/mp3" title="表情をつけられた歌声.mp3" target="_blank" style="color: #cccccc; text-decoration: none;">表情をつけられた歌声.mp3</a>
-    </div>
-    -->
 
 </body>
 
@@ -55,7 +42,7 @@
 
     .text-mihon {
         font-family: 'Times New Roman', Times, serif;
-        font-size: 50%; /* 使用相对单位 */
+        font-size: 48px; /* 使用相对单位 */
         position: absolute; /* 绝对定位 */
         top: 50%; /* 垂直居中 */
         left: 50%; /* 水平居中 */
@@ -88,7 +75,28 @@
         font-family: 'Open Sans', sans-serif;
     }
 
+    .nav-list {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        display: inline-block;
+    }
+
+    .nav-link {
+        color: #888888;
+        text-decoration: none;
+        margin: 0 10px;
+    }
+
+    .footer-link {
+        color: #888888;
+    }
+
 </style>
 
-<footer>This website is designed and complicated by 2scompliment.</footer>
+<footer>This website is designed and complicated by 2scompliment.
+    <br>
+    <a href="https://github.com/2scotoyoumu" target="_blank" rel="noopener" class="footer-link">GitHub</a>
+    <a href="https://t.me/+p1R0MH4oFsdmYzEx" target="_blank" rel="noopener" class="footer-link">Telegram Channel</a>
+</footer>
 </html>
