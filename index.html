@@ -1,102 +1,461 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-US">
+
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="2scompliment's Weblog">
-    <meta name="author" content="2scompliment">
-    <title>2scompliment's Weblog</title>
-    <script src="./js/script.js"></script>
-    <link rel="icon" href="./vectorImages/2scompliment-blog-icon.svg" type="image/x-icon" />
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" />
-</head>
 
-<body>
-    <header>2scompliment's Weblog
-        <ul class="nav-list">
-            <li><a href="./index.html" class="nav-link">Home</a></li>
-            <li><a href="./about/about.html" class="nav-link">About</a></li>
-            <li><a href="./posts/posts.html" class="nav-link">Posts</a></li>
-            <li><a href="./contact/contact.html" class="nav-link">Contact</a></li>
-        </ul>
-    </header>
-    <div class="text-mihon">
-        <p>テキスト見本</p>
-    </div>
-    </section>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-</body>
+<title>✞ 2scomplement's blog ✞</title>
+
+<link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
 
 <style>
-    body {
-    background-color: #000000;
-    margin: 0;
-    padding: 0;
-    position: static; /* 使 body 成为定位上下文 */
-    }
 
-    ul {
-    display: flex;
-    flex-direction: row;
-    }
+/* -------------------- 主题变量 -------------------- */
 
-    .text-mihon {
-        font-family: 'Times New Roman', Times, serif;
-        font-size: 48px; /* 使用相对单位 */
-        position: absolute; /* 绝对定位 */
-        top: 50%; /* 垂直居中 */
-        left: 50%; /* 水平居中 */
-        /*transform: translate(-50%, -50%);/* 调整位置使其真正居中 */
-        color: #ffffff; /* 白色文字 */
-        text-align: center; /* 文本居中对齐 */
-    }
+body.theme-dark{
+--bg:#090011;
+--primary:#b266ff;
+--accent:#ff3385;
+--text:#e6ccff;
+}
 
-    header {
-        position: fixed;
-        top: 0;
-        width: 100%;
-        background-color: #111111;
-        color: #888888;
-        text-align: center;
-        padding: 10px 0;
-        font-size: 14px;
-        font-family: 'Open Sans', sans-serif;
-    }
+body.theme-mint{
+--bg:#071a11;
+--primary:#7dffbf;
+--accent:#39d98a;
+--text:#e6fff5;
+}
 
-    footer {
-        position: fixed;
-        bottom: 0;
-        width: 100%;
-        background-color: #111111;
-        color: #888888;
-        text-align: center;
-        padding: 10px 0;
-        font-size: 14px;
-        font-family: 'Open Sans', sans-serif;
-    }
+body.theme-blue{
+--bg:#f1f6ff;
+--primary:#4c86ff;
+--accent:#6aa0ff;
+--text:#081b45;
+}
 
-    .nav-list {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-        display: inline-block;
-    }
+body.theme-pink{
+--bg:#2a0017;
+--primary:#ff8ad6;
+--accent:#ff5db9;
+--text:#ffd8f2;
+}
 
-    .nav-link {
-        color: #888888;
-        text-decoration: none;
-        margin: 0 10px;
-    }
+/* -------------------- 基础 -------------------- */
 
-    .footer-link {
-        color: #888888;
-    }
+*{
+box-sizing:border-box;
+margin:0;
+padding:0;
+}
+
+body{
+
+background:var(--bg);
+
+color:var(--text);
+
+font-family:Courier,monospace;
+
+padding-top:80px;
+
+/* 十字架背景 */
+
+background-image:
+
+linear-gradient(rgba(255,255,255,0.03) 2px,transparent 2px),
+linear-gradient(90deg,rgba(255,255,255,0.03) 2px,transparent 2px);
+
+background-size:40px 40px;
+
+}
+
+/* -------------------- NAV -------------------- */
+
+nav{
+
+position:fixed;
+top:0;
+left:0;
+width:100%;
+
+background:rgba(0,0,0,0.85);
+
+display:flex;
+justify-content:center;
+align-items:center;
+gap:20px;
+
+padding:15px;
+
+border-bottom:2px dashed var(--primary);
+
+z-index:1000;
+
+}
+
+nav a{
+
+color:var(--accent);
+
+text-decoration:none;
+
+font-weight:bold;
+
+}
+
+nav a:hover{
+
+text-shadow:0 0 10px var(--primary);
+
+}
+
+/* 主题选择器 */
+
+#themeSelector{
+
+background:black;
+
+color:white;
+
+border:1px solid var(--primary);
+
+padding:5px;
+
+}
+
+/* -------------------- container -------------------- */
+
+.container{
+
+max-width:900px;
+
+margin:auto;
+
+padding:20px;
+
+}
+
+/* -------------------- header -------------------- */
+
+header{
+
+text-align:center;
+
+margin-bottom:40px;
+
+}
+
+.glitch-title{
+
+font-size:3rem;
+
+font-family:VT323;
+
+text-shadow:
+
+3px 3px var(--accent),
+-3px -3px var(--primary);
+
+}
+
+.header-gif{
+
+max-width:100%;
+
+border:3px double var(--primary);
+
+border-radius:10px;
+
+margin-top:10px;
+
+}
+
+/* -------------------- post -------------------- */
+
+.post-box{
+
+background:rgba(0,0,0,0.6);
+
+border:2px solid var(--primary);
+
+border-radius:10px;
+
+padding:20px;
+
+margin-bottom:30px;
+
+}
+
+.post-title{
+
+font-size:1.6rem;
+
+margin-bottom:10px;
+
+}
+
+.post-meta{
+
+font-size:0.9rem;
+
+opacity:0.8;
+
+margin-bottom:10px;
+
+}
+
+.category-tag{
+
+border:1px solid var(--accent);
+
+padding:2px 6px;
+
+margin-right:5px;
+
+}
+
+/* -------------------- footer -------------------- */
+
+footer{
+
+margin-top:50px;
+
+padding:40px;
+
+background:black;
+
+border-top:2px double var(--primary);
+
+text-align:center;
+
+}
+
+.footer-links a{
+
+color:var(--accent);
+
+margin:0 10px;
+
+text-decoration:none;
+
+}
+
+/* -------------------- 鼠标粒子 -------------------- */
+
+.trail{
+
+position:fixed;
+
+pointer-events:none;
+
+z-index:9999;
+
+font-size:14px;
+
+}
 
 </style>
 
-<footer>This website is designed and complicated by 2scompliment.
-    <br>
-    <a href="https://github.com/2scotoyoumu" target="_blank" rel="noopener" class="footer-link">GitHub</a>
-    <a href="https://t.me/+p1R0MH4oFsdmYzEx" target="_blank" rel="noopener" class="footer-link">Telegram Channel</a>
+</head>
+
+<body class="theme-dark">
+
+
+<nav>
+
+<a href="#">主页</a>
+<a href="#posts">博文</a>
+<a href="./about/about.html">关于</a>
+
+<select id="themeSelector">
+
+<option value="dark">黑紫</option>
+<option value="mint">浅绿</option>
+<option value="blue">蓝白</option>
+<option value="pink">粉红</option>
+
+</select>
+
+</nav>
+
+
+<div class="container">
+
+<header>
+
+<h1 class="glitch-title">
+2's complement
+</h1>
+
+<p>"Loading trauma... 99%"</p>
+
+<img class="header-gif"
+src="https://media.tenor.com/FwIrd0wR5iUAAAAC/aesthetic-anime.gif">
+
+</header>
+
+
+<main id="posts">
+
+<!-- 自动文章加载 -->
+
+</main>
+
+</div>
+
+
+<footer>
+
+<p>✦ Reality is just a bad trip ✦</p>
+
+<div class="footer-links">
+
+<a href="./sitemap.html">SiteMap</a>
+
+<a href="./rss.xml">RSS</a>
+
+<a href="https://t.me/2scomplement_blog">
+Telegram
+</a>
+
+</div>
+
 </footer>
+
+
+<script>
+
+/* -------------------- 主题切换 -------------------- */
+
+const selector=document.getElementById("themeSelector")
+
+const saved=localStorage.getItem("theme")||"dark"
+
+document.body.className="theme-"+saved
+
+selector.value=saved
+
+selector.onchange=()=>{
+
+const t=selector.value
+
+document.body.className="theme-"+t
+
+localStorage.setItem("theme",t)
+
+}
+
+/* -------------------- 自动文章读取 -------------------- */
+
+async function loadArticles(){
+
+try{
+
+const res=await fetch("./articles.json")
+
+const data=await res.json()
+
+const container=document.getElementById("posts")
+
+container.innerHTML=""
+
+data.forEach(post=>{
+
+const el=document.createElement("article")
+
+el.className="post-box"
+
+el.innerHTML=`
+
+<h2 class="post-title">${post.title}</h2>
+
+<div class="post-meta">
+
+<span class="category-tag">${post.category}</span>
+
+${post.date}
+
+</div>
+
+<p>${post.summary}</p>
+
+<br>
+
+<a href="${post.url}">
+>> Read More <<
+</a>
+
+`
+
+container.appendChild(el)
+
+})
+
+}catch(e){
+
+document.getElementById("posts").innerHTML=
+"<p>无法加载文章列表</p>"
+
+}
+
+}
+
+loadArticles()
+
+/* -------------------- 鼠标粒子 -------------------- */
+
+const words=["✦","✞","♡","★","×"]
+
+document.addEventListener("click",e=>{
+
+const span=document.createElement("span")
+
+span.className="trail"
+
+span.innerText=words[Math.floor(Math.random()*words.length)]
+
+span.style.left=e.clientX+"px"
+
+span.style.top=e.clientY+"px"
+
+document.body.appendChild(span)
+
+setTimeout(()=>{
+
+span.style.transform="translateY(-60px)"
+
+span.style.opacity=0
+
+},10)
+
+setTimeout(()=>span.remove(),700)
+
+})
+
+/* -------------------- glitch标题 -------------------- */
+
+const title=document.querySelector(".glitch-title")
+
+setInterval(()=>{
+
+if(Math.random()>0.85){
+
+title.style.transform="skew(5deg)"
+
+setTimeout(()=>{
+
+title.style.transform="skew(0deg)"
+
+},80)
+
+}
+
+},300)
+
+</script>
+
+</body>
+
 </html>
