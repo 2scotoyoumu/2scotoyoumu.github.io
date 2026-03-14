@@ -373,8 +373,8 @@ z-index:1000;
 
 <nav>
 
-<a href="../index.html">Home</a>
-<a href="#">Article</a>
+<a href="#">Home</a>
+<a href="./article/article_nav.html">Article</a>
 <a href="./about/about.html">About</a>
 
 <select id="themeSelector">
@@ -397,19 +397,24 @@ z-index:1000;
 2's complement blog
 </h1>
 
-<p>歡迎來到二補數的文章引導頁面，您可以閱讀以下文章並使用分類器快速查詢，抑或使用Google驅動的搜索引擎來搜索。</p>
+<p>歡迎來到二補數的無底洞</p>
 
 <img class="header-gif"
 src="./media/IMG_20260314_091739_098.gif">
 
 </header>
 
+<div class="post-box">
+<h2 class="post-title">Personal Bio</h2>
+</p>I am a poor computer science student in china and the page is used for documenting my journey in programming and my mental disease healing history.</p>
+<textarea id="bio-text" rows="10" style="width: 100%; background: rgba(0,0,0,0.8); color: var(--text); border: 1px solid var(--primary); padding: 10px; font-family: inherit; resize: vertical;" placeholder="Write your personal bio here..."></textarea>
+</div>
 
-<main id="posts">
+<!--<main id="posts">-->
 
 <!-- 自动文章加载 -->
 
-</main>
+<!--</main>-->
 
 </div>
 
@@ -421,11 +426,8 @@ src="./media/IMG_20260314_091739_098.gif">
 <div class="footer-links">
 
 <a href="./sitemap.html">SiteMap</a>
-
 <a href="./rss.xml">RSS</a>
-<a href="https://t.me/2scomplementblog">
-Telegram
-</a>
+<a href="https://t.me/2scomplementblog">Telegram</a>
 
 </div>
 
@@ -441,6 +443,7 @@ Telegram
 <span id="panelArrow">▶</span>
 </div>
 
+<!--
 <div class="panel-section">
 
 <a href="./article/computerSci/">计算机</a>
@@ -457,7 +460,7 @@ Telegram
 <button id="searchBtn">Search</button>
 
 </div>
-
+-->
 </div>
 
 
@@ -494,7 +497,7 @@ async function loadArticles(){
 
 try{
 
-const res=await fetch("../articles.json")
+const res=await fetch("./articles.json")
 
 const data=await res.json()
 
