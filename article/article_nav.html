@@ -373,16 +373,16 @@ z-index:1000;
 
 <nav>
 
-<a href="#">主页</a>
-<a href="#posts">博文</a>
-<a href="./about/about.html">关于</a>
+<a href="../index.html">Home</a>
+<a href="#">Article</a>
+<a href="./about/about.html">About</a>
 
 <select id="themeSelector">
 
-<option value="dark">黑紫</option>
-<option value="mint">浅绿</option>
-<option value="blue">蓝白</option>
-<option value="pink">粉红</option>
+<option value="dark">Jireikai</option>
+<option value="mint">Mint</option>
+<option value="blue">Ocean</option>
+<option value="pink">Pink</option>
 
 </select>
 
@@ -397,7 +397,7 @@ z-index:1000;
 2's complement blog
 </h1>
 
-<p>歡迎來到二補數的博客</p>
+<p>歡迎來到二補數的文章引導頁面，您可以閱讀以下文章並使用分類器快速查詢，抑或使用Google驅動的搜索引擎來搜索。</p>
 
 <img class="header-gif"
 src="./media/IMG_20260314_091739_098.gif">
@@ -495,7 +495,7 @@ async function loadArticles(){
 
 try{
 
-const res=await fetch("./articles.json")
+const res=await fetch("../articles.json")
 
 const data=await res.json()
 
