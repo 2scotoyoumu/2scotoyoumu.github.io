@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>✞ 2scomplement's Markdown Reader ✞</title>
+
+<link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+<link rel="icon" href="./vectorImages/2scompliment-blog-icon.svg" type="image/x-icon" />
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<style>
+
+/* -------------------- 主题变量 -------------------- */
+
+body.theme-dark{
+--bg:#090011;
+--primary:#b266ff;
+--accent:#ff3385;
+--text:#e6ccff;
+}
+
+body.theme-mint{
+--bg:#071a11;
+--primary:#7dffbf;
+--accent:#39d98a;
+--text:#e6fff5;
+}
+
+body.theme-blue{
+--bg:#f1f6ff;
+--primary:#4c86ff;
+--accent:#6aa0ff;
+--text:#081b45;
+}
+
+body.theme-pink{
+--bg:#2a0017;
+--primary:#ff8ad6;
+--accent:#ff5db9;
+--text:#ffd8f2;
+}
+
+/* -------------------- 基础 -------------------- */
+
+*{
+box-sizing:border-box;
+margin:0;
+padding:0;
+}
+
+body{
+
+background:var(--bg);
+
+color:var(--text);
+
+font-family:Courier,monospace;
+
+padding-top:80px;
+
+/* 十字架背景 */
+
+background-image:
+
+linear-gradient(rgba(255,255,255,0.03) 2px,transparent 2px),
+linear-gradient(90deg,rgba(255,255,255,0.03) 2px,transparent 2px);
+
+background-size:40px 40px;
+
+}
+
+/* -------------------- NAV -------------------- */
+
+nav{
+
+position:fixed;
+top:0;
+left:0;
+width:100%;
+
+background:rgba(0,0,0,0.85);
+
+display:flex;
+justify-content:center;
+align-items:center;
+gap:20px;
+
+padding:15px;
+
+border-bottom:2px dashed var(--primary);
+
+z-index:1000;
+
+}
+
+nav a{
+
+color:var(--accent);
+
+text-decoration:none;
+
+font-weight:bold;
+
+}
+
+nav a:hover{
+
+text-shadow:0 0 10px var(--primary);
+
+}
+
+/* 主题选择器 */
+
+#themeSelector{
+
+background:black;
+
+color:white;
+
+border:1px solid var(--primary);
+
+padding:5px;
+
+}
+
+/* -------------------- container -------------------- */
+
+.container{
+
+max-width:900px;
+
+margin:auto;
+
+padding:20px;
+
+}
+
+/* -------------------- header -------------------- */
+
+header{
+
+text-align:center;
+
+margin-bottom:40px;
+
+}
+
+.glitch-title{
+
+font-size:3rem;
+
+font-family:VT323;
+
+text-shadow:
+
+3px 3px var(--accent),
+-3px -3px var(--primary);
+
+}
+
+.header-gif{
+
+max-width:100%;
+
+border:3px double var(--primary);
+
+border-radius:10px;
+
+margin-top:10px;
+
+}
+
+/* -------------------- markdown list -------------------- */
+
+.markdown-list{
+
+background:rgba(0,0,0,0.6);
+
+border:2px solid var(--primary);
+
+border-radius:10px;
+
+padding:20px;
+
+margin-bottom:30px;
+
+}
+
+.markdown-item{
+
+margin-bottom:10px;
+
+}
+
+.markdown-item a{
+
+color:var(--accent);
+
+text-decoration:none;
+
+font-size:1.2rem;
+
+}
+
+.markdown-item a:hover{
+
+text-shadow:0 0 10px var(--primary);
+
+}
+
+/* -------------------- markdown content -------------------- */
+
+.markdown-content{
+
+background:rgba(0,0,0,0.6);
+
+border:2px solid var(--primary);
+
+border-radius:10px;
+
+padding:20px;
+
+margin-bottom:30px;
+
+}
+
+/* -------------------- footer -------------------- */
+
+footer{
+
+margin-top:50px;
+
+padding:40px;
+
+background:black;
+
+border-top:2px double var(--primary);
+
+text-align:center;
+
+}
+
+.footer-links a{
+
+color:var(--accent);
+
+margin:0 10px;
+
+text-decoration:none;
+
+}
+
+/* -------------------- 鼠标粒子 -------------------- */
+
+.trail{
+
+position:fixed;
+
+pointer-events:none;
+
+z-index:9999;
+
+font-size:14px;
+
+}
+
+/* ==================== ADDED: 悬浮分类器 ==================== */
+
+#floatingPanel{
+
+position:fixed;
+right:0;
+top:120px;
+
+width:220px;
+
+background:rgba(0,0,0,0.9);
+
+border-left:2px solid var(--primary);
+
+padding:12px;
+
+z-index:999;
+
+transition:0.35s;
+
+}
+
+#floatingPanel.collapsed{
+
+transform:translateX(190px);
+
+}
+
+.panel-header{
+
+display:flex;
+justify-content:space-between;
+cursor:pointer;
+font-weight:bold;
+margin-bottom:10px;
+color:var(--accent);
+
+}
+
+.panel-section{
+
+margin-bottom:15px;
+
+}
+
+.panel-section a{
+
+display:block;
+color:var(--text);
+text-decoration:none;
+font-size:0.85rem;
+margin:3px 0;
+
+}
+
+.panel-section a:hover{
+
+color:var(--accent);
+
+}
+
+/* ==================== ADDED: 回到顶部 ==================== */
+
+#backTop{
+
+position:fixed;
+right:20px;
+bottom:40px;
+
+background:var(--accent);
+color:black;
+
+border:none;
+padding:10px 14px;
+
+font-size:18px;
+
+cursor:pointer;
+
+border-radius:6px;
+
+display:none;
+
+z-index:1000;
+
+}
+
+</style>
+
+</head>
+
+<body class="theme-dark">
+
+
+<nav>
+
+<a href="./index.html">Home</a>
+<a href="./article/article_nav.html">Articles</a>
+<a href="./about/about.html">About</a>
+
+<select id="themeSelector">
+
+<option value="dark">Jireikai</option>
+<option value="mint">Mint</option>
+<option value="blue">Ocean</option>
+<option value="pink">Pink</option>
+
+</select>
+
+</nav>
+
+
+<div class="container">
+
+<header>
+
+<h1 class="glitch-title">
+Markdown Reader
+</h1>
+
+<p>Read my markdown files with style. Select a file from the list below.</p>
+
+</header>
+
+
+<div class="markdown-list" id="markdownList">
+
+<!-- Markdown files will be listed here -->
+
+</div>
+
+<div class="markdown-content" id="markdownContent">
+
+<!-- Markdown content will be displayed here -->
+
+</div>
+
+</div>
+
+
+<footer>
+
+<p>✦ page vibe coded by 2scotoyoumu with gemini;Reality is just a bad trip ✦</p>
+
+<div class="footer-links">
+
+<a href="./sitemap.html">SiteMap</a>
+
+<a href="./rss.xml">RSS</a>
+<a href="https://t.me/2scomplementblog">
+Telegram
+</a>
+
+</div>
+
+</footer>
+
+
+<!-- ==================== ADDED: 悬浮分类器 ==================== -->
+
+<div id="floatingPanel" class="collapsed">
+
+<div class="panel-header" onclick="togglePanel()">
+<span>INDEX</span>
+<span id="panelArrow">▶</span>
+</div>
+
+<div class="panel-section">
+
+<a href="./markdown/">All Markdown</a>
+
+</div>
+
+</div>
+
+
+<!-- ==================== ADDED: 回到顶部 ==================== -->
+
+<button id="backTop">↑</button>
+
+
+<script>
+
+/* -------------------- 主题切换 -------------------- */
+
+const selector=document.getElementById("themeSelector")
+
+const saved=localStorage.getItem("theme")||"dark"
+
+document.body.className="theme-"+saved
+
+selector.value=saved
+
+selector.onchange=()=>{
+
+const t=selector.value
+
+document.body.className="theme-"+t
+
+localStorage.setItem("theme",t)
+
+}
+
+/* -------------------- 加载 Markdown 文件列表 -------------------- */
+
+async function loadMarkdownList(){
+
+try{
+
+// Assuming a markdown.json file with list of .md files
+
+const res=await fetch("./markdown/markdown.json")
+
+const data=await res.json()
+
+const container=document.getElementById("markdownList")
+
+container.innerHTML="<h2>Available Markdown Files</h2>"
+
+data.forEach(file=>{
+
+const el=document.createElement("div")
+
+el.className="markdown-item"
+
+el.innerHTML=`<a href="#" onclick="loadMarkdown('${file.path}')">${file.title}</a>`
+
+container.appendChild(el)
+
+})
+
+}catch(e){
+
+document.getElementById("markdownList").innerHTML=
+"<p>Unable to load markdown list</p>"
+
+}
+
+}
+
+loadMarkdownList()
+
+/* -------------------- 加载并显示 Markdown -------------------- */
+
+async function loadMarkdown(path){
+
+try{
+
+const res=await fetch(path)
+
+const text=await res.text()
+
+const html=marked.parse(text)
+
+document.getElementById("markdownContent").innerHTML=html
+
+}catch(e){
+
+document.getElementById("markdownContent").innerHTML=
+"<p>Unable to load markdown content</p>"
+
+}
+
+}
+
+/* -------------------- 鼠标粒子 -------------------- */
+
+const words=["✦","✞","♡","★","×"]
+
+document.addEventListener("click",e=>{
+
+const span=document.createElement("span")
+
+span.className="trail"
+
+span.innerText=words[Math.floor(Math.random()*words.length)]
+
+span.style.left=e.clientX+"px"
+
+span.style.top=e.clientY+"px"
+
+document.body.appendChild(span)
+
+setTimeout(()=>{
+
+span.style.transform="translateY(-60px)"
+
+span.style.opacity=0
+
+},10)
+
+setTimeout(()=>span.remove(),700)
+
+})
+
+/* -------------------- glitch标题 -------------------- */
+
+const title=document.querySelector(".glitch-title")
+
+setInterval(()=>{
+
+if(Math.random()>0.85){
+
+title.style.transform="skew(5deg)"
+
+setTimeout(()=>{
+
+title.style.transform="skew(0deg)"
+
+},80)
+
+}
+
+},300)
+
+/* ==================== ADDED: 分类器折叠 ==================== */
+
+function togglePanel(){
+
+const p=document.getElementById("floatingPanel")
+
+p.classList.toggle("collapsed")
+
+const arrow=document.getElementById("panelArrow")
+
+arrow.innerText=
+p.classList.contains("collapsed")?"▶":"◀"
+
+}
+
+/* ==================== ADDED: 回到顶部 ==================== */
+
+const back=document.getElementById("backTop")
+
+window.addEventListener("scroll",()=>{
+
+if(window.scrollY>300){
+
+back.style.display="block"
+
+}else{
+
+back.style.display="none"
+
+}
+
+})
+
+back.onclick=()=>{
+
+window.scrollTo({
+
+top:0,
+behavior:"smooth"
+
+})
+
+}
+
+</script>
+
+</body>
+
+</html>
