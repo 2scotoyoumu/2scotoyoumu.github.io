@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Article Uploader & Tracker</title>
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            background: #090011;
+            color: #e6ccff;
+            margin: 0;
+            padding: 20px;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.03) 2px, transparent 2px),
+                linear-gradient(90deg, rgba(255,255,255,0.03) 2px, transparent 2px);
+            background-size: 40px 40px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #b266ff;
+            text-shadow: 2px 2px #ff3385;
+            margin-bottom: 30px;
+        }
+
+        .upload-form, .articles-list {
+            background: rgba(0,0,0,0.8);
+            border: 2px solid #b266ff;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #ff3385;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 8px;
+            background: rgba(0,0,0,0.6);
+            border: 1px solid #b266ff;
+            color: #e6ccff;
+            border-radius: 5px;
+            font-family: inherit;
+        }
+
+        button {
+            background: #ff3385;
+            color: #090011;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        button:hover {
+            background: #b266ff;
+        }
+
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .article-card {
+            background: rgba(0,0,0,0.6);
+            border: 1px solid #b266ff;
+            border-radius: 8px;
+            padding: 15px;
+            position: relative;
+        }
+
+        .article-card h3 {
+            color: #7dffbf;
+            margin-top: 0;
+        }
+
+        .article-meta {
+            font-size: 0.9em;
+            opacity: 0.8;
+            margin-bottom: 10px;
+        }
+
+        .delete-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #ff3385;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .delete-btn:hover {
+            background: #ff0000;
+        }
+
+        .status {
+            text-align: center;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .success {
+            background: rgba(125, 255, 191, 0.2);
+            border: 1px solid #7dffbf;
+            color: #7dffbf;
+        }
+
+        .error {
+            background: rgba(255, 51, 133, 0.2);
+            border: 1px solid #ff3385;
+            color: #ff3385;
+        }
+
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+        }
+
+        .tab-btn {
+            background: rgba(0,0,0,0.6);
+            border: 1px solid #b266ff;
+            color: #e6ccff;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px 5px 0 0;
+        }
+
+        .tab-btn.active {
+            background: #b266ff;
+            color: #090011;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>✞ Article Uploader & Tracker ✞</h1>
+
+        <div class="tabs">
+            <button class="tab-btn active" onclick="showTab('upload')">Upload Article</button>
+            <button class="tab-btn" onclick="showTab('manual')">Manual Entry</button>
+            <button class="tab-btn" onclick="showTab('list')">Article List</button>
+        </div>
+
+        <div id="upload-tab" class="tab-content active">
+            <div class="upload-form">
+                <h2>File Upload</h2>
+                <form id="uploadForm" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="articleFile">Article File (HTML/MD):</label>
+                        <input type="file" id="articleFile" name="articleFile" accept=".html,.md,.txt">
+                    </div>
+                    <div class="form-group">
+                        <label for="uploadTitle">Title:</label>
+                        <input type="text" id="uploadTitle" name="title" placeholder="Article title">
+                    </div>
+                    <div class="form-group">
+                        <label for="uploadDate">Date:</label>
+                        <input type="date" id="uploadDate" name="date" value="<?php echo date('Y-m-d'); ?>">
+                    </div>
+                    <div class="form-group">
+                        <label for="uploadCategory">Category:</label>
+                        <select id="uploadCategory" name="category">
+                            <option value="计算机">计算机</option>
+                            <option value="数学">数学</option>
+                            <option value="生活">生活</option>
+                            <option value="哲学">哲学</option>
+                            <option value="未分类">未分类</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="uploadSummary">Summary:</label>
+                        <textarea id="uploadSummary" name="summary" rows="3" placeholder="Brief summary of the article"></textarea>
+                    </div>
+                    <button type="submit">Upload & Add to Tracker</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="manual-tab" class="tab-content">
+            <div class="upload-form">
+                <h2>Manual Article Entry</h2>
+                <form id="manualForm">
+                    <div class="form-group">
+                        <label for="manualTitle">Title:</label>
+                        <input type="text" id="manualTitle" name="title" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="manualDate">Date:</label>
+                        <input type="date" id="manualDate" name="date" required value="<?php echo date('Y-m-d'); ?>">
+                    </div>
+                    <div class="form-group">
+                        <label for="manualCategory">Category:</label>
+                        <select id="manualCategory" name="category" required>
+                            <option value="计算机">计算机</option>
+                            <option value="数学">数学</option>
+                            <option value="生活">生活</option>
+                            <option value="哲学">哲学</option>
+                            <option value="未分类">未分类</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="manualSummary">Summary:</label>
+                        <textarea id="manualSummary" name="summary" required rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="manualUrl">URL (optional):</label>
+                        <input type="text" id="manualUrl" name="url" placeholder="./article/category/filename.html">
+                    </div>
+                    <button type="submit">Add Article</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="list-tab" class="tab-content">
+            <div class="articles-list">
+                <h2>Tracked Articles</h2>
+                <button onclick="loadArticles()">Refresh List</button>
+                <div id="articlesContainer" class="articles-grid">
+                    <!-- Articles will be loaded here -->
+                </div>
+            </div>
+        </div>
+
+        <div id="status" class="status" style="display: none;"></div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:3000/api';
+
+        function showTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+
+            // Show selected tab
+            document.getElementById(tabName + '-tab').classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function showStatus(message, type = 'success') {
+            const status = document.getElementById('status');
+            status.textContent = message;
+            status.className = `status ${type}`;
+            status.style.display = 'block';
+            setTimeout(() => status.style.display = 'none', 5000);
+        }
+
+        // File Upload Form
+        document.getElementById('uploadForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const formData = new FormData(e.target);
+
+            try {
+                const response = await fetch(`${API_BASE}/upload`, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    showStatus(`Article "${result.article.title}" uploaded and added to tracker!`);
+                    e.target.reset();
+                    loadArticles();
+                } else {
+                    showStatus(result.error || 'Upload failed', 'error');
+                }
+            } catch (error) {
+                showStatus('Network error: ' + error.message, 'error');
+            }
+        });
+
+        // Manual Entry Form
+        document.getElementById('manualForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData);
+
+            try {
+                const response = await fetch(`${API_BASE}/articles`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    showStatus(`Article "${result.article.title}" added to tracker!`);
+                    e.target.reset();
+                    loadArticles();
+                } else {
+                    showStatus(result.error || 'Failed to add article', 'error');
+                }
+            } catch (error) {
+                showStatus('Network error: ' + error.message, 'error');
+            }
+        });
+
+        // Load and display articles
+        async function loadArticles() {
+            try {
+                const response = await fetch(`${API_BASE}/articles`);
+                const articles = await response.json();
+
+                const container = document.getElementById('articlesContainer');
+                container.innerHTML = '';
+
+                articles.forEach((article, index) => {
+                    const card = document.createElement('div');
+                    card.className = 'article-card';
+
+                    card.innerHTML = `
+                        <button class="delete-btn" onclick="deleteArticle(${index})">×</button>
+                        <h3>${article.title}</h3>
+                        <div class="article-meta">
+                            <strong>Date:</strong> ${article.date}<br>
+                            <strong>Category:</strong> ${article.category}<br>
+                            <strong>URL:</strong> <a href="${article.url}" target="_blank">${article.url}</a>
+                        </div>
+                        <p>${article.summary}</p>
+                    `;
+
+                    container.appendChild(card);
+                });
+            } catch (error) {
+                console.error('Failed to load articles:', error);
+            }
+        }
+
+        // Delete article
+        async function deleteArticle(index) {
+            if (!confirm('Are you sure you want to delete this article?')) return;
+
+            try {
+                const response = await fetch(`${API_BASE}/articles/${index}`, {
+                    method: 'DELETE'
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    showStatus('Article deleted successfully!');
+                    loadArticles();
+                } else {
+                    showStatus(result.error || 'Failed to delete article', 'error');
+                }
+            } catch (error) {
+                showStatus('Network error: ' + error.message, 'error');
+            }
+        }
+
+        // Load articles on page load
+        loadArticles();
+    </script>
+</body>
+</html></content>
+<parameter name="filePath">/workspaces/2scotoyoumu.github.io/autouploader.html
