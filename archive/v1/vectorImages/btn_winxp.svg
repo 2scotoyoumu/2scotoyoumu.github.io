@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="88" height="31" viewBox="0 0 88 31">
+  <defs>
+    <linearGradient id="xpGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0055ea"/>
+      <stop offset="50%" stop-color="#2472fc"/>
+      <stop offset="100%" stop-color="#0047b3"/>
+    </linearGradient>
+  </defs>
+  <rect width="88" height="31" fill="url(#xpGrad)" stroke="#ffffff" stroke-width="1"/>
+  <!-- Windows 4-color flag -->
+  <rect x="5" y="7" width="8" height="7" fill="#ff3333"/>
+  <rect x="15" y="7" width="8" height="7" fill="#33cc33"/>
+  <rect x="5" y="16" width="8" height="7" fill="#0099ff"/>
+  <rect x="15" y="16" width="8" height="7" fill="#ffcc00"/>
+  <text x="28" y="14" font-family="'Courier New', monospace" font-size="9" font-weight="bold" fill="#ffffff">Windows</text>
+  <text x="68" y="14" font-family="'Courier New', monospace" font-size="9" font-weight="bold" fill="#ff9900">XP</text>
+  <text x="28" y="24" font-family="'Courier New', monospace" font-size="7" fill="#e6f0ff">HOME EDITION</text>
+</svg>

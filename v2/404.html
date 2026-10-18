@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>†*:.｡. 404 Not Found .｡.:*† 2scomplement's Sanctuary</title>
+<link rel="icon" href="./vectorImages/2scompliment-blog-icon.svg" type="image/x-icon" />
+<link rel="stylesheet" href="./css/style.css">
+<script src="./js/script.js"></script>
+
+<style>
+.error-code {
+    font-family: 'Courier New', monospace;
+    font-size: 72px;
+    color: #ff3385;
+    text-shadow: 0 0 10px #ff3385;
+    font-weight: bold;
+    letter-spacing: 8px;
+}
+.error-sub {
+    font-size: 14px;
+    color: #ff8ad6;
+    margin: 10px 0 20px 0;
+}
+.youmu-lost {
+    width: 120px;
+    height: 120px;
+    border: 2px solid #ff3385;
+    display: block;
+    margin: 0 auto 15px auto;
+    object-fit: cover;
+}
+.konsole {
+    background: #000000;
+    border: 1px solid #7dffbf;
+    color: #7dffbf;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    padding: 12px;
+    margin: 15px auto;
+    width: 420px;
+    text-align: left;
+}
+.konsole-line {
+    margin: 2px 0;
+}
+</style>
+</head>
+
+<body>
+
+<div class="crt-overlay"></div>
+
+<!-- 頂部跑馬燈 -->
+<div class="marquee-top">
+    <marquee behavior="scroll" direction="left" scrollamount="4">
+        ★*ﾟ*☆*ﾟ*★ 404 NOT FOUND • ページが存在しないようです • 迷子の魂魄妖夢を探しています ☆ (´；ω；`) ★*ﾟ*☆*ﾟ*★
+    </marquee>
+</div>
+
+<!-- 頂部導航條 -->
+<div class="retro-nav-container">
+    <a href="./index.html" class="retro-nav-link">[ HOME (首頁) ]</a>
+    <span class="nav-sep">|</span>
+    <a href="./article/article_nav.html" class="retro-nav-link">[ ARTICLES (文章引導) ]</a>
+    <span class="nav-sep">|</span>
+    <a href="./markdown_reader.html" class="retro-nav-link">[ MARKDOWN READER ]</a>
+    <span class="nav-sep">|</span>
+    <a href="./about/about.html" class="retro-nav-link">[ ABOUT ME (自己紹介) ]</a>
+    <span class="nav-sep">|</span>
+    <a href="./contact/contact.html" class="retro-nav-link">[ CONTACT (連絡板) ]</a>
+    <span class="nav-sep">|</span>
+    <a href="./autouploader.html" class="retro-nav-link">[ ADMIN STUDIO (管理室) ]</a>
+</div>
+
+<div class="main-wrapper-narrow">
+    <div class="header-box" style="padding: 30px 20px;">
+        <div class="error-code">404</div>
+        <p class="error-sub">† PAGE NOT FOUND [ページが見つかりません] †</p>
+        
+        <!-- Tenor pixel Youmu GIF -->
+        <img src="https://media.tenor.com/ISo-SqYX_b0AAAAM/touhou-konpaku-youmu.gif" class="youmu-lost" alt="Lost Youmu">
+        
+        <p style="font-size: 13px; color: #ffd8f2; margin-bottom: 15px;">
+            看起来这个页面被半人半灵的剑风吹散了……<br>
+            也许是 URL 输错了，或者这个页面正在「幽明结界」的另一侧。
+        </p>
+
+        <div class="konsole">
+            <div class="konsole-line">$ find /sanctuary -name "<span id="lostPath">unknown</span>"</div>
+            <div class="konsole-line">find: no such file or directory</div>
+            <div class="konsole-line">$ echo "(´；ω；`) 404..."</div>
+            <div class="konsole-line">(´；ω；`) 404...</div>
+            <div class="konsole-line">$ <span class="blink">_</span></div>
+        </div>
+
+        <div style="margin-top: 20px;">
+            <a href="./index.html" class="btn-retro" style="text-decoration: none;">← 返回首頁 (HOME)</a>
+            <a href="./sitemap.html" class="btn-retro-secondary" style="text-decoration: none; margin-left: 10px;">サイトマップ (SiteMap)</a>
+        </div>
+    </div>
+
+    <div class="news-box" style="text-align: center;">
+        <span class="news-title">✦ 也許你想找這些？ ✦</span>
+        <div style="margin-top: 10px;">
+            <a href="./posts/posts.html" class="category-tag">日誌倉庫</a>
+            <a href="./contact/contact.html" class="category-tag">連絡板</a>
+            <a href="./rss.xml" class="category-tag">RSS</a>
+            <a href="./markdown_reader.html" class="category-tag">Markdown Reader</a>
+        </div>
+    </div>
+</div>
+
+<div class="retro-footer">
+    <p class="footer-quote">† 404 は現実の欠片。闇の中で待っていれば、いつか辿り着ける †</p>
+    <p>✦ Best viewed with Internet Explorer 6.0 at 1024x768 resolution • Hosted on Apache HTTP Server ✦</p>
+    <p>Copyright (c) 2008-2026 2scomplement's Secret Diary. All rights reserved.</p>
+    <div class="footer-links" style="margin-top: 8px;">
+        <a href="./sitemap.html">SiteMap</a> |
+        <a href="./links.html">Links</a> |
+        <a href="./rss.xml">RSS</a> |
+        <a href="./contact/contact.html">連絡板</a> |
+        <a href="https://t.me/2scomplementblog">Telegram</a>
+    </div>
+</div>
+
+<script>
+// Display the lost path in the terminal
+const path = window.location.pathname;
+document.getElementById('lostPath').textContent = path || '/';
+</script>
+
+</body>
+</html>

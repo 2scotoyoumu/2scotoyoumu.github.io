@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="88" height="31" viewBox="0 0 88 31">
+  <rect width="88" height="31" fill="#2b001a" stroke="#ff3385" stroke-width="2"/>
+  <!-- Mini cherry blossom / ghost -->
+  <circle cx="14" cy="14" r="8" fill="#ffd6ec"/>
+  <circle cx="12" cy="13" r="1.5" fill="#2b001a"/>
+  <circle cx="16" cy="13" r="1.5" fill="#2b001a"/>
+  <path d="M12 17 Q14 19 16 17" stroke="#2b001a" stroke-width="1" fill="none"/>
+  <text x="28" y="13" font-family="'Courier New', monospace" font-size="8" font-weight="bold" fill="#ff66b2">TOUHOU</text>
+  <text x="28" y="22" font-family="'Courier New', monospace" font-size="7" font-weight="bold" fill="#ffffff">YOUMU FAN</text>
+  <text x="28" y="28" font-family="'Courier New', monospace" font-size="5" fill="#ffccff">東方Project同盟</text>
+</svg>

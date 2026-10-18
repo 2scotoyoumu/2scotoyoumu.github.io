@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>†*:.｡. 2's complement web sanctuary .｡.:*†</title>
+<link rel="icon" href="./vectorImages/2scompliment-blog-icon.svg" type="image/x-icon" />
+<link rel="stylesheet" href="./css/style.css">
+<script src="./js/script.js"></script>
+
+<!-- WebAudioTinySynth: 輕量通用 MIDI 合成器 (支持瀏覽器原生播放 .mid / .midi) -->
+<script src="https://cdn.jsdelivr.net/npm/webaudio-tinysynth/webaudio-tinysynth.js"></script>
+
+<style>
+/* -------------------- 2008 日本個人網站 Web 1.0 經典復古風格 -------------------- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #0d0014;
+    color: #ffd8f2;
+    font-family: 'MS PGothic', 'SimSun', 'Courier New', monospace;
+    font-size: 13px;
+    line-height: 1.6;
+    cursor: url('./vectorImages/retro_cursor.svg') 4 4, auto;
+    padding-bottom: 40px;
+}
+
+a, button, input, select, textarea {
+    cursor: url('./vectorImages/retro_cursor.svg') 4 4, pointer !important;
+}
+
+a {
+    color: #ff8ad6;
+    text-decoration: underline;
+}
+
+a:hover {
+    color: #ffffff;
+    background-color: #330033;
+}
+
+/* 跑馬燈 */
+.marquee-top {
+    background: #2b001a;
+    border-bottom: 1px solid #ff3385;
+    color: #ff99cc;
+    font-size: 12px;
+    padding: 3px 0;
+    font-weight: bold;
+}
+
+.marquee-sub {
+    background: #000000;
+    border-bottom: 1px dotted #b266ff;
+    color: #7dffbf;
+    font-size: 11px;
+    padding: 2px 0;
+}
+
+/* 頂部導航條 */
+.retro-nav-container {
+    background: #14001f;
+    border-bottom: 2px solid #ff3385;
+    text-align: center;
+    padding: 8px 5px;
+}
+
+.retro-nav-link {
+    color: #ffd8f2;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 13px;
+    padding: 2px 6px;
+    display: inline-block;
+}
+
+.retro-nav-link:hover {
+    color: #000000;
+    background-color: #ff3385;
+    text-decoration: none;
+}
+
+.nav-sep {
+    color: #ff3385;
+    font-weight: normal;
+    margin: 0 4px;
+}
+
+/* 主版面表格 */
+.layout-table {
+    width: 980px;
+    margin: 15px auto;
+    border-collapse: collapse;
+}
+
+/* 頂部看板 (Hero Banner) */
+.hero-box {
+    background: #12001c;
+    border: 2px solid #ff3385;
+    text-align: center;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.hero-title {
+    font-size: 26px;
+    color: #ff8ad6;
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin: 6px 0;
+    font-family: 'MS PGothic', 'SimSun', monospace;
+}
+
+.hero-sub {
+    font-size: 12px;
+    color: #ffb3e6;
+    margin-bottom: 12px;
+    font-style: italic;
+}
+
+.hero-banner-table {
+    margin: 0 auto;
+    border-collapse: collapse;
+}
+
+.hero-gif {
+    max-height: 180px;
+    border: 1px solid #b266ff;
+    display: inline-block;
+    margin: 0 6px;
+}
+
+/* 掛件方塊 (Widget Box) */
+.widget-box {
+    background: #12001c;
+    border: 1px solid #ff3385;
+    margin-bottom: 15px;
+    padding: 0;
+}
+
+.widget-header {
+    background: #ff3385;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 4px 8px;
+    letter-spacing: 1px;
+    text-align: left;
+}
+
+.widget-body {
+    padding: 10px;
+}
+
+/* 個人檔案 */
+.profile-avatar {
+    width: 100px;
+    height: 100px;
+    border: 1px solid #ff3385;
+    display: block;
+    margin: 0 auto 8px auto;
+    object-fit: cover;
+}
+
+.profile-table {
+    width: 100%;
+    font-size: 12px;
+    border-collapse: collapse;
+}
+
+.profile-table td {
+    padding: 2px 4px;
+    vertical-align: top;
+}
+
+.profile-table .lbl {
+    color: #ff8ad6;
+    font-weight: bold;
+    width: 65px;
+    white-space: nowrap;
+}
+
+/* 訪客計數器 (真實 Apache + PHP 驅動) */
+.odometer {
+    display: block;
+    background: #000000;
+    border: 1px solid #7dffbf;
+    color: #7dffbf;
+    font-family: 'Courier New', monospace;
+    font-size: 24px;
+    letter-spacing: 4px;
+    text-align: center;
+    padding: 4px 8px;
+    margin: 6px 0;
+    font-weight: bold;
+}
+
+.counter-sub {
+    font-size: 11px;
+    color: #ff99cc;
+    text-align: center;
+    line-height: 1.5;
+}
+
+.counter-badge-status {
+    font-size: 10px;
+    color: #7dffbf;
+    background: #002211;
+    border: 1px dotted #7dffbf;
+    padding: 1px 4px;
+    display: inline-block;
+    margin-top: 4px;
+}
+
+/* Winamp 播放器 (支持自定義音頻與 MIDI) */
+.winamp-box {
+    background: #1a1a24;
+    border: 2px outset #888899;
+    padding: 8px;
+}
+
+.winamp-screen {
+    background: #001100;
+    border: 1px inset #444444;
+    color: #7dffbf;
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+    padding: 4px 6px;
+    margin-bottom: 6px;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.winamp-cd-row {
+    text-align: center;
+    margin-bottom: 6px;
+}
+
+.winamp-cd-img {
+    width: 38px;
+    height: 38px;
+    vertical-align: middle;
+    display: inline-block;
+}
+
+.winamp-time {
+    display: inline-block;
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+    color: #ffff00;
+    margin-left: 8px;
+    vertical-align: middle;
+}
+
+.winamp-btns {
+    text-align: center;
+    margin-bottom: 6px;
+}
+
+.winamp-btn {
+    background: #333344;
+    border: 1px outset #aaaaaa;
+    color: #ffffff;
+    font-size: 11px;
+    padding: 3px 6px;
+    margin: 0 1px;
+}
+
+.winamp-btn:active {
+    border-style: inset;
+}
+
+.winamp-select {
+    width: 100%;
+    background: #000000;
+    border: 1px solid #7dffbf;
+    color: #7dffbf;
+    font-size: 11px;
+    padding: 3px;
+    margin-bottom: 6px;
+    font-family: inherit;
+}
+
+.winamp-input-row {
+    font-size: 11px;
+    margin-top: 4px;
+}
+
+.winamp-input-row input[type="text"] {
+    width: 70%;
+    background: #000;
+    border: 1px solid #b266ff;
+    color: #ffd8f2;
+    padding: 2px 4px;
+    font-size: 11px;
+}
+
+.winamp-vol-slider {
+    width: 60px;
+    vertical-align: middle;
+}
+
+/* 88x31 徽章同盟 */
+.badges-table {
+    width: 100%;
+    text-align: center;
+}
+
+.badge-img {
+    width: 88px;
+    height: 31px;
+    border: 1px solid #ff3385;
+    image-rendering: pixelated;
+    display: inline-block;
+    margin: 3px;
+}
+
+/* 更新情報方塊 */
+.news-box {
+    background: #0a0010;
+    border: 1px dashed #b266ff;
+    padding: 10px 12px;
+    margin-bottom: 15px;
+    font-size: 12px;
+}
+
+.news-title {
+    color: #ffff00;
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 6px;
+    border-bottom: 1px dotted #b266ff;
+    padding-bottom: 3px;
+}
+
+.news-list {
+    list-style: none;
+    line-height: 1.7;
+}
+
+.news-list li {
+    padding-left: 12px;
+    position: relative;
+}
+
+.news-list li::before {
+    content: "■";
+    font-size: 9px;
+    position: absolute;
+    left: 0;
+    color: #ff3385;
+}
+
+/* 分類篩選與檢索列 */
+.filter-bar {
+    background: #14001f;
+    border: 1px solid #ff3385;
+    padding: 8px 10px;
+    margin-bottom: 15px;
+}
+
+.filter-btn {
+    background: #1f002b;
+    border: 1px solid #ff3385;
+    color: #ffd8f2;
+    padding: 3px 8px;
+    font-size: 12px;
+    font-family: inherit;
+    font-weight: bold;
+    margin-right: 4px;
+    margin-bottom: 3px;
+}
+
+.filter-btn:hover {
+    background: #ff3385;
+    color: #000000;
+}
+
+.filter-btn.active {
+    background: #ff3385;
+    color: #000000;
+}
+
+.search-input {
+    background: #000000;
+    border: 1px solid #b266ff;
+    color: #7dffbf;
+    padding: 3px 6px;
+    font-size: 12px;
+    width: 150px;
+}
+
+/* 文章日誌條目 (Post Entry) */
+.post-entry {
+    background: #12001c;
+    border: 1px solid #ff3385;
+    padding: 14px 16px;
+    margin-bottom: 15px;
+}
+
+.post-header {
+    border-bottom: 1px dashed #b266ff;
+    padding-bottom: 6px;
+    margin-bottom: 10px;
+}
+
+.post-title-link {
+    font-size: 15px;
+    color: #ff8ad6;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.post-title-link:hover {
+    color: #ffffff;
+    background-color: #ff3385;
+}
+
+.post-meta {
+    font-size: 11px;
+    color: #c9a0dc;
+    margin-top: 4px;
+}
+
+.category-tag {
+    background: #2a0033;
+    border: 1px solid #ff3385;
+    color: #ff8ad6;
+    padding: 1px 5px;
+    font-size: 11px;
+    text-decoration: none;
+    font-weight: bold;
+    display: inline-block;
+    margin-right: 6px;
+}
+
+.category-tag:hover {
+    background: #ff3385;
+    color: #000000;
+}
+
+.post-summary {
+    font-size: 13px;
+    color: #ffd8f2;
+    line-height: 1.7;
+    margin-bottom: 10px;
+}
+
+.post-footer {
+    border-top: 1px dotted #330033;
+    padding-top: 6px;
+    text-align: right;
+    font-size: 12px;
+}
+
+.read-more-link {
+    color: #7dffbf;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.read-more-link:hover {
+    color: #ffffff;
+    background-color: #004422;
+}
+
+/* 底部 Footer */
+.retro-footer {
+    text-align: center;
+    margin-top: 30px;
+    padding: 20px 10px;
+    background: #000000;
+    border-top: 2px solid #ff3385;
+    font-size: 11px;
+    color: #bb99cc;
+    line-height: 1.8;
+}
+
+.footer-quote {
+    color: #ff8ad6;
+    font-style: italic;
+    margin-bottom: 6px;
+}
+
+.footer-links a {
+    color: #ff8ad6;
+    margin: 0 6px;
+    text-decoration: underline;
+}
+</style>
+</head>
+
+<body>
+
+<div class="crt-overlay"></div>
+
+<!-- 角落動態裝飾 (Web 1.0 藝術感) -->
+<div style="position: fixed; bottom: 80px; right: 10px; z-index: 9997; pointer-events: none;">
+    <img src="https://media.tenor.com/m91BAUnkYw0AAAAM/heart-pixel-art.gif" style="width: 64px; opacity: 0.6;" alt="Floating Heart">
+</div>
+<div style="position: fixed; top: 120px; left: 10px; z-index: 9997; pointer-events: none;">
+    <img src="https://media.tenor.com/m3kku21wt-cAAAAM/pixel-art-moon.gif" style="width: 80px; opacity: 0.5;" alt="Floating Moon">
+</div>
+
+<!-- 頂部跑馬燈 -->
+<div class="marquee-top">
+    <marquee behavior="scroll" direction="left" scrollamount="4">
+        ★*ﾟ*☆*ﾟ*★ ようこそ！二補數の個人電脳結界へ！Since 2008.03.14 ★ 主攻：離散數學＆演算法競賽 ★ 解けない漸化式はない…☆ (*/ω＼*) ★*ﾟ*☆*ﾟ*★
+    </marquee>
+</div>
+<div class="marquee-sub">
+    <marquee behavior="scroll" direction="right" scrollamount="3">
+        [SYSTEM NOTICE] Apache HTTP Server 托管中 ✦ 計數器實時累計 ✦ BGM Player 支持自定義 MP3/OGG/MIDI ✦ 妖夢劍風結界
+    </marquee>
+</div>
+
+<!-- 頂部導航條 -->
+<div class="retro-nav-container">
+    <a href="./index.html" class="retro-nav-link">[ HOME (首頁) ]</a>
+    <span class="nav-sep">|</span>
+    <a href="./article/article_nav.html" class="retro-nav-link">[ ARTICLES (文章引導) ]</a>
+    <span class="nav-sep">|</span>
+    <a href="./markdown_reader.html" class="retro-nav-link">[ MARKDOWN READER ]</a>
+    <span class="nav-sep">|</span>
+    <a href="./about/about.html" class="retro-nav-link">[ ABOUT ME (自己紹介) ]</a>
+    <span class="nav-sep">|</span>
+    <a href="./contact/contact.html" class="retro-nav-link">[ CONTACT (連絡板) ]</a>
+    <span class="nav-sep">|</span>
+    <a href="./autouploader.html" class="retro-nav-link">[ ADMIN STUDIO (管理室) ]</a>
+</div>
+
+<!-- 主容器表格 (雙欄 Table Layout) -->
+<table class="layout-table" align="center" border="0" cellpadding="0" cellspacing="0">
+    <!-- 頂部看板列 (從 Tenor 引用動態 GIF) -->
+    <tr>
+        <td colspan="2">
+            <div class="hero-box">
+                <div style="color: #ff3385; font-size: 13px; font-weight: bold; margin-bottom: 4px;">
+                    †*:.｡. 2's Complement Web Sanctuary .｡.:*†
+                </div>
+                <h1 class="hero-title">✞ 2scomplement's Sanctuary ✞</h1>
+                <p class="hero-sub">
+                    ── 感情は二進数、恋は未定義動作。解けない漸化式はない ── (*/ω＼*)
+                </p>
+                <div class="hero-banner-table">
+                    <!-- Tenor 遠程 GIF: 妖夢動作姿態與原創橫幅並排 -->
+                    <img class="hero-gif" src="https://media.tenor.com/HaNtd9z_MdQAAAAM/youmu-alpha-youmu.gif" alt="Youmu Konpaku Battle GIF via Tenor" title="Youmu Konpaku (Tenor)">
+                    <img class="hero-gif" src="./media/IMG_20260314_091739_098.gif" alt="Hero Banner Local">
+                    <img class="hero-gif" src="https://media.tenor.com/aVYzpEH_wMMAAAAM/youmu-youmu-konpaku.gif" alt="Youmu Pixel GIF via Tenor" title="Youmu Konpaku (Tenor)">
+                    <img class="hero-gif" src="https://media.tenor.com/iMkeTRjoyAIAAAAM/gothic-lolita-bingpfp.gif" alt="Gothic Lolita Pixel GIF via Tenor" title="Gothic Shojo (Tenor)">
+                </div>
+            </div>
+        </td>
+    </tr>
+
+    <!-- 內容雙欄列 -->
+    <tr>
+        <!-- 左側掛件欄 (Sidebar 270px) -->
+        <td width="270" valign="top">
+            <!-- 1. 個人檔案掛件 (從 Tenor 引用像素妖夢 GIF) -->
+            <div class="widget-box">
+                <div class="widget-header">★ PROFILE [自己紹介] ★</div>
+                <div class="widget-body">
+                    <!-- Tenor 遠程像素妖夢動態頭像 -->
+                    <img src="https://media.tenor.com/ISo-SqYX_b0AAAAM/touhou-konpaku-youmu.gif" class="profile-avatar" alt="Youmu Pixel Chibi Avatar (Tenor)" title="Youmu Konpaku (Tenor.com)">
+                    <table class="profile-table">
+                        <tr><td class="lbl">名前：</td><td>二補數 (2scotoyoumu)</td></tr>
+                        <tr><td class="lbl">身分：</td><td>軟體工程大學生</td></tr>
+                        <tr><td class="lbl">血液型：</td><td>O型</td></tr>
+                        <tr><td class="lbl">專攻：</td><td>離散數學・組合數學</td></tr>
+                        <tr><td class="lbl">好き：</td><td>《具體數學》、妖夢</td></tr>
+                        <tr><td class="lbl">一言：</td><td>「行列累乗の計算は世界を救う…☆」</td></tr>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 2. 真實 Apache 訪客計數器 (讀寫 counter.php / counter.txt) -->
+            <div class="widget-box">
+                <div class="widget-header">★ WEB COUNTER [訪問者] ★</div>
+                <div class="widget-body">
+                    <div class="odometer" id="visitCounter">------</div>
+                    <div class="counter-sub">
+                        SINCE 2008.03.14<br>
+                        (キリ番踏んだらBBSへ!)<br>
+                        <span class="counter-badge-status" id="counterBackendStatus">⚡ 連接 Apache 計數器中...</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. 自定義音頻與 MIDI BGM 播放器 (支持本地上傳、URL與MIDI) -->
+            <div class="widget-box">
+                <div class="widget-header">♪ BGM PLAYER (AUDIO & MIDI) ♪</div>
+                <div class="widget-body">
+                    <div class="winamp-box">
+                        <!-- 屏幕顯示 -->
+                        <div class="winamp-screen" id="playerDisplay">
+                            [STOPPED] ♪ 請從 BGM 文件夾選擇曲目 ♪
+                        </div>
+
+                        <!-- 旋轉光盤動畫 (Tenor 像素 CD GIF) -->
+                        <div class="winamp-cd-row">
+                            <img src="https://media.tenor.com/6ipymhHEPMMAAAAj/cd-disk-disk.gif" class="winamp-cd-img" id="spinningCdImg" alt="Spinning CD via Tenor" style="opacity: 0.4;">
+                            <span class="winamp-time" id="playerTime">00:00 / 00:00</span>
+                        </div>
+
+                        <!-- BGM 文件夾曲目下拉選擇 -->
+                        <select class="winamp-select" id="bgmSelect" onchange="selectBgmTrack()">
+                            <option value="">♪ 正在讀取 BGM 文件夾...</option>
+                        </select>
+                        <div id="bgmStatus" style="font-size: 10px; color: #8888aa; margin-top: 2px; margin-bottom: 4px;"></div>
+
+                        <!-- 控制按鈕 -->
+                        <div class="winamp-btns">
+                            <button class="winamp-btn" onclick="playCurrentBGM()">▶ PLAY</button>
+                            <button class="winamp-btn" onclick="pauseCurrentBGM()">⏸ PAUSE</button>
+                            <button class="winamp-btn" onclick="stopCurrentBGM()">■ STOP</button>
+                            <span style="font-size: 10px; color: #ff8ad6; margin-left: 4px;">VOL:</span>
+                            <input type="range" class="winamp-vol-slider" min="0" max="100" value="80" oninput="setPlayerVolume(this.value)">
+                        </div>
+
+                        <!-- 本地音頻/MIDI選擇器 -->
+                        <div class="winamp-input-row" style="border-top: 1px dotted #444; padding-top: 4px;">
+                            <label style="color: #7dffbf; font-size: 10px;">📂 選擇本地 MP3/WAV/MIDI：</label>
+                            <input type="file" id="localAudioInput" accept="audio/*,.mid,.midi" style="width: 100%; font-size: 10px; color: #fff;" onchange="loadLocalAudio(event)">
+                        </div>
+
+                        <!-- 遠程 URL 輸入 -->
+                        <div class="winamp-input-row">
+                            <label style="color: #7dffbf; font-size: 10px;">🔗 或粘貼遠程音頻/MIDI URL：</label>
+                            <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td><input type="text" id="customAudioUrl" placeholder="https://.../music.mid" style="width: 100%;"></td>
+                                    <td width="42" align="right"><button class="winamp-btn" onclick="loadUrlAudio()">載入</button></td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div style="font-size: 10px; color: #8888aa; margin-top: 4px;">
+                            ※ 支持 .mp3, .ogg, .wav, .flac, .m4a, .aac 與 .mid / .midi 格式播放<br>
+                            ※ 把音頻文件放到 <code>bgm/</code> 文件夾即可自動出現在下拉菜單
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. 88x31 像素徽章同盟 -->
+            <div class="widget-box">
+                <div class="widget-header">✦ 88x31 BADGES 同盟 ✦</div>
+                <div class="widget-body">
+                    <div class="badges-table">
+                        <img src="https://cyber.dabamos.de/88x31/4x3_fade.gif" class="badge-img" alt="4*3 Badge">
+                        <img src="https://cyber.dabamos.de/88x31/adobe_svg.gif" class="badge-img" alt="svg Badge">
+                        <img src="https://cyber.dabamos.de/88x31/2001.gif" class="badge-img" alt="2001 Badge">
+                        <img src="https://cyber.dabamos.de/88x31/archlinux.gif" class="badge-img" alt="Arch Linux Badge">
+                        <img src="https://cyber.dabamos.de/88x31/discord_now.gif" class="badge-img" alt="discord Badge">
+                        <img src="https://cyber.dabamos.de/88x31/knbutton.gif" class="badge-img" alt="KnButton Badge">
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5. 動態裝飾 (Tenor GIF 藝術牆) -->
+            <div class="widget-box">
+                <div class="widget-header">✦ WEB 1.0 DECO [動態裝飾] ✦</div>
+                <div class="widget-body" style="text-align: center;">
+                    <p style="font-size: 10px; color: #c9a0dc; margin-bottom: 8px;">† 藝術感升級中 †</p>
+                    <img src="https://media.tenor.com/Ea2i2fpw0FoAAAAM/cherry.gif" style="width: 100%; border: 1px solid #ff3385; margin-bottom: 6px;" alt="Sakura GIF">
+                    <img src="https://media.tenor.com/xB3H72X5rmAAAAAM/pink-y2k.gif" style="width: 100%; border: 1px solid #b266ff; margin-bottom: 6px;" alt="Pink Y2K GIF">
+                    <img src="https://media.tenor.com/uK91NaQXlc8AAAAM/internet-loading-win-98-era.gif" style="width: 100%; border: 1px solid #7dffbf;" alt="Win98 Loading GIF">
+                </div>
+            </div>
+
+            <!-- 6. 今日運勢 (Web 1.0 おみくじ風) -->
+            <div class="widget-box">
+                <div class="widget-header">★ 今日の運勢 ★</div>
+                <div class="widget-body" style="text-align: center; font-size: 12px;">
+                    <div id="dailyFortune" style="font-size: 18px; color: #ff3385; font-weight: bold; margin: 8px 0;">
+                        計算中...
+                    </div>
+                    <div id="dailyAdvice" style="color: #c9a0dc; font-size: 11px;"></div>
+                    <script>
+                        (function(){
+                            const fortunes = [
+                                { rank: "大吉", color: "#ff3385", advice: "行列累乗の閃きが降りてくる日" },
+                                { rank: "中吉", color: "#ff8ad6", advice: "漸化式が解ける、コーヒーを淹れよう" },
+                                { rank: "小吉", color: "#b266ff", advice: "一つ定理を証明するのに良い日" },
+                                { rank: "吉", color: "#7dffbf", advice: "コードがすんなり進む予感" },
+                                { rank: "末吉", color: "#ffff00", advice: "デバッグに時間がかかるかも" },
+                                { rank: "凶", color: "#ff6666", advice: "今日は早期寝坊、無理しないで" }
+                            ];
+                            const today = new Date().toDateString();
+                            let hash = 0;
+                            for (let i = 0; i < today.length; i++) hash = ((hash << 5) - hash) + today.charCodeAt(i);
+                            const f = fortunes[Math.abs(hash) % fortunes.length];
+                            document.getElementById('dailyFortune').textContent = f.rank;
+                            document.getElementById('dailyFortune').style.color = f.color;
+                            document.getElementById('dailyAdvice').textContent = f.advice;
+                        })();
+                    </script>
+                </div>
+            </div>
+
+            <!-- 6. 友情連結說明 (リンクフリー) -->
+            <div class="widget-box">
+                <div class="widget-header">✦ LINK POLICY ✦</div>
+                <div class="widget-body" style="font-size: 11px; line-height: 1.6;">
+                    <p>当サイトはリンクフリーです！<br>
+                    報告不要、自由にお持ち帰りください。<br>
+                    Banner: 88x31 (直リンク推奨)</p>
+                    <p style="margin-top: 6px;"><a href="./links.html">→ Links ページへ</a></p>
+                </div>
+            </div>
+        </td>
+
+        <!-- 右側主要內容區 (Main Content) -->
+        <td valign="top" style="padding-left: 15px;">
+            <!-- 最新情報 Updates -->
+            <div class="news-box">
+                <div class="news-title">★ NEWS & UPDATES [更新情報] ★</div>
+                <ul class="news-list">
+                    <li><b>2026.10.18:</b> 接入真實 Apache 訪客計數器（支持 counter.php 排他鎖寫入）與全格式 BGM Player（支持自定義音頻及 MIDI 播放）。</li>
+                    <li><b>2026.08.20:</b> 發表新篇：《矩陣快速冪與線性遞推關係》(O(log n) 求解)</li>
+                    <li><b>2026.07.12:</b> 發表新篇：《生成函數學習筆記》(母函數求閉式通項)</li>
+                    <li><b>2026.03.14:</b> C++ 智能指針內存管理機制整理完成。</li>
+                </ul>
+            </div>
+
+            <!-- 分類篩選與檢索欄 -->
+            <div class="filter-bar">
+                <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td align="left" id="categoryPills">
+                            <button class="filter-btn active" onclick="setCategoryFilter('ALL')">★ 全部</button>
+                        </td>
+                        <td align="right" width="180">
+                            <input type="text" id="filterSearch" class="search-input" placeholder="檢索記事 / 關鍵字..." oninput="handleSearchInput()">
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- 文章動態容器 -->
+            <div id="postsContainer">
+                <p style="text-align: center; padding: 25px; color: #ff8ad6;">正在召喚文章日誌...</p>
+            </div>
+        </td>
+    </tr>
+</table>
+
+<!-- 隱藏的 HTML5 Audio 播放器 -->
+<audio id="html5Audio" preload="none" style="display: none;"></audio>
+
+<!-- 底部 Footer -->
+<div class="retro-footer">
+    <p class="footer-quote">† 闇と数学の境界線で待ってるよ。現実はただのバッドトリップ †</p>
+    <p>✦ Best viewed with Internet Explorer 6.0 at 1024x768 resolution • Hosted on Apache HTTP Server ✦</p>
+    <p>Copyright (c) 2008-2026 2scomplement's Secret Diary. All rights reserved.</p>
+    <div class="footer-links" style="margin-top: 8px;">
+        <a href="./sitemap.html">SiteMap</a> |
+        <a href="./links.html">Links</a> |
+        <a href="./rss.xml">RSS</a> |
+        <a href="./contact/contact.html">連絡板</a> |
+        <a href="https://t.me/2scomplementblog">Telegram</a> |
+        <a href="./autouploader.html">管理室 (Studio)</a>
+    </div>
+    <div style="margin-top: 12px;">
+        <img src="https://media.tenor.com/7XD9gEkumN8AAAAM/internet-explorer-free.gif" style="height: 31px; border: 1px solid #ff3385; margin: 0 3px;" alt="IE Badge GIF">
+        <img src="https://media.tenor.com/PpNPANPPU08AAAAM/window-98-window.gif" style="height: 31px; border: 1px solid #b266ff; margin: 0 3px;" alt="Win98 Badge GIF">
+        <img src="https://media.tenor.com/86HtqGqUMZkAAAAM/button.gif" style="height: 31px; border: 1px solid #7dffbf; margin: 0 3px;" alt="Retro Button GIF">
+    </div>
+</div>
+
+<script>
+/* ==================== 1. 真實 Apache 訪客計數器 (Real Hit Counter) ==================== */
+async function loadApacheCounter() {
+    const counterElem = document.getElementById("visitCounter");
+    const statusElem = document.getElementById("counterBackendStatus");
+
+    try {
+        // 請求 counter.php (在 Apache + PHP 或 Node.js 下均可用)
+        const res = await fetch('./counter.php?ts=' + Date.now(), { cache: 'no-store' });
+        if (res.ok) {
+            const data = await res.json();
+            if (data && typeof data.count !== 'undefined') {
+                const countNum = parseInt(data.count, 10);
+                const padded = String(countNum).padStart(6, '0');
+                counterElem.innerText = padded;
+                statusElem.innerText = `● Apache 計數器同步成功 (HIT #${countNum})`;
+                localStorage.setItem('cached_counter', countNum);
+                return;
+            }
+        }
+    } catch (e) {
+        console.warn('Apache counter.php 連接降級:', e);
+    }
+
+    // 靜態或離線環境降級機制 (Persistent LocalStorage Fallback)
+    let localCount = parseInt(localStorage.getItem('cached_counter') || '1337', 10);
+    localCount++;
+    localStorage.setItem('cached_counter', localCount);
+    counterElem.innerText = String(localCount).padStart(6, '0');
+    statusElem.innerText = `○ 本地計數器 (HIT #${localCount})`;
+}
+
+loadApacheCounter();
+
+
+/* ==================== 2. 自定義音頻與 MIDI BGM 播放器 ==================== */
+const audioElement = document.getElementById("html5Audio");
+const playerDisplay = document.getElementById("playerDisplay");
+const playerTime = document.getElementById("playerTime");
+const cdImg = document.getElementById("spinningCdImg");
+
+// 初始化 WebAudioTinySynth (通用 MIDI 合成器)
+let midiSynth = null;
+try {
+    if (typeof WebAudioTinySynth !== 'undefined') {
+        midiSynth = new WebAudioTinySynth({ quality: 1, voices: 32 });
+    }
+} catch(e) {
+    console.warn('MIDI Synth 初始化:', e);
+}
+
+// 播放模式: 'audio' (HTML5 Audio) 或 'midi' (WebAudioTinySynth)
+let currentPlayMode = '';
+let isPlaying = false;
+let currentTrackName = "";
+let currentTrackUrl = "";
+
+let audioCtx = null;
+let volumeLevel = 0.8;
+
+function initAudioContext() {
+    if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+    }
+}
+
+// 從 BGM 文件夾讀取曲目列表
+async function loadBgmList() {
+    const select = document.getElementById("bgmSelect");
+    const status = document.getElementById("bgmStatus");
+
+    try {
+        const res = await fetch('./bgm-list.php?ts=' + Date.now(), { cache: 'no-store' });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const data = await res.json();
+
+        if (!data.files || data.files.length === 0) {
+            select.innerHTML = '<option value="">♪ BGM 文件夾為空 ♪</option>';
+            status.textContent = '請把音頻/MIDI 文件放到 bgm/ 文件夾';
+            return;
+        }
+
+        let html = '<option value="">♪ 選擇 BGM 文件夾中的曲目 ♪</option>';
+        data.files.forEach(file => {
+            const icon = file.type === 'midi' ? '♫' : '♪';
+            html += `<option value="${file.path}|${file.type}">${icon} ${file.display} (${file.type})</option>`;
+        });
+        select.innerHTML = html;
+        status.textContent = `已讀取 ${data.count} 首曲目`;
+    } catch (e) {
+        console.warn('BGM 文件夾讀取失敗:', e);
+        select.innerHTML = '<option value="">♪ 無法讀取 BGM 文件夾 ♪</option>';
+        status.textContent = '需要 Apache + PHP，或使用下方上傳/URL 輸入';
+    }
+}
+
+// 選擇 BGM 文件夾中的曲目
+function selectBgmTrack() {
+    const select = document.getElementById("bgmSelect");
+    const val = select.value;
+    stopCurrentBGM();
+
+    if (!val) {
+        playerDisplay.innerText = "[STOPPED] ♪ 請選擇 BGM 文件夾中的曲目 ♪";
+        currentTrackUrl = "";
+        currentTrackName = "";
+        currentPlayMode = '';
+        return;
+    }
+
+    const [url, type] = val.split('|');
+    const displayName = select.options[select.selectedIndex].text.replace(/^[♪♫]\s*/, '').replace(/\s*\(.*?\)$/, '');
+
+    currentTrackUrl = url;
+    currentTrackName = displayName;
+    currentPlayMode = type === 'midi' ? 'midi' : 'audio';
+
+    if (currentPlayMode === 'midi' && midiSynth) {
+        midiSynth.loadMIDIUrl(url);
+        playerDisplay.innerText = `[READY MIDI] ♪ ${currentTrackName} ♪`;
+    } else {
+        audioElement.src = url;
+        playerDisplay.innerText = `[READY] ♪ ${currentTrackName} ♪`;
+    }
+}
+
+// 播放
+function playCurrentBGM() {
+    if (!currentTrackUrl && currentPlayMode !== 'audio' && currentPlayMode !== 'midi') {
+        playerDisplay.innerText = "[STOPPED] ♪ 請先選擇一首曲目 ♪";
+        return;
+    }
+
+    initAudioContext();
+    isPlaying = true;
+    cdImg.style.opacity = "1.0";
+
+    if (currentPlayMode === 'audio') {
+        audioElement.play().catch(e => console.warn(e));
+        playerDisplay.innerText = `[PLAYING] ♪ ${currentTrackName} ♪`;
+    } else if (currentPlayMode === 'midi' && midiSynth) {
+        midiSynth.playMIDI();
+        playerDisplay.innerText = `[PLAYING MIDI] ♪ ${currentTrackName} ♪`;
+    } else {
+        playerDisplay.innerText = "[ERROR] ♪ 無法識別的音頻類型 ♪";
+    }
+}
+
+// 暫停
+function pauseCurrentBGM() {
+    if (!currentTrackUrl) return;
+    isPlaying = false;
+    cdImg.style.opacity = "0.4";
+
+    if (currentPlayMode === 'audio') {
+        audioElement.pause();
+    } else if (currentPlayMode === 'midi' && midiSynth) {
+        midiSynth.stopMIDI();
+    }
+    playerDisplay.innerText = `[PAUSED] ♪ ${currentTrackName} ♪`;
+}
+
+// 停止
+function stopCurrentBGM() {
+    isPlaying = false;
+    cdImg.style.opacity = "0.4";
+
+    if (currentPlayMode === 'audio') {
+        audioElement.pause();
+        audioElement.currentTime = 0;
+    } else if (currentPlayMode === 'midi' && midiSynth) {
+        midiSynth.stopMIDI();
+    }
+    playerTime.innerText = "00:00 / 00:00";
+    playerDisplay.innerText = `[STOPPED] ♪ ${currentTrackName || '請選擇曲目'} ♪`;
+}
+
+// 音量控制
+function setPlayerVolume(val) {
+    volumeLevel = val / 100;
+    audioElement.volume = volumeLevel;
+    if (midiSynth) {
+        midiSynth.setMasterVol(volumeLevel);
+    }
+}
+
+// 載入本地文件 (支持音頻和 MIDI)
+function loadLocalAudio(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    stopCurrentBGM();
+    // 取消 BGM 下拉框選中
+    document.getElementById("bgmSelect").value = "";
+
+    currentTrackName = file.name;
+    currentTrackUrl = URL.createObjectURL(file);
+    const isMidi = file.name.toLowerCase().endsWith('.mid') || file.name.toLowerCase().endsWith('.midi');
+
+    if (isMidi && midiSynth) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            try {
+                midiSynth.loadMIDI(e.target.result);
+                currentPlayMode = 'midi';
+                playerDisplay.innerText = `[LOADED MIDI] ${file.name}`;
+                playCurrentBGM();
+            } catch(err) {
+                alert('解析 MIDI 文件失敗: ' + err.message);
+            }
+        };
+        reader.readAsArrayBuffer(file);
+    } else {
+        audioElement.src = currentTrackUrl;
+        currentPlayMode = 'audio';
+        playerDisplay.innerText = `[LOADED AUDIO] ${file.name}`;
+        playCurrentBGM();
+    }
+}
+
+// 載入遠程 URL
+function loadUrlAudio() {
+    const url = document.getElementById("customAudioUrl").value.trim();
+    if (!url) {
+        alert('請先輸入音頻或 MIDI 的有效 URL！');
+        return;
+    }
+
+    stopCurrentBGM();
+    document.getElementById("bgmSelect").value = "";
+
+    const fileName = url.substring(url.lastIndexOf('/') + 1) || "Remote Track";
+    currentTrackName = fileName;
+    currentTrackUrl = url;
+
+    const isMidi = url.toLowerCase().includes('.mid');
+    if (isMidi && midiSynth) {
+        currentPlayMode = 'midi';
+        midiSynth.loadMIDIUrl(url);
+        playerDisplay.innerText = `[LOADED MIDI URL] ${fileName}`;
+        playCurrentBGM();
+    } else {
+        audioElement.src = url;
+        currentPlayMode = 'audio';
+        playerDisplay.innerText = `[LOADED URL] ${fileName}`;
+        playCurrentBGM();
+    }
+}
+
+// 監聽 HTML5 Audio 時間更新
+audioElement.addEventListener('timeupdate', () => {
+    if (currentPlayMode === 'audio') {
+        const cur = Math.floor(audioElement.currentTime);
+        const dur = Math.floor(audioElement.duration) || 0;
+        const curM = String(Math.floor(cur / 60)).padStart(2, '0');
+        const curS = String(cur % 60).padStart(2, '0');
+        const durM = String(Math.floor(dur / 60)).padStart(2, '0');
+        const durS = String(dur % 60).padStart(2, '0');
+        playerTime.innerText = `${curM}:${curS} / ${durM}:${durS}`;
+    }
+});
+audioElement.addEventListener('ended', () => {
+    stopCurrentBGM();
+});
+
+
+/* ==================== 3. 動態文章數據讀取與篩選 ==================== */
+let allArticles = [];
+let currentCategory = "ALL";
+let searchQuery = "";
+
+async function loadArticles() {
+    try {
+        const res = await fetch("./articles.json");
+        allArticles = await res.json();
+
+        const params = new URLSearchParams(window.location.search);
+        const urlCat = params.get("category");
+        if (urlCat) currentCategory = urlCat;
+
+        renderCategoryPills();
+        renderFilteredArticles();
+    } catch (e) {
+        document.getElementById("postsContainer").innerHTML = "<p style='text-align:center; color:#ff3385;'>無法讀取 articles.json</p>";
+    }
+}
+
+function renderCategoryPills() {
+    const container = document.getElementById("categoryPills");
+    const counts = {};
+    allArticles.forEach(a => counts[a.category] = (counts[a.category] || 0) + 1);
+
+    let html = `<button class="filter-btn ${currentCategory === 'ALL' ? 'active' : ''}" onclick="setCategoryFilter('ALL')">★ 全部 (${allArticles.length})</button>`;
+    for (const cat in counts) {
+        const isActive = currentCategory === cat ? 'active' : '';
+        html += `<button class="filter-btn ${isActive}" onclick="setCategoryFilter('${cat}')">♡ ${cat} (${counts[cat]})</button>`;
+    }
+    container.innerHTML = html;
+}
+
+function setCategoryFilter(cat) {
+    currentCategory = cat;
+    const url = new URL(window.location);
+    if (cat === "ALL") {
+        url.searchParams.delete("category");
+    } else {
+        url.searchParams.set("category", cat);
+    }
+    window.history.pushState({}, '', url);
+
+    renderCategoryPills();
+    renderFilteredArticles();
+}
+
+function handleSearchInput() {
+    searchQuery = document.getElementById("filterSearch").value.trim().toLowerCase();
+    renderFilteredArticles();
+}
+
+function renderFilteredArticles() {
+    const container = document.getElementById("postsContainer");
+    let filtered = allArticles;
+
+    if (currentCategory !== "ALL") {
+        filtered = filtered.filter(a => a.category === currentCategory);
+    }
+
+    if (searchQuery) {
+        filtered = filtered.filter(a =>
+            (a.title && a.title.toLowerCase().includes(searchQuery)) ||
+            (a.summary && a.summary.toLowerCase().includes(searchQuery)) ||
+            (a.category && a.category.toLowerCase().includes(searchQuery))
+        );
+    }
+
+    if (filtered.length === 0) {
+        container.innerHTML = `
+            <div class="post-entry" style="text-align: center; padding: 30px;">
+                <p>⚠️ (TwT) 沒有找到符合條件的文章日誌...</p>
+                <button class="filter-btn" style="margin-top: 10px;" onclick="setCategoryFilter('ALL')">重置全部</button>
+            </div>
+        `;
+        return;
+    }
+
+    container.innerHTML = filtered.map((post, idx) => `
+        <div class="post-entry">
+            <div class="post-header">
+                <a href="${post.url}" class="post-title-link">◆ ${post.title}</a>
+                <div class="post-meta">
+                    <span class="category-tag" onclick="setCategoryFilter('${post.category}')">♡ ${post.category}</span>
+                    <span>日付：${post.date}</span>
+                    ${post.tags ? post.tags.map(t => `<span style="margin-left: 6px;">#${t}</span>`).join("") : ""}
+                </div>
+            </div>
+            <div class="post-summary">${post.summary || "點擊查看這篇日誌的詳細內容..."}</div>
+            <div class="post-footer">
+                <span style="float: left; font-size: 11px; color: #b266ff;">† Entry #${idx + 1} †</span>
+                <a href="${post.url}" class="read-more-link">[ 続きを読む (閱讀全文) >> ]</a>
+            </div>
+        </div>
+    `).join("");
+}
+
+loadBgmList();
+loadArticles();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>†*:.｡. Articles Navigator .｡.:*† 2scomplement's Diary</title>
+<link rel="icon" href="../vectorImages/2scompliment-blog-icon.svg" type="image/x-icon" />
+<link rel="stylesheet" href="../css/style.css">
+<script src="../js/script.js"></script>
+
+<style>
+/* -------------------- 2008 日本個人網站 Web 1.0 記事導航 -------------------- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #0d0014;
+    color: #ffd8f2;
+    font-family: 'MS PGothic', 'SimSun', 'Courier New', monospace;
+    font-size: 13px;
+    line-height: 1.6;
+    cursor: url('../vectorImages/retro_cursor.svg') 4 4, auto;
+    padding-bottom: 40px;
+}
+
+a, button, input {
+    cursor: url('../vectorImages/retro_cursor.svg') 4 4, pointer !important;
+}
+
+a {
+    color: #ff8ad6;
+    text-decoration: underline;
+}
+
+a:hover {
+    color: #ffffff;
+    background-color: #330033;
+}
+
+/* 跑馬燈 */
+.marquee-top {
+    background: #2b001a;
+    border-bottom: 1px solid #ff3385;
+    color: #ff99cc;
+    font-size: 12px;
+    padding: 3px 0;
+    font-weight: bold;
+}
+
+/* 導航條 */
+.retro-nav-container {
+    background: #14001f;
+    border-bottom: 2px solid #ff3385;
+    text-align: center;
+    padding: 8px 5px;
+}
+
+.retro-nav-link {
+    color: #ffd8f2;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 13px;
+    padding: 2px 6px;
+    display: inline-block;
+}
+
+.retro-nav-link:hover {
+    color: #000000;
+    background-color: #ff3385;
+    text-decoration: none;
+}
+
+.nav-sep {
+    color: #ff3385;
+    font-weight: normal;
+    margin: 0 4px;
+}
+
+/* 主容器 */
+.main-wrapper {
+    width: 820px;
+    margin: 20px auto;
+}
+
+.header-box {
+    background: #12001c;
+    border: 2px solid #ff3385;
+    text-align: center;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.header-title {
+    font-size: 22px;
+    color: #ff8ad6;
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+}
+
+.header-desc {
+    color: #ffb3e6;
+    font-size: 12px;
+}
+
+/* 分類篩選與檢索欄 */
+.filter-bar {
+    background: #14001f;
+    border: 1px solid #ff3385;
+    padding: 8px 10px;
+    margin-bottom: 15px;
+}
+
+.filter-btn {
+    background: #1f002b;
+    border: 1px solid #ff3385;
+    color: #ffd8f2;
+    padding: 3px 8px;
+    font-size: 12px;
+    font-family: inherit;
+    font-weight: bold;
+    margin-right: 4px;
+    margin-bottom: 3px;
+}
+
+.filter-btn:hover, .filter-btn.active {
+    background: #ff3385;
+    color: #000000;
+}
+
+.search-input {
+    background: #000000;
+    border: 1px solid #b266ff;
+    color: #7dffbf;
+    padding: 3px 6px;
+    font-size: 12px;
+    width: 160px;
+}
+
+/* 文章日誌條目 */
+.post-entry {
+    background: #12001c;
+    border: 1px solid #ff3385;
+    padding: 14px 16px;
+    margin-bottom: 15px;
+}
+
+.post-header {
+    border-bottom: 1px dashed #b266ff;
+    padding-bottom: 6px;
+    margin-bottom: 10px;
+}
+
+.post-title-link {
+    font-size: 15px;
+    color: #ff8ad6;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.post-title-link:hover {
+    color: #ffffff;
+    background-color: #ff3385;
+}
+
+.post-meta {
+    font-size: 11px;
+    color: #c9a0dc;
+    margin-top: 4px;
+}
+
+.category-tag {
+    background: #2a0033;
+    border: 1px solid #ff3385;
+    color: #ff8ad6;
+    padding: 1px 5px;
+    font-size: 11px;
+    text-decoration: none;
+    font-weight: bold;
+    display: inline-block;
+    margin-right: 6px;
+}
+
+.category-tag:hover {
+    background: #ff3385;
+    color: #000000;
+}
+
+.post-summary {
+    font-size: 13px;
+    color: #ffd8f2;
+    line-height: 1.7;
+    margin-bottom: 10px;
+}
+
+.post-footer {
+    border-top: 1px dotted #330033;
+    padding-top: 6px;
+    text-align: right;
+    font-size: 12px;
+}
+
+.read-more-link {
+    color: #7dffbf;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.read-more-link:hover {
+    color: #ffffff;
+    background-color: #004422;
+}
+
+/* 底部 Footer */
+.retro-footer {
+    text-align: center;
+    margin-top: 30px;
+    padding: 20px 10px;
+    background: #000000;
+    border-top: 2px solid #ff3385;
+    font-size: 11px;
+    color: #bb99cc;
+    line-height: 1.8;
+}
+</style>
+</head>
+
+<body>
+
+<div class="crt-overlay"></div>
+
+<!-- 頂部跑馬燈 -->
+<div class="marquee-top">
+    <marquee behavior="scroll" direction="left" scrollamount="4">
+        ★*ﾟ*☆*ﾟ*★ 2's Complement Articles Navigator • 分類別に日誌を読む • (*/ω＼*) ★*ﾟ*☆*ﾟ*★
+    </marquee>
+</div>
+
+<!-- 頂部導航條 -->
+<div class="retro-nav-container">
+    <a href="../index.html" class="retro-nav-link">[ HOME (首頁) ]</a>
+    <span class="nav-sep">|</span>
+    <a href="./article_nav.html" class="retro-nav-link">[ ARTICLES (文章引導) ]</a>
+    <span class="nav-sep">|</span>
+    <a href="../markdown_reader.html" class="retro-nav-link">[ MARKDOWN READER ]</a>
+    <span class="nav-sep">|</span>
+    <a href="../about/about.html" class="retro-nav-link">[ ABOUT ME (自己紹介) ]</a>
+    <span class="nav-sep">|</span>
+    <a href="../contact/contact.html" class="retro-nav-link">[ CONTACT (連絡板) ]</a>
+    <span class="nav-sep">|</span>
+    <a href="../autouploader.html" class="retro-nav-link">[ ADMIN STUDIO (管理室) ]</a>
+</div>
+
+<div class="main-wrapper">
+    <div class="header-box">
+        <h1 class="header-title">★ Articles Navigator [記事一覧] ★</h1>
+        <p class="header-desc">
+            二補數の全記事アーカイブ ✦ 點擊分類即時篩選 ✦
+        </p>
+    </div>
+
+    <!-- 分類篩選與檢索欄 -->
+    <div class="filter-bar">
+        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+                <td align="left" id="categoryPills">
+                    <button class="filter-btn active" onclick="setCategoryFilter('ALL')">★ 全部</button>
+                </td>
+                <td align="right" width="180">
+                    <input type="text" id="filterSearch" class="search-input" placeholder="檢索記事 / 關鍵字..." oninput="handleSearchInput()">
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- 文章動態容器 -->
+    <div id="postsContainer">
+        <p style="text-align: center; padding: 25px; color: #ff8ad6;">正在召喚文章日誌...</p>
+    </div>
+</div>
+
+<div class="retro-footer">
+    <p class="footer-quote">† 全ての記事は、一つの漸化式に還元される †</p>
+    <p>✦ Best viewed with Internet Explorer 6.0 • 2008 Web 1.0 Sanctuary ✦</p>
+    <p>Copyright (c) 2008-2026 2scomplement's Secret Diary. All rights reserved.</p>
+    <div class="footer-links" style="margin-top: 8px;">
+        <a href="../sitemap.html">SiteMap</a> |
+        <a href="../links.html">Links</a> |
+        <a href="../rss.xml">RSS</a> |
+        <a href="../contact/contact.html">連絡板</a> |
+        <a href="https://t.me/2scomplementblog">Telegram</a> |
+        <a href="../autouploader.html">管理室</a>
+    </div>
+</div>
+
+<script>
+let allArticles = [];
+let currentCategory = "ALL";
+let searchQuery = "";
+
+function resolveUrl(url) {
+    if (url.startsWith("./")) {
+        return "../" + url.substring(2);
+    }
+    return url;
+}
+
+async function loadArticles() {
+    try {
+        const res = await fetch("../articles.json");
+        allArticles = await res.json();
+
+        const params = new URLSearchParams(window.location.search);
+        const urlCat = params.get("category");
+        if (urlCat) currentCategory = urlCat;
+
+        renderCategoryPills();
+        renderFilteredArticles();
+    } catch (e) {
+        document.getElementById("postsContainer").innerHTML = "<p style='text-align:center; color:#ff3385;'>無法讀取 articles.json</p>";
+    }
+}
+
+function renderCategoryPills() {
+    const container = document.getElementById("categoryPills");
+    const counts = {};
+    allArticles.forEach(a => counts[a.category] = (counts[a.category] || 0) + 1);
+
+    let html = `<button class="filter-btn ${currentCategory === 'ALL' ? 'active' : ''}" onclick="setCategoryFilter('ALL')">★ 全部 (${allArticles.length})</button>`;
+    for (const cat in counts) {
+        const isActive = currentCategory === cat ? 'active' : '';
+        html += `<button class="filter-btn ${isActive}" onclick="setCategoryFilter('${cat}')">♡ ${cat} (${counts[cat]})</button>`;
+    }
+    container.innerHTML = html;
+}
+
+function setCategoryFilter(cat) {
+    currentCategory = cat;
+    const url = new URL(window.location);
+    if (cat === "ALL") {
+        url.searchParams.delete("category");
+    } else {
+        url.searchParams.set("category", cat);
+    }
+    window.history.pushState({}, '', url);
+
+    renderCategoryPills();
+    renderFilteredArticles();
+}
+
+function handleSearchInput() {
+    searchQuery = document.getElementById("filterSearch").value.trim().toLowerCase();
+    renderFilteredArticles();
+}
+
+function renderFilteredArticles() {
+    const container = document.getElementById("postsContainer");
+    let filtered = allArticles;
+
+    if (currentCategory !== "ALL") {
+        filtered = filtered.filter(a => a.category === currentCategory);
+    }
+
+    if (searchQuery) {
+        filtered = filtered.filter(a =>
+            (a.title && a.title.toLowerCase().includes(searchQuery)) ||
+            (a.summary && a.summary.toLowerCase().includes(searchQuery)) ||
+            (a.category && a.category.toLowerCase().includes(searchQuery))
+        );
+    }
+
+    if (filtered.length === 0) {
+        container.innerHTML = `
+            <div class="post-entry" style="text-align: center; padding: 30px;">
+                <p>⚠️ (TwT) 沒有找到符合條件的文章日誌...</p>
+                <button class="filter-btn" style="margin-top: 10px;" onclick="setCategoryFilter('ALL')">重置全部</button>
+            </div>
+        `;
+        return;
+    }
+
+    container.innerHTML = filtered.map((post, idx) => {
+        const targetUrl = resolveUrl(post.url);
+        return `
+            <div class="post-entry">
+                <div class="post-header">
+                    <a href="${targetUrl}" class="post-title-link">◆ ${post.title}</a>
+                    <div class="post-meta">
+                        <span class="category-tag" onclick="setCategoryFilter('${post.category}')">♡ ${post.category}</span>
+                        <span>日付：${post.date}</span>
+                        ${post.tags ? post.tags.map(t => `<span style="margin-left: 6px;">#${t}</span>`).join("") : ""}
+                    </div>
+                </div>
+                <div class="post-summary">${post.summary || "點擊查看詳細內容..."}</div>
+                <div class="post-footer">
+                    <span style="float: left; font-size: 11px; color: #b266ff;">† Entry #${idx + 1} †</span>
+                    <a href="${targetUrl}" class="read-more-link">[ 続きを読む (閱讀全文) >> ]</a>
+                </div>
+            </div>
+        `;
+    }).join("");
+}
+
+loadArticles();
+</script>
+
+</body>
+</html>

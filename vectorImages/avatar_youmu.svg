@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120">
+  <!-- Retro border & background -->
+  <rect width="120" height="120" fill="#150022" stroke="#ff3385" stroke-width="4" rx="10"/>
+  <!-- Decorative pattern -->
+  <circle cx="60" cy="60" r="50" fill="#2d0047" stroke="#b266ff" stroke-width="2" stroke-dasharray="4,4"/>
+  <!-- Hair back -->
+  <path d="M30 65 Q20 95 35 110 L85 110 Q100 95 90 65 Z" fill="#d9c2ff"/>
+  <!-- Face -->
+  <ellipse cx="60" cy="65" rx="30" ry="32" fill="#fff0f5"/>
+  <!-- Hair bangs -->
+  <path d="M30 55 Q40 80 50 62 Q60 85 70 62 Q80 80 90 55 Q95 30 60 25 Q25 30 30 55 Z" fill="#ecd9ff"/>
+  <!-- Cross Hairpin -->
+  <rect x="36" y="38" width="10" height="3" fill="#ff3385"/>
+  <rect x="39.5" y="34.5" width="3" height="10" fill="#ff3385"/>
+  <!-- Eyes (Anime style) -->
+  <ellipse cx="48" cy="62" rx="4.5" ry="7" fill="#6600cc"/>
+  <circle cx="46.5" cy="59" r="2" fill="#ffffff"/>
+  <circle cx="49" cy="65" r="1" fill="#ff99dd"/>
+  
+  <ellipse cx="72" cy="62" rx="4.5" ry="7" fill="#6600cc"/>
+  <circle cx="70.5" cy="59" r="2" fill="#ffffff"/>
+  <circle cx="73" cy="65" r="1" fill="#ff99dd"/>
+
+  <!-- Cheeks blush -->
+  <ellipse cx="43" cy="72" rx="5" ry="2.5" fill="#ff66b2" opacity="0.6"/>
+  <ellipse cx="77" cy="72" rx="5" ry="2.5" fill="#ff66b2" opacity="0.6"/>
+
+  <!-- Mouth -->
+  <path d="M57 73 Q60 76 63 73" stroke="#ff3385" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+
+  <!-- Sparkles -->
+  <text x="12" y="24" font-size="14" fill="#ffff00">★</text>
+  <text x="96" y="30" font-size="12" fill="#ff3385">♡</text>
+  <text x="18" y="98" font-size="12" fill="#7dffbf">✦</text>
+  <text x="92" y="100" font-size="14" fill="#ffff00">★</text>
+</svg>

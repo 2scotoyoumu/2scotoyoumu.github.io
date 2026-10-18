@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>†*:.｡. 2scomplement's Diary Reader .｡.:*†</title>
+<link rel="icon" href="./vectorImages/2scompliment-blog-icon.svg" type="image/x-icon" />
+<link rel="stylesheet" href="./css/style.css">
+<script src="./js/script.js"></script>
+
+<!-- Marked.js 解析 Markdown (完整保留) -->
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+<!-- MathJax 支持數學公式渲染 (完整保留) -->
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']]
+  },
+  options: {
+    skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  }
+};
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<style>
+/* -------------------- 2008 日本個人網站 Web 1.0 Markdown 閱讀器 -------------------- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #0d0014;
+    color: #ffd8f2;
+    font-family: 'MS PGothic', 'SimSun', 'Courier New', monospace;
+    font-size: 13px;
+    line-height: 1.8;
+    cursor: url('./vectorImages/retro_cursor.svg') 4 4, auto;
+    padding-bottom: 50px;
+}
+
+a, button, input, select {
+    cursor: url('./vectorImages/retro_cursor.svg') 4 4, pointer !important;
+}
+
+a {
+    color: #ff8ad6;
+    text-decoration: underline;
+}
+
+a:hover {
+    color: #ffffff;
+    background-color: #330033;
+}
+
+/* 跑馬燈 */
+.marquee-top {
+    background: #2b001a;
+    border-bottom: 1px solid #ff3385;
+    color: #ff99cc;
+    font-size: 12px;
+    padding: 3px 0;
+    font-weight: bold;
+}
+
+/* 頂部導航條 */
+.retro-nav-container {
+    background: #14001f;
+    border-bottom: 2px solid #ff3385;
+    text-align: center;
+    padding: 8px 5px;
+}
+
+.retro-nav-link {
+    color: #ffd8f2;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 13px;
+    padding: 2px 6px;
+    display: inline-block;
+}
+
+.retro-nav-link:hover {
+    color: #000000;
+    background-color: #ff3385;
+    text-decoration: none;
+}
+
+.nav-sep {
+    color: #ff3385;
+    font-weight: normal;
+    margin: 0 4px;
+}
+
+/* 主容器 */
+.main-wrapper {
+    width: 820px;
+    margin: 20px auto;
+}
+
+.article-paper {
+    background: #12001c;
+    border: 2px solid #ff3385;
+    padding: 25px 20px;
+}
+
+.article-header-meta {
+    border-bottom: 1px dashed #b266ff;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.article-title {
+    font-size: 22px;
+    color: #ff8ad6;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.meta-badges {
+    font-size: 11px;
+    color: #c9a0dc;
+}
+
+.category-tag {
+    background: #2a0033;
+    border: 1px solid #ff3385;
+    color: #ff8ad6;
+    padding: 1px 6px;
+    font-size: 11px;
+    text-decoration: none;
+    font-weight: bold;
+    display: inline-block;
+    margin-right: 6px;
+}
+
+.category-tag:hover {
+    background: #ff3385;
+    color: #000000;
+}
+
+/* Markdown 排版樣式 (銳利無圓角) */
+.markdown-body {
+    line-height: 1.8;
+    color: #ffd8f2;
+}
+
+.markdown-body h1 {
+    font-size: 20px;
+    color: #ff8ad6;
+    border-bottom: 1px solid #ff3385;
+    padding-bottom: 4px;
+    margin: 25px 0 12px 0;
+}
+
+.markdown-body h2 {
+    font-size: 16px;
+    color: #ff8ad6;
+    border-bottom: 1px dashed #ff3385;
+    padding-bottom: 4px;
+    margin: 22px 0 10px 0;
+}
+
+.markdown-body h3 {
+    font-size: 14px;
+    color: #ffff00;
+    margin: 18px 0 8px 0;
+}
+
+.markdown-body p {
+    margin-bottom: 14px;
+}
+
+.markdown-body pre {
+    background: #000000;
+    border: 1px solid #b266ff;
+    padding: 12px;
+    overflow-x: auto;
+    margin: 14px 0;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    color: #7dffbf;
+}
+
+.markdown-body code {
+    background: #000000;
+    color: #7dffbf;
+    padding: 1px 5px;
+    border: 1px dotted #b266ff;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+}
+
+.markdown-body pre code {
+    background: transparent;
+    border: none;
+    padding: 0;
+}
+
+.markdown-body blockquote {
+    border-left: 3px solid #ff3385;
+    background: #1a0028;
+    padding: 10px 14px;
+    margin: 15px 0;
+    font-size: 12px;
+}
+
+.markdown-body table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 15px 0;
+    font-size: 12px;
+}
+
+.markdown-body th, .markdown-body td {
+    border: 1px solid #330033;
+    padding: 6px 10px;
+}
+
+.markdown-body th {
+    background: #1f002b;
+    color: #ff8ad6;
+}
+
+.markdown-body ul, .markdown-body ol {
+    margin-left: 25px;
+    margin-bottom: 14px;
+}
+
+.markdown-body a {
+    color: #7dffbf;
+    text-decoration: underline;
+}
+
+.markdown-body a:hover {
+    color: #ffffff;
+    background-color: #004422;
+}
+
+/* 上一篇/下一篇導航 (Table 排版) */
+.post-navigation-table {
+    width: 100%;
+    margin-top: 30px;
+    border-top: 1px dashed #ff3385;
+    padding-top: 15px;
+    border-collapse: collapse;
+}
+
+.nav-card {
+    background: #0a0010;
+    border: 1px solid #b266ff;
+    padding: 10px 12px;
+    display: block;
+    text-decoration: none;
+    color: #ffd8f2;
+}
+
+.nav-card:hover {
+    background: #1a0026;
+    border-color: #ff3385;
+}
+
+.nav-label {
+    font-size: 11px;
+    color: #ff8ad6;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 2px;
+}
+
+.nav-title {
+    font-size: 13px;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+/* 同分類相關推薦 */
+.related-box {
+    background: #0a0010;
+    border: 1px dashed #ff3385;
+    padding: 12px 15px;
+    margin-top: 20px;
+}
+
+.related-title {
+    color: #ffff00;
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    border-bottom: 1px dotted #ff3385;
+    padding-bottom: 4px;
+}
+
+.related-items {
+    list-style: none;
+    line-height: 1.8;
+}
+
+.related-items li {
+    padding-left: 14px;
+    position: relative;
+}
+
+.related-items li::before {
+    content: "★";
+    position: absolute;
+    left: 0;
+    color: #ff3385;
+    font-size: 10px;
+}
+
+.related-items a {
+    color: #ffd8f2;
+    text-decoration: underline;
+}
+
+.related-items a:hover {
+    color: #ffffff;
+    background-color: #330033;
+}
+
+/* 底部 Footer */
+.retro-footer {
+    text-align: center;
+    margin-top: 30px;
+    padding: 20px 10px;
+    background: #000000;
+    border-top: 2px solid #ff3385;
+    font-size: 11px;
+    color: #bb99cc;
+    line-height: 1.8;
+}
+</style>
+</head>
+
+<body>
+
+<div class="crt-overlay"></div>
+
+<!-- 頂部跑馬燈 -->
+<div class="marquee-top">
+    <marquee behavior="scroll" direction="left" scrollamount="4">
+        ★*ﾟ*☆*ﾟ*★ 2's Complement Markdown Diary • 今日の数学＆アルゴリズム研究ノート • (*/ω＼*) ★*ﾟ*☆*ﾟ*★
+    </marquee>
+</div>
+
+<!-- 頂部導航條 -->
+<div class="retro-nav-container">
+    <a href="./index.html" class="retro-nav-link">[ HOME (首頁) ]</a>
+    <span class="nav-sep">|</span>
+    <a href="./article/article_nav.html" class="retro-nav-link">[ ARTICLES (文章引導) ]</a>
+    <span class="nav-sep">|</span>
+    <a href="./markdown_reader.html" class="retro-nav-link">[ MARKDOWN READER ]</a>
+    <span class="nav-sep">|</span>
+    <a href="./about/about.html" class="retro-nav-link">[ ABOUT ME (自己紹介) ]</a>
+    <span class="nav-sep">|</span>
+    <a href="./contact/contact.html" class="retro-nav-link">[ CONTACT (連絡板) ]</a>
+    <span class="nav-sep">|</span>
+    <a href="./autouploader.html" class="retro-nav-link">[ ADMIN STUDIO (管理室) ]</a>
+</div>
+
+<div class="main-wrapper">
+    <div id="contentArea">
+        <p style="text-align: center; padding: 40px; color: #ff8ad6;">正在加載文章筆記中...</p>
+    </div>
+</div>
+
+<div class="retro-footer">
+    <p class="footer-quote">† 記事を読んでくれてありがとう。次の漸化式でまた会おう †</p>
+    <p>✦ Best viewed with Internet Explorer 6.0 • 2008 Web 1.0 Sanctuary ✦</p>
+    <p>Copyright (c) 2008-2026 2scomplement. All rights reserved.</p>
+    <div class="footer-links" style="margin-top: 8px;">
+        <a href="./sitemap.html">SiteMap</a> |
+        <a href="./links.html">Links</a> |
+        <a href="./rss.xml">RSS</a> |
+        <a href="./contact/contact.html">連絡板</a> |
+        <a href="https://t.me/2scomplementblog">Telegram</a> |
+        <a href="./autouploader.html">管理室</a>
+    </div>
+</div>
+
+<script>
+function parseFrontMatter(text) {
+    let metadata = {};
+    let content = text;
+    if (text.startsWith("---")) {
+        const endPos = text.indexOf("\n---", 3);
+        if (endPos !== -1) {
+            const rawMeta = text.substring(3, endPos).trim();
+            content = text.substring(endPos + 4).trim();
+            rawMeta.split("\n").forEach(line => {
+                const colonIdx = line.indexOf(":");
+                if (colonIdx !== -1) {
+                    const key = line.substring(0, colonIdx).trim().toLowerCase();
+                    let val = line.substring(colonIdx + 1).trim();
+                    if (val.startsWith("[") && val.endsWith("]")) {
+                        try {
+                            val = JSON.parse(val.replace(/'/g, '"'));
+                        } catch(e) {
+                            val = val.slice(1, -1).split(",").map(s => s.trim().replace(/^['"]|['"]$/g, ""));
+                        }
+                    } else {
+                        val = val.replace(/^['"]|['"]$/g, "");
+                    }
+                    metadata[key] = val;
+                }
+            });
+        }
+    }
+    return { metadata, content };
+}
+
+async function initReader() {
+    const params = new URLSearchParams(window.location.search);
+    const postId = params.get("post");
+    const filePath = params.get("file");
+
+    let allArticles = [];
+    try {
+        const res = await fetch("./articles.json");
+        allArticles = await res.json();
+    } catch(e) {}
+
+    if (postId || filePath) {
+        await renderSingleArticle(postId, filePath, allArticles);
+    } else {
+        renderArticleList(allArticles);
+    }
+}
+
+async function renderSingleArticle(postId, filePath, allArticles) {
+    const container = document.getElementById("contentArea");
+    let targetArticle = null;
+    let targetPath = filePath;
+
+    if (postId) {
+        targetArticle = allArticles.find(a => a.id === postId || a.url.includes(postId));
+        if (targetArticle && targetArticle.source) {
+            targetPath = targetArticle.source;
+        } else if (!targetPath) {
+            targetPath = `./markdown/${postId}.md`;
+        }
+    } else if (filePath) {
+        targetArticle = allArticles.find(a => a.source === filePath || a.url.includes(filePath));
+    }
+
+    try {
+        const res = await fetch(targetPath);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const rawText = await res.text();
+        const { metadata, content } = parseFrontMatter(rawText);
+
+        const title = metadata.title || (targetArticle ? targetArticle.title : "未命名文章");
+        const date = metadata.date || (targetArticle ? targetArticle.date : "");
+        const category = metadata.category || (targetArticle ? targetArticle.category : "未分类");
+        const tags = metadata.tags || (targetArticle && targetArticle.tags ? targetArticle.tags : []);
+
+        document.title = `† ${title} † 2scomplement's Diary`;
+        const parsedHtml = marked.parse(content);
+
+        let prevArticle = null;
+        let nextArticle = null;
+        let currentIndex = -1;
+
+        if (targetArticle) {
+            currentIndex = allArticles.findIndex(a => a.id === targetArticle.id || a.url === targetArticle.url);
+        } else if (allArticles.length > 0) {
+            currentIndex = allArticles.findIndex(a => a.source === targetPath);
+        }
+
+        if (currentIndex !== -1) {
+            if (currentIndex > 0) nextArticle = allArticles[currentIndex - 1];
+            if (currentIndex < allArticles.length - 1) prevArticle = allArticles[currentIndex + 1];
+        }
+
+        const related = allArticles.filter(a => {
+            const isSelf = targetArticle && (a.id === targetArticle.id || a.url === targetArticle.url);
+            return !isSelf && a.category === category;
+        }).slice(0, 3);
+
+        container.innerHTML = `
+            <div class="article-paper">
+                <div class="article-header-meta">
+                    <h1 class="article-title">★ ${title} ★</h1>
+                    <div class="meta-badges">
+                        <a href="./index.html?category=${encodeURIComponent(category)}" class="category-tag">♡ ${category}</a>
+                        ${date ? `<span>日付：${date}</span>` : ""}
+                        ${Array.isArray(tags) ? tags.map(t => `<span style="margin-left: 6px;">#${t}</span>`).join("") : ""}
+                    </div>
+                </div>
+
+                <div class="markdown-body">
+                    ${parsedHtml}
+                </div>
+
+                <!-- 上一篇 / 下一篇導航 (Table 排版) -->
+                <table class="post-navigation-table">
+                    <tr>
+                        <td width="48%" valign="top">
+                            ${prevArticle ? `
+                                <a href="${prevArticle.url}" class="nav-card">
+                                    <span class="nav-label">← PREVIOUS POST [前へ]</span>
+                                    <span class="nav-title">${prevArticle.title}</span>
+                                </a>
+                            ` : `
+                                <div class="nav-card" style="opacity: 0.35;">
+                                    <span class="nav-label">← PREVIOUS POST</span>
+                                    <span class="nav-title">無更早日誌</span>
+                                </div>
+                            `}
+                        </td>
+                        <td width="4%"></td>
+                        <td width="48%" valign="top">
+                            ${nextArticle ? `
+                                <a href="${nextArticle.url}" class="nav-card" style="text-align: right;">
+                                    <span class="nav-label">NEXT POST [次へ] →</span>
+                                    <span class="nav-title">${nextArticle.title}</span>
+                                </a>
+                            ` : `
+                                <div class="nav-card" style="opacity: 0.35; text-align: right;">
+                                    <span class="nav-label">NEXT POST →</span>
+                                    <span class="nav-title">已是最新日誌</span>
+                                </div>
+                            `}
+                        </td>
+                    </tr>
+                </table>
+
+                <!-- 相關文章推薦 -->
+                ${related.length > 0 ? `
+                    <div class="related-box">
+                        <div class="related-title">✦ RELATED POSTS [同分類推薦] ✦</div>
+                        <ul class="related-items">
+                            ${related.map(r => `
+                                <li>
+                                    <a href="${r.url}">[${r.category}] ${r.title}</a>
+                                </li>
+                            `).join("")}
+                        </ul>
+                    </div>
+                ` : ""}
+            </div>
+        `;
+
+        if (window.MathJax && window.MathJax.typesetPromise) {
+            window.MathJax.typesetPromise([container]).catch(err => console.warn(err));
+        }
+
+    } catch (err) {
+        container.innerHTML = `
+            <div class="article-paper" style="text-align: center;">
+                <h2 style="color: #ff3385;">(TwT) 文章召喚失敗</h2>
+                <p>無法讀取目標文件：<code>${targetPath}</code></p>
+                <br>
+                <a href="./index.html" style="color: #7dffbf;">← 返回首頁</a>
+            </div>
+        `;
+    }
+}
+
+function renderArticleList(articles) {
+    const container = document.getElementById("contentArea");
+    container.innerHTML = `
+        <div class="article-paper">
+            <h2 style="color: #ff8ad6; font-size: 20px; margin-bottom: 15px; text-align: center; border-bottom: 1px dashed #ff3385; padding-bottom: 6px;">
+                ★ ALL ARTICLES ARCHIVE [日誌全集] ★
+            </h2>
+            <div>
+                ${articles.map(a => `
+                    <div style="background: #0a0010; border: 1px solid #ff3385; padding: 12px; margin-bottom: 12px;">
+                        <a href="${a.url}" style="color: #ff8ad6; font-size: 14px; font-weight: bold; text-decoration: underline;">
+                            ◆ ${a.title}
+                        </a>
+                        <div style="font-size: 11px; color: #c9a0dc; margin: 4px 0;">
+                            <span>♡ ${a.category}</span> | <span>日付：${a.date}</span>
+                        </div>
+                        <p style="font-size: 12px; color: #ffd8f2;">${a.summary}</p>
+                    </div>
+                `).join("")}
+            </div>
+        </div>
+    `;
+}
+
+initReader();
+</script>
+
+</body>
+</html>

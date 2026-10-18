@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="24" viewBox="0 0 600 24">
+  <defs>
+    <pattern id="lace" width="40" height="24" patternUnits="userSpaceOnUse">
+      <text x="0" y="16" font-size="14" fill="#ff3385">★</text>
+      <text x="14" y="16" font-size="12" fill="#b266ff">†</text>
+      <text x="24" y="16" font-size="13" fill="#ff80bf">♡</text>
+    </pattern>
+  </defs>
+  <line x1="0" y1="12" x2="600" y2="12" stroke="#b266ff" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <rect width="600" height="24" fill="url(#lace)"/>
+</svg>

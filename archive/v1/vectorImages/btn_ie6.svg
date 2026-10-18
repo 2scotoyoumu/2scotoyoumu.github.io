@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="88" height="31" viewBox="0 0 88 31">
+  <rect width="88" height="31" fill="#000033" stroke="#00ffff" stroke-width="2"/>
+  <rect x="2" y="2" width="26" height="27" fill="#003399"/>
+  <!-- IE 'e' icon approximation -->
+  <circle cx="15" cy="15" r="9" fill="none" stroke="#3399ff" stroke-width="3"/>
+  <ellipse cx="15" cy="15" rx="12" ry="5" fill="none" stroke="#ffcc00" stroke-width="1.8" transform="rotate(-30 15 15)"/>
+  <text x="32" y="12" font-family="'Courier New', monospace" font-size="8" font-weight="bold" fill="#00ffff">BEST VIEW</text>
+  <text x="32" y="21" font-family="'Courier New', monospace" font-size="8" font-weight="bold" fill="#ffffff">MSIE 6.0</text>
+  <text x="32" y="28" font-family="'Courier New', monospace" font-size="6" fill="#ff99cc">800x600</text>
+</svg>

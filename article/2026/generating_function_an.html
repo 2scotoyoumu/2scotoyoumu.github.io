@@ -1,665 +1,395 @@
 <!DOCTYPE html>
-<html lang="en-US">
+<html lang="zh-CN">
 
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>† 生成函數學習筆記 † 2scomplement's Diary</title>
+<link rel="icon" href="../../vectorImages/2scompliment-blog-icon.svg" type="image/x-icon" />
+<link rel="stylesheet" href="../../css/style.css">
+<script src="../../js/script.js"></script>
 
-<title>✞ 2scomplement's blog ✞</title>
+<!-- MathJax 支持數學公式渲染 (完整保留) -->
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']]
+  }
+};
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
-<link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
-<link rel="icon" href="./vectorImages/2scompliment-blog-icon.svg" type="image/x-icon" />
 <style>
-
-/* -------------------- 主题变量 -------------------- */
-
-body.theme-dark{
---bg:#090011;
---primary:#b266ff;
---accent:#ff3385;
---text:#e6ccff;
+/* -------------------- 2008 日本個人網站 Web 1.0 記事本文樣式 -------------------- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
-body.theme-mint{
---bg:#071a11;
---primary:#7dffbf;
---accent:#39d98a;
---text:#e6fff5;
+body {
+    background-color: #0d0014;
+    color: #ffd8f2;
+    font-family: 'MS PGothic', 'SimSun', 'Courier New', monospace;
+    font-size: 13px;
+    line-height: 1.8;
+    cursor: url('../../vectorImages/retro_cursor.svg') 4 4, auto;
+    padding-bottom: 40px;
 }
 
-body.theme-blue{
---bg:#f1f6ff;
---primary:#4c86ff;
---accent:#6aa0ff;
---text:#081b45;
+a, button {
+    cursor: url('../../vectorImages/retro_cursor.svg') 4 4, pointer !important;
 }
 
-body.theme-pink{
---bg:#2a0017;
---primary:#ff8ad6;
---accent:#ff5db9;
---text:#ffd8f2;
+a {
+    color: #ff8ad6;
+    text-decoration: underline;
 }
 
-/* -------------------- 基础 -------------------- */
-
-*{
-box-sizing:border-box;
-margin:0;
-padding:0;
+a:hover {
+    color: #ffffff;
+    background-color: #330033;
 }
 
-body{
-
-background:var(--bg);
-
-color:var(--text);
-
-font-family:Courier,monospace;
-
-padding-top:80px;
-
-/* 十字架背景 */
-
-background-image:
-
-linear-gradient(rgba(255,255,255,0.03) 2px,transparent 2px),
-linear-gradient(90deg,rgba(255,255,255,0.03) 2px,transparent 2px);
-
-background-size:40px 40px;
-
+/* 跑馬燈 */
+.marquee-top {
+    background: #2b001a;
+    border-bottom: 1px solid #ff3385;
+    color: #ff99cc;
+    font-size: 12px;
+    padding: 3px 0;
+    font-weight: bold;
 }
 
-/* -------------------- NAV -------------------- */
-
-nav{
-
-position:fixed;
-top:0;
-left:0;
-width:100%;
-
-background:rgba(0,0,0,0.85);
-
-display:flex;
-justify-content:center;
-align-items:center;
-gap:20px;
-
-padding:15px;
-
-border-bottom:2px dashed var(--primary);
-
-z-index:1000;
-
+/* 頂部導航條 */
+.retro-nav-container {
+    background: #14001f;
+    border-bottom: 2px solid #ff3385;
+    text-align: center;
+    padding: 8px 5px;
 }
 
-nav a{
-
-color:var(--accent);
-
-text-decoration:none;
-
-font-weight:bold;
-
+.retro-nav-link {
+    color: #ffd8f2;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 13px;
+    padding: 2px 6px;
+    display: inline-block;
 }
 
-nav a:hover{
-
-text-shadow:0 0 10px var(--primary);
-
+.retro-nav-link:hover {
+    color: #000000;
+    background-color: #ff3385;
+    text-decoration: none;
 }
 
-/* 主题选择器 */
-
-#themeSelector{
-
-background:black;
-
-color:white;
-
-border:1px solid var(--primary);
-
-padding:5px;
-
+.nav-sep {
+    color: #ff3385;
+    font-weight: normal;
+    margin: 0 4px;
 }
 
-/* -------------------- container -------------------- */
-
-.container{
-
-max-width:900px;
-
-margin:auto;
-
-padding:20px;
-
+/* 主容器 */
+.main-wrapper {
+    width: 820px;
+    margin: 20px auto;
 }
 
-/* -------------------- header -------------------- */
-
-header{
-
-text-align:center;
-
-margin-bottom:40px;
-
+.article-box {
+    background: #12001c;
+    border: 2px solid #ff3385;
+    padding: 25px 20px;
 }
 
-.glitch-title{
-
-font-size:3rem;
-
-font-family:VT323;
-
-text-shadow:
-
-3px 3px var(--accent),
--3px -3px var(--primary);
-
+.article-header {
+    border-bottom: 1px dashed #b266ff;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+    text-align: center;
 }
 
-.header-gif{
-
-max-width:100%;
-
-border:3px double var(--primary);
-
-border-radius:10px;
-
-margin-top:10px;
-
+.article-title {
+    font-size: 22px;
+    color: #ff8ad6;
+    font-weight: bold;
+    margin-bottom: 8px;
 }
 
-/* -------------------- post -------------------- */
-
-.post-box{
-
-background:rgba(0,0,0,0.6);
-
-border:2px solid var(--primary);
-
-border-radius:10px;
-
-padding:20px;
-
-margin-bottom:30px;
-
+.article-meta {
+    font-size: 11px;
+    color: #c9a0dc;
 }
 
-.post-title{
-
-font-size:1.6rem;
-
-margin-bottom:10px;
-
+.category-tag {
+    background: #2a0033;
+    border: 1px solid #ff3385;
+    color: #ff8ad6;
+    padding: 1px 6px;
+    font-size: 11px;
+    text-decoration: none;
+    font-weight: bold;
+    display: inline-block;
+    margin-right: 6px;
 }
 
-.post-meta{
-
-font-size:0.9rem;
-
-opacity:0.8;
-
-margin-bottom:10px;
-
+.category-tag:hover {
+    background: #ff3385;
+    color: #000000;
 }
 
-.category-tag{
-
-border:1px solid var(--accent);
-
-padding:2px 6px;
-
-margin-right:5px;
-
+.article-body h2 {
+    color: #ff8ad6;
+    font-size: 16px;
+    margin: 25px 0 10px 0;
+    border-bottom: 1px dashed #ff3385;
+    padding-bottom: 4px;
 }
 
-/* -------------------- footer -------------------- */
-
-footer{
-
-margin-top:50px;
-
-padding:40px;
-
-background:black;
-
-border-top:2px double var(--primary);
-
-text-align:center;
-
+.article-body p {
+    margin-bottom: 14px;
+    text-indent: 2em;
 }
 
-.footer-links a{
-
-color:var(--accent);
-
-margin:0 10px;
-
-text-decoration:none;
-
+.article-body blockquote {
+    border-left: 3px solid #ff3385;
+    background: #1a0028;
+    padding: 10px 14px;
+    margin: 15px 0;
+    font-size: 12px;
 }
 
-/* -------------------- 鼠标粒子 -------------------- */
-
-.trail{
-
-position:fixed;
-
-pointer-events:none;
-
-z-index:9999;
-
-font-size:14px;
-
+.article-body a {
+    color: #7dffbf;
+    text-decoration: underline;
 }
 
-/* ==================== ADDED: 悬浮分类器 ==================== */
-
-#floatingPanel{
-
-position:fixed;
-right:0;
-top:120px;
-
-width:220px;
-
-background:rgba(0,0,0,0.9);
-
-border-left:2px solid var(--primary);
-
-padding:12px;
-
-z-index:999;
-
-transition:0.35s;
-
+.article-body a:hover {
+    color: #ffffff;
+    background-color: #004422;
 }
 
-#floatingPanel.collapsed{
-
-transform:translateX(190px);
-
+/* 文章間前後導航表格 (Table Navigation) */
+.post-navigation-table {
+    width: 100%;
+    margin-top: 30px;
+    border-top: 1px dashed #ff3385;
+    padding-top: 15px;
+    border-collapse: collapse;
 }
 
-.panel-header{
-
-display:flex;
-justify-content:space-between;
-cursor:pointer;
-font-weight:bold;
-margin-bottom:10px;
-color:var(--accent);
-
+.nav-card {
+    background: #0a0010;
+    border: 1px solid #b266ff;
+    padding: 10px 12px;
+    display: block;
+    text-decoration: none;
+    color: #ffd8f2;
 }
 
-.panel-section{
-
-margin-bottom:15px;
-
+.nav-card:hover {
+    background: #1a0026;
+    border-color: #ff3385;
 }
 
-.panel-section a{
-
-display:block;
-color:var(--text);
-text-decoration:none;
-font-size:0.85rem;
-margin:3px 0;
-
+.nav-label {
+    font-size: 11px;
+    color: #ff8ad6;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 2px;
 }
 
-.panel-section a:hover{
-
-color:var(--accent);
-
+.nav-title {
+    font-size: 13px;
+    color: #ffffff;
+    font-weight: bold;
 }
 
-#siteSearch{
-
-width:100%;
-padding:5px;
-border:1px solid var(--primary);
-background:black;
-color:white;
-
+/* 同分類推薦 */
+.related-box {
+    background: #0a0010;
+    border: 1px dashed #ff3385;
+    padding: 12px 15px;
+    margin-top: 20px;
 }
 
-#searchBtn{
-
-margin-top:5px;
-width:100%;
-padding:5px;
-background:var(--accent);
-border:none;
-cursor:pointer;
-
+.related-title {
+    color: #ffff00;
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    border-bottom: 1px dotted #ff3385;
+    padding-bottom: 4px;
 }
 
-/* ==================== ADDED: 回到顶部 ==================== */
-
-#backTop{
-
-position:fixed;
-right:20px;
-bottom:40px;
-
-background:var(--accent);
-color:black;
-
-border:none;
-padding:10px 14px;
-
-font-size:18px;
-
-cursor:pointer;
-
-border-radius:6px;
-
-display:none;
-
-z-index:1000;
-
+.related-items {
+    list-style: none;
+    line-height: 1.8;
 }
 
+.related-items li {
+    padding-left: 14px;
+    position: relative;
+}
+
+.related-items li::before {
+    content: "★";
+    position: absolute;
+    left: 0;
+    color: #ff3385;
+    font-size: 10px;
+}
+
+.related-items a {
+    color: #ffd8f2;
+    text-decoration: underline;
+}
+
+.related-items a:hover {
+    color: #ffffff;
+    background-color: #330033;
+}
+
+/* 底部 Footer */
+.retro-footer {
+    text-align: center;
+    margin-top: 30px;
+    padding: 20px 10px;
+    background: #000000;
+    border-top: 2px solid #ff3385;
+    font-size: 11px;
+    color: #bb99cc;
+    line-height: 1.8;
+}
 </style>
-
 </head>
 
-<body class="theme-dark">
+<body>
 
+<div class="crt-overlay"></div>
 
-<nav>
-
-<a href="../">Home</a>
-<a href="../article/article_nav.html">Article</a>
-<a href="#">About</a>
-
-<select id="themeSelector">
-
-<option value="dark">Jireikai</option>
-<option value="mint">Mint</option>
-<option value="blue">Ocean</option>
-<option value="pink">Pink</option>
-
-</select>
-
-</nav>
-
-
-<div class="container">
-
-<header>
-
-<h1 class="glitch-title">
-2's complement blog
-</h1>
-
-<p>歡迎來到二補數的無底洞</p>
-
-<img class="header-gif"
-src="./media/IMG_20260314_091739_098.gif">
-
-</header>
-
-<div class="post-box">
-<h2 class="post-title">Personal Bio</h2>
-</p>I am a poor computer science student in china and the page is used for documenting my journey in programming and my mental disease healing history.</p>
-<textarea id="bio-text" rows="10" style="width: 100%; background: rgba(0,0,0,0.8); color: var(--text); border: 1px solid var(--primary); padding: 10px; font-family: inherit; resize: vertical;" placeholder="Write your personal bio here..."></textarea>
+<!-- 頂部跑馬燈 -->
+<div class="marquee-top">
+    <marquee behavior="scroll" direction="left" scrollamount="4">
+        ★*ﾟ*☆*ﾟ*★ 2's Complement Math Sanctuary • 母関数と漸化式の世界へ • (*/ω＼*) ★*ﾟ*☆*ﾟ*★
+    </marquee>
 </div>
 
-<!--<main id="posts">-->
-
-<!-- 自动文章加载 -->
-
-<!--</main>-->
-
+<!-- 頂部導航條 -->
+<div class="retro-nav-container">
+    <a href="../../index.html" class="retro-nav-link">[ HOME (首頁) ]</a>
+    <span class="nav-sep">|</span>
+    <a href="../article_nav.html" class="retro-nav-link">[ ARTICLES (文章引導) ]</a>
+    <span class="nav-sep">|</span>
+    <a href="../../markdown_reader.html" class="retro-nav-link">[ MARKDOWN READER ]</a>
+    <span class="nav-sep">|</span>
+    <a href="../../about/about.html" class="retro-nav-link">[ ABOUT ME (自己紹介) ]</a>
+    <span class="nav-sep">|</span>
+    <a href="../../contact/contact.html" class="retro-nav-link">[ CONTACT (連絡板) ]</a>
+    <span class="nav-sep">|</span>
+    <a href="../../autouploader.html" class="retro-nav-link">[ ADMIN STUDIO (管理室) ]</a>
 </div>
 
+<div class="main-wrapper">
+    <div class="article-box">
+        <div class="article-header">
+            <h1 class="article-title">★ Generating Function Learning Notes ★</h1>
+            <div class="article-meta">
+                <a href="../../index.html?category=数学" class="category-tag">♡ 数学</a>
+                <span>日付：2026-07-12</span>
+                <span style="margin-left: 8px;">タグ：#生成函数 #递推式 #组合数学</span>
+            </div>
+        </div>
 
-<footer>
+        <div class="article-body">
+            <h2>1. 什麼是生成函數 (Generating Function)？</h2>
+            <p>
+                在組合數學中，母函數（Generating Function）是一種將離散數列與連續函數的分析性質聯結起來的強大代數工具。
+                對於數列 $\{a_n\} = a_0, a_1, a_2, \dots$，我們定義其<b>普通型生成函數 (Ordinary Generating Function, OGF)</b> 為無窮級數：
+            </p>
+            <p style="text-align: center; text-indent: 0;">
+                $$G(x) = \sum_{n=0}^{\infty} a_n x^n = a_0 + a_1 x + a_2 x^2 + \dots$$
+            </p>
+            <p>
+                在這裡，$x$ 本質上是一個「佔位符」（Formal Power Series），我們主要利用其代數運算性質，而不一定需要關心其在分析意義下的收斂半徑。
+            </p>
 
-<p>✦ page vibe coded by 2scotoyoumu with gemini;Reality is just a bad trip ✦</p>
+            <h2>2. 求解線性遞推數列通項公式</h2>
+            <p>
+                以經典的斐波那契數列為例：$F_0 = 0, F_1 = 1$，且滿足遞推關係：
+                $$F_n = F_{n-1} + F_{n-2} \quad (n \ge 2)$$
+            </p>
+            <p>
+                將等式兩邊同時乘以 $x^n$ 並對 $n \ge 2$ 求和：
+                $$\sum_{n=2}^{\infty} F_n x^n = x \sum_{n=2}^{\infty} F_{n-1} x^{n-1} + x^2 \sum_{n=2}^{\infty} F_{n-2} x^{n-2}$$
+            </p>
+            <p>
+                利用 $G(x) = F_0 + F_1 x + \sum_{n=2}^{\infty} F_n x^n = x + \sum_{n=2}^{\infty} F_n x^n$，直接導出：
+                $$G(x) - x = x G(x) + x^2 G(x) \implies G(x) = \frac{x}{1 - x - x^2}$$
+            </p>
 
-<div class="footer-links">
+            <h2>3. 部分分式分解 (Partial Fractions) 與閉式解</h2>
+            <p>
+                分解分母 $1 - x - x^2 = (1 - \phi_1 x)(1 - \phi_2 x)$，展開為部分分式並利用幾何級數求和公式，即可得到著名的比內公式 (Binet's Formula)：
+                $$F_n = \frac{1}{\sqrt{5}} \left[ \left(\frac{1+\sqrt{5}}{2}\right)^n - \left(\frac{1-\sqrt{5}}{2}\right)^n \right]$$
+            </p>
 
-<a href="./sitemap.html">SiteMap</a>
-<a href="./rss.xml">RSS</a>
-<a href="https://t.me/2scomplementblog">Telegram</a>
+            <blockquote>
+                <b>✦ 站內互聯導讀 ✦</b><br>
+                除了母函數的解析閉式解法，在演算法競賽與工程實踐中，求解高階線性遞推更常用<b>矩陣快速冪</b>達到 $O(\log n)$ 複雜度：<br>
+                🔗 <a href="../../markdown_reader.html?post=fibonacci-matrix">矩陣快速冪與線性遞推實踐</a>
+            </blockquote>
+        </div>
 
+        <!-- 文章間導航：上一篇 / 下一篇 (Table Layout) -->
+        <table class="post-navigation-table">
+            <tr>
+                <td width="48%" valign="top">
+                    <a href="../../markdown_reader.html?post=cpp-memory" class="nav-card">
+                        <span class="nav-label">← PREVIOUS POST [前へ]</span>
+                        <span class="nav-title">C++ 現代內存管理與指針機制</span>
+                    </a>
+                </td>
+                <td width="4%"></td>
+                <td width="48%" valign="top">
+                    <a href="../../markdown_reader.html?post=fibonacci-matrix" class="nav-card" style="text-align: right;">
+                        <span class="nav-label">NEXT POST [次へ] →</span>
+                        <span class="nav-title">矩陣快速冪與線性遞推關係</span>
+                    </a>
+                </td>
+            </tr>
+        </table>
+
+        <!-- 同分類相關文章推薦 -->
+        <div class="related-box">
+            <div class="related-title">✦ RELATED ARTICLES [同分類推薦] ✦</div>
+            <ul class="related-items">
+                <li>
+                    <a href="../../markdown_reader.html?post=fibonacci-matrix">[算法] 矩陣快速冪與線性遞推關係 (矩陣乘法求解)</a>
+                </li>
+                <li>
+                    <a href="../../markdown_reader.html?post=cpp-memory">[计算机] C++ 現代內存管理與指針機制 (高效內存布局)</a>
+                </li>
+            </ul>
+        </div>
+    </div>
 </div>
 
-</footer>
-
-
-<!-- ==================== ADDED: 悬浮分类器 ==================== -->
-
-<div id="floatingPanel" class="collapsed">
-
-<div class="panel-header" onclick="togglePanel()">
-<span>INDEX</span>
-<span id="panelArrow">▶</span>
+<div class="retro-footer">
+    <p class="footer-quote">† 母関数の世界へようこそ。ここではすべてが級数に還元される †</p>
+    <p>✦ Best viewed with Internet Explorer 6.0 • 2008 Web 1.0 Sanctuary ✦</p>
+    <p>Copyright (c) 2008-2026 2scomplement's Secret Diary. All rights reserved.</p>
+    <div class="footer-links" style="margin-top: 8px;">
+        <a href="../../sitemap.html">SiteMap</a> |
+        <a href="../../links.html">Links</a> |
+        <a href="../../rss.xml">RSS</a> |
+        <a href="../../contact/contact.html">連絡板</a> |
+        <a href="https://t.me/2scomplementblog">Telegram</a> |
+        <a href="../../autouploader.html">管理室</a>
+    </div>
 </div>
-
-<div class="panel-section">
-
-<a href="./article/computerSci/">计算机</a>
-<a href="./article/math/">数学</a>
-<a href="./article/life/">生活</a>
-<a href="./article/philosophy/">哲学</a>
-
-</div>
-
-<div class="panel-section">
-
-<input id="siteSearch" placeholder="Google search">
-
-<button id="searchBtn">Search</button>
-
-</div>
--->
-</div>
-
-
-<!-- ==================== ADDED: 回到顶部 ==================== -->
-
-<button id="backTop">↑</button>
-
-
-<script>
-
-/* -------------------- 主题切换 -------------------- */
-
-const selector=document.getElementById("themeSelector")
-
-const saved=localStorage.getItem("theme")||"dark"
-
-document.body.className="theme-"+saved
-
-selector.value=saved
-
-selector.onchange=()=>{
-
-const t=selector.value
-
-document.body.className="theme-"+t
-
-localStorage.setItem("theme",t)
-
-}
-
-/* -------------------- 自动文章读取 -------------------- */
-
-async function loadArticles(){
-
-try{
-
-const res=await fetch("./articles.json")
-
-const data=await res.json()
-
-const container=document.getElementById("posts")
-
-container.innerHTML=""
-
-data.forEach(post=>{
-
-const el=document.createElement("article")
-
-el.className="post-box"
-
-el.innerHTML=`
-
-<h2 class="post-title">${post.title}</h2>
-
-<div class="post-meta">
-
-<span class="category-tag">${post.category}</span>
-
-${post.date}
-
-</div>
-
-<p>${post.summary}</p>
-
-<br>
-
-<a href="${post.url}">
->> Read More <<
-</a>
-
-`
-
-container.appendChild(el)
-
-})
-
-}catch(e){
-
-document.getElementById("posts").innerHTML=
-"<p>无法加载文章列表</p>"
-
-}
-
-}
-
-loadArticles()
-
-/* -------------------- 鼠标粒子 -------------------- */
-
-const words=["✦","✞","♡","★","×"]
-
-document.addEventListener("click",e=>{
-
-const span=document.createElement("span")
-
-span.className="trail"
-
-span.innerText=words[Math.floor(Math.random()*words.length)]
-
-span.style.left=e.clientX+"px"
-
-span.style.top=e.clientY+"px"
-
-document.body.appendChild(span)
-
-setTimeout(()=>{
-
-span.style.transform="translateY(-60px)"
-
-span.style.opacity=0
-
-},10)
-
-setTimeout(()=>span.remove(),700)
-
-})
-
-/* -------------------- glitch标题 -------------------- */
-
-const title=document.querySelector(".glitch-title")
-
-setInterval(()=>{
-
-if(Math.random()>0.85){
-
-title.style.transform="skew(5deg)"
-
-setTimeout(()=>{
-
-title.style.transform="skew(0deg)"
-
-},80)
-
-}
-
-},300)
-
-/* ==================== ADDED: 分类器折叠 ==================== */
-
-function togglePanel(){
-
-const p=document.getElementById("floatingPanel")
-
-p.classList.toggle("collapsed")
-
-const arrow=document.getElementById("panelArrow")
-
-arrow.innerText=
-p.classList.contains("collapsed")?"▶":"◀"
-
-}
-
-/* ==================== ADDED: Google搜索 ==================== */
-
-document.getElementById("searchBtn").onclick=()=>{
-
-const q=document.getElementById("siteSearch").value
-
-if(!q)return
-
-const domain=location.hostname
-
-window.open(
-`https://www.google.com/search?q=site:${domain} ${q}`,
-"_blank"
-)
-
-}
-
-/* ==================== ADDED: 回到顶部 ==================== */
-
-const back=document.getElementById("backTop")
-
-window.addEventListener("scroll",()=>{
-
-if(window.scrollY>300){
-
-back.style.display="block"
-
-}else{
-
-back.style.display="none"
-
-}
-
-})
-
-back.onclick=()=>{
-
-window.scrollTo({
-
-top:0,
-behavior:"smooth"
-
-})
-
-}
-
-</script>
 
 </body>
-
 </html>

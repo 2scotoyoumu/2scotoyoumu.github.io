@@ -1,0 +1,56 @@
+# 2's Complement Web Sanctuary - Apache Configuration
+# For Apache 2.4+ / XAMPP / LAMP / WAMP
+
+Options -Indexes +FollowSymLinks
+DirectoryIndex index.html index.php
+
+# UTF-8 Encoding
+AddDefaultCharset UTF-8
+
+# MIME Types for Markdown, MIDI, SVG, JSON
+<IfModule mod_mime.c>
+    AddType text/markdown .md
+    AddType audio/midi .mid .midi
+    AddType image/svg+xml .svg
+    AddType application/json .json
+    AddType application/rss+xml .rss
+    AddType application/xml .xml
+</IfModule>
+
+# Enable CORS for APIs & Fonts
+<IfModule mod_headers.c>
+    <FilesMatch "\.(php|json|txt|md|mid|midi|svg|rss|xml)$">
+        Header set Access-Control-Allow-Origin "*"
+    </FilesMatch>
+    <FilesMatch "counter\.php$|guestbook\.php$">
+        Header set Cache-Control "no-cache, no-store, must-revalidate"
+        Header set Pragma "no-cache"
+        Header set Expires "0"
+    </FilesMatch>
+</IfModule>
+
+# URL Rewriting (optional - requires mod_rewrite enabled)
+# Makes /post/slug readable as markdown_reader.html?post=slug
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+
+    # Redirect /post/<slug> to markdown_reader.html?post=<slug>
+    RewriteRule ^post/([^/]+)/?$ markdown_reader.html?post=$1 [L,QSA]
+
+    # Redirect /category/<name> to index.html?category=<name>
+    RewriteRule ^category/([^/]+)/?$ index.html?category=$1 [L,QSA]
+</IfModule>
+
+# Custom Error Documents
+ErrorDocument 404 /404.html
+ErrorDocument 403 /404.html
+
+# Protect sensitive files
+<FilesMatch "^\.">
+    Require all denied
+</FilesMatch>
+
+<FilesMatch "^(messages\.json|counter\.txt)$">
+    Require all denied
+</FilesMatch>

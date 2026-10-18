@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>† 生成函數學習筆記 † 2scomplement's Diary</title>
+<link rel="icon" href="../../vectorImages/2scompliment-blog-icon.svg" type="image/x-icon" />
+<link rel="stylesheet" href="../../css/style.css">
+<script src="../../js/script.js"></script>
+
+<!-- MathJax 支持數學公式渲染 (完整保留) -->
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']]
+  }
+};
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<style>
+/* -------------------- 2008 日本個人網站 Web 1.0 記事本文樣式 -------------------- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #0d0014;
+    color: #ffd8f2;
+    font-family: 'MS PGothic', 'SimSun', 'Courier New', monospace;
+    font-size: 13px;
+    line-height: 1.8;
+    cursor: url('../../vectorImages/retro_cursor.svg') 4 4, auto;
+    padding-bottom: 40px;
+}
+
+a, button {
+    cursor: url('../../vectorImages/retro_cursor.svg') 4 4, pointer !important;
+}
+
+a {
+    color: #ff8ad6;
+    text-decoration: underline;
+}
+
+a:hover {
+    color: #ffffff;
+    background-color: #330033;
+}
+
+/* 跑馬燈 */
+.marquee-top {
+    background: #2b001a;
+    border-bottom: 1px solid #ff3385;
+    color: #ff99cc;
+    font-size: 12px;
+    padding: 3px 0;
+    font-weight: bold;
+}
+
+/* 頂部導航條 */
+.retro-nav-container {
+    background: #14001f;
+    border-bottom: 2px solid #ff3385;
+    text-align: center;
+    padding: 8px 5px;
+}
+
+.retro-nav-link {
+    color: #ffd8f2;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 13px;
+    padding: 2px 6px;
+    display: inline-block;
+}
+
+.retro-nav-link:hover {
+    color: #000000;
+    background-color: #ff3385;
+    text-decoration: none;
+}
+
+.nav-sep {
+    color: #ff3385;
+    font-weight: normal;
+    margin: 0 4px;
+}
+
+/* 主容器 */
+.main-wrapper {
+    width: 820px;
+    margin: 20px auto;
+}
+
+.article-box {
+    background: #12001c;
+    border: 2px solid #ff3385;
+    padding: 25px 20px;
+}
+
+.article-header {
+    border-bottom: 1px dashed #b266ff;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.article-title {
+    font-size: 22px;
+    color: #ff8ad6;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.article-meta {
+    font-size: 11px;
+    color: #c9a0dc;
+}
+
+.category-tag {
+    background: #2a0033;
+    border: 1px solid #ff3385;
+    color: #ff8ad6;
+    padding: 1px 6px;
+    font-size: 11px;
+    text-decoration: none;
+    font-weight: bold;
+    display: inline-block;
+    margin-right: 6px;
+}
+
+.category-tag:hover {
+    background: #ff3385;
+    color: #000000;
+}
+
+.article-body h2 {
+    color: #ff8ad6;
+    font-size: 16px;
+    margin: 25px 0 10px 0;
+    border-bottom: 1px dashed #ff3385;
+    padding-bottom: 4px;
+}
+
+.article-body p {
+    margin-bottom: 14px;
+    text-indent: 2em;
+}
+
+.article-body blockquote {
+    border-left: 3px solid #ff3385;
+    background: #1a0028;
+    padding: 10px 14px;
+    margin: 15px 0;
+    font-size: 12px;
+}
+
+.article-body a {
+    color: #7dffbf;
+    text-decoration: underline;
+}
+
+.article-body a:hover {
+    color: #ffffff;
+    background-color: #004422;
+}
+
+/* 文章間前後導航表格 (Table Navigation) */
+.post-navigation-table {
+    width: 100%;
+    margin-top: 30px;
+    border-top: 1px dashed #ff3385;
+    padding-top: 15px;
+    border-collapse: collapse;
+}
+
+.nav-card {
+    background: #0a0010;
+    border: 1px solid #b266ff;
+    padding: 10px 12px;
+    display: block;
+    text-decoration: none;
+    color: #ffd8f2;
+}
+
+.nav-card:hover {
+    background: #1a0026;
+    border-color: #ff3385;
+}
+
+.nav-label {
+    font-size: 11px;
+    color: #ff8ad6;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 2px;
+}
+
+.nav-title {
+    font-size: 13px;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+/* 同分類推薦 */
+.related-box {
+    background: #0a0010;
+    border: 1px dashed #ff3385;
+    padding: 12px 15px;
+    margin-top: 20px;
+}
+
+.related-title {
+    color: #ffff00;
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    border-bottom: 1px dotted #ff3385;
+    padding-bottom: 4px;
+}
+
+.related-items {
+    list-style: none;
+    line-height: 1.8;
+}
+
+.related-items li {
+    padding-left: 14px;
+    position: relative;
+}
+
+.related-items li::before {
+    content: "★";
+    position: absolute;
+    left: 0;
+    color: #ff3385;
+    font-size: 10px;
+}
+
+.related-items a {
+    color: #ffd8f2;
+    text-decoration: underline;
+}
+
+.related-items a:hover {
+    color: #ffffff;
+    background-color: #330033;
+}
+
+/* 底部 Footer */
+.retro-footer {
+    text-align: center;
+    margin-top: 30px;
+    padding: 20px 10px;
+    background: #000000;
+    border-top: 2px solid #ff3385;
+    font-size: 11px;
+    color: #bb99cc;
+    line-height: 1.8;
+}
+</style>
+</head>
+
+<body>
+
+<div class="crt-overlay"></div>
+
+<!-- 頂部跑馬燈 -->
+<div class="marquee-top">
+    <marquee behavior="scroll" direction="left" scrollamount="4">
+        ★*ﾟ*☆*ﾟ*★ 2's Complement Math Sanctuary • 母関数と漸化式の世界へ • (*/ω＼*) ★*ﾟ*☆*ﾟ*★
+    </marquee>
+</div>
+
+<!-- 頂部導航條 -->
+<div class="retro-nav-container">
+    <a href="../../index.html" class="retro-nav-link">[ HOME (首頁) ]</a>
+    <span class="nav-sep">|</span>
+    <a href="../article_nav.html" class="retro-nav-link">[ ARTICLES (文章引導) ]</a>
+    <span class="nav-sep">|</span>
+    <a href="../../markdown_reader.html" class="retro-nav-link">[ MARKDOWN READER ]</a>
+    <span class="nav-sep">|</span>
+    <a href="../../about/about.html" class="retro-nav-link">[ ABOUT ME (自己紹介) ]</a>
+    <span class="nav-sep">|</span>
+    <a href="../../contact/contact.html" class="retro-nav-link">[ CONTACT (連絡板) ]</a>
+    <span class="nav-sep">|</span>
+    <a href="../../autouploader.html" class="retro-nav-link">[ ADMIN STUDIO (管理室) ]</a>
+</div>
+
+<div class="main-wrapper">
+    <div class="article-box">
+        <div class="article-header">
+            <h1 class="article-title">★ Generating Function Learning Notes ★</h1>
+            <div class="article-meta">
+                <a href="../../index.html?category=数学" class="category-tag">♡ 数学</a>
+                <span>日付：2026-07-12</span>
+                <span style="margin-left: 8px;">タグ：#生成函数 #递推式 #组合数学</span>
+            </div>
+        </div>
+
+        <div class="article-body">
+            <h2>1. 什麼是生成函數 (Generating Function)？</h2>
+            <p>
+                在組合數學中，母函數（Generating Function）是一種將離散數列與連續函數的分析性質聯結起來的強大代數工具。
+                對於數列 $\{a_n\} = a_0, a_1, a_2, \dots$，我們定義其<b>普通型生成函數 (Ordinary Generating Function, OGF)</b> 為無窮級數：
+            </p>
+            <p style="text-align: center; text-indent: 0;">
+                $$G(x) = \sum_{n=0}^{\infty} a_n x^n = a_0 + a_1 x + a_2 x^2 + \dots$$
+            </p>
+            <p>
+                在這裡，$x$ 本質上是一個「佔位符」（Formal Power Series），我們主要利用其代數運算性質，而不一定需要關心其在分析意義下的收斂半徑。
+            </p>
+
+            <h2>2. 求解線性遞推數列通項公式</h2>
+            <p>
+                以經典的斐波那契數列為例：$F_0 = 0, F_1 = 1$，且滿足遞推關係：
+                $$F_n = F_{n-1} + F_{n-2} \quad (n \ge 2)$$
+            </p>
+            <p>
+                將等式兩邊同時乘以 $x^n$ 並對 $n \ge 2$ 求和：
+                $$\sum_{n=2}^{\infty} F_n x^n = x \sum_{n=2}^{\infty} F_{n-1} x^{n-1} + x^2 \sum_{n=2}^{\infty} F_{n-2} x^{n-2}$$
+            </p>
+            <p>
+                利用 $G(x) = F_0 + F_1 x + \sum_{n=2}^{\infty} F_n x^n = x + \sum_{n=2}^{\infty} F_n x^n$，直接導出：
+                $$G(x) - x = x G(x) + x^2 G(x) \implies G(x) = \frac{x}{1 - x - x^2}$$
+            </p>
+
+            <h2>3. 部分分式分解 (Partial Fractions) 與閉式解</h2>
+            <p>
+                分解分母 $1 - x - x^2 = (1 - \phi_1 x)(1 - \phi_2 x)$，展開為部分分式並利用幾何級數求和公式，即可得到著名的比內公式 (Binet's Formula)：
+                $$F_n = \frac{1}{\sqrt{5}} \left[ \left(\frac{1+\sqrt{5}}{2}\right)^n - \left(\frac{1-\sqrt{5}}{2}\right)^n \right]$$
+            </p>
+
+            <blockquote>
+                <b>✦ 站內互聯導讀 ✦</b><br>
+                除了母函數的解析閉式解法，在演算法競賽與工程實踐中，求解高階線性遞推更常用<b>矩陣快速冪</b>達到 $O(\log n)$ 複雜度：<br>
+                🔗 <a href="../../markdown_reader.html?post=fibonacci-matrix">矩陣快速冪與線性遞推實踐</a>
+            </blockquote>
+        </div>
+
+        <!-- 文章間導航：上一篇 / 下一篇 (Table Layout) -->
+        <table class="post-navigation-table">
+            <tr>
+                <td width="48%" valign="top">
+                    <a href="../../markdown_reader.html?post=cpp-memory" class="nav-card">
+                        <span class="nav-label">← PREVIOUS POST [前へ]</span>
+                        <span class="nav-title">C++ 現代內存管理與指針機制</span>
+                    </a>
+                </td>
+                <td width="4%"></td>
+                <td width="48%" valign="top">
+                    <a href="../../markdown_reader.html?post=fibonacci-matrix" class="nav-card" style="text-align: right;">
+                        <span class="nav-label">NEXT POST [次へ] →</span>
+                        <span class="nav-title">矩陣快速冪與線性遞推關係</span>
+                    </a>
+                </td>
+            </tr>
+        </table>
+
+        <!-- 同分類相關文章推薦 -->
+        <div class="related-box">
+            <div class="related-title">✦ RELATED ARTICLES [同分類推薦] ✦</div>
+            <ul class="related-items">
+                <li>
+                    <a href="../../markdown_reader.html?post=fibonacci-matrix">[算法] 矩陣快速冪與線性遞推關係 (矩陣乘法求解)</a>
+                </li>
+                <li>
+                    <a href="../../markdown_reader.html?post=cpp-memory">[计算机] C++ 現代內存管理與指針機制 (高效內存布局)</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="retro-footer">
+    <p class="footer-quote">† 母関数の世界へようこそ。ここではすべてが級数に還元される †</p>
+    <p>✦ Best viewed with Internet Explorer 6.0 • 2008 Web 1.0 Sanctuary ✦</p>
+    <p>Copyright (c) 2008-2026 2scomplement's Secret Diary. All rights reserved.</p>
+    <div class="footer-links" style="margin-top: 8px;">
+        <a href="../../sitemap.html">SiteMap</a> |
+        <a href="../../links.html">Links</a> |
+        <a href="../../rss.xml">RSS</a> |
+        <a href="../../contact/contact.html">連絡板</a> |
+        <a href="https://t.me/2scomplementblog">Telegram</a> |
+        <a href="../../autouploader.html">管理室</a>
+    </div>
+</div>
+
+</body>
+</html>

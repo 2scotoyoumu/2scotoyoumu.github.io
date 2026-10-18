@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>†*:.｡. 管理室 (Blog Studio) .｡.:*† 2scomplement's Diary</title>
+<link rel="icon" href="./vectorImages/2scompliment-blog-icon.svg" type="image/x-icon" />
+<link rel="stylesheet" href="./css/style.css">
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="./js/script.js"></script>
+
+<style>
+/* Page-specific admin overrides */
+.tabs-bar {
+    border-bottom: 2px solid #ff3385;
+    margin-bottom: 15px;
+    padding-bottom: 0;
+}
+
+.tab-btn {
+    background: #1f002b;
+    border: 1px solid #ff3385;
+    border-bottom: none;
+    color: #ffd8f2;
+    padding: 6px 14px;
+    font-size: 12px;
+    font-family: inherit;
+    font-weight: bold;
+    margin-right: 4px;
+}
+
+.tab-btn:hover,
+.tab-btn.active {
+    background: #ff3385;
+    color: #000000;
+}
+
+.tab-pane {
+    display: none;
+}
+
+.tab-pane.active {
+    display: block;
+}
+
+.editor-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.editor-table td {
+    padding: 6px;
+    vertical-align: top;
+}
+
+.editor-preview-box {
+    background: #000000;
+    border: 1px solid #b266ff;
+    padding: 10px;
+    height: 360px;
+    overflow-y: auto;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.editor-preview-box h1, .editor-preview-box h2, .editor-preview-box h3 {
+    color: #ff8ad6;
+    margin: 8px 0;
+}
+
+.editor-preview-box pre {
+    background: #110018;
+    border: 1px solid #b266ff;
+    padding: 8px;
+    color: #7dffbf;
+}
+
+.form-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.form-table td {
+    padding: 6px 8px;
+    vertical-align: top;
+}
+
+.form-label {
+    color: #ff8ad6;
+    font-weight: bold;
+    font-size: 12px;
+    white-space: nowrap;
+    width: 130px;
+}
+
+.link-helper-box {
+    background: #0a0010;
+    border: 1px dashed #b266ff;
+    padding: 8px 12px;
+    margin: 10px 0 15px 0;
+}
+
+.article-item {
+    background: #0a0010;
+    border: 1px solid #330033;
+    padding: 10px 12px;
+    margin-bottom: 10px;
+}
+
+.article-item-title {
+    font-size: 14px;
+    font-weight: bold;
+    color: #ff8ad6;
+    margin-bottom: 4px;
+}
+
+.article-item-meta {
+    font-size: 11px;
+    color: #c9a0dc;
+    margin-bottom: 6px;
+}
+
+.status-msg {
+    position: fixed;
+    top: 40px;
+    right: 20px;
+    padding: 8px 16px;
+    font-weight: bold;
+    font-size: 12px;
+    z-index: 2000;
+    display: none;
+    border: 1px solid #ff3385;
+}
+
+.status-success {
+    background: #002211;
+    color: #7dffbf;
+    border-color: #7dffbf;
+}
+
+.status-error {
+    background: #2a0011;
+    color: #ff3385;
+    border-color: #ff3385;
+}
+
+.mode-notice {
+    background: #1f002b;
+    border: 1px dashed #7dffbf;
+    color: #7dffbf;
+    padding: 10px 12px;
+    margin-bottom: 15px;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.mode-notice.warn {
+    border-color: #ffcc00;
+    color: #ffcc00;
+    background: #2a1a00;
+}
+</style>
+</head>
+
+<body>
+
+<div class="crt-overlay"></div>
+
+<!-- 頂部跑馬燈 -->
+<div class="marquee-top">
+    <marquee behavior="scroll" direction="left" scrollamount="4">
+        ★*ﾟ*☆*ﾟ*★ 2's Complement Webmaster Studio • 日誌作成＆記事發布管理室 • (*/ω＼*) ★*ﾟ*☆*ﾟ*★
+    </marquee>
+</div>
+
+<!-- 頂部導航條 -->
+<div class="retro-nav-container">
+    <a href="./index.html" class="retro-nav-link">[ HOME (首頁) ]</a>
+    <span class="nav-sep">|</span>
+    <a href="./article/article_nav.html" class="retro-nav-link">[ ARTICLES (文章引導) ]</a>
+    <span class="nav-sep">|</span>
+    <a href="./markdown_reader.html" class="retro-nav-link">[ MARKDOWN READER ]</a>
+    <span class="nav-sep">|</span>
+    <a href="./about/about.html" class="retro-nav-link">[ ABOUT ME (自己紹介) ]</a>
+    <span class="nav-sep">|</span>
+    <a href="./contact/contact.html" class="retro-nav-link">[ CONTACT (連絡板) ]</a>
+    <span class="nav-sep">|</span>
+    <a href="./autouploader.html" class="retro-nav-link">[ ADMIN STUDIO (管理室) ]</a>
+</div>
+
+<div class="main-wrapper">
+    <div class="header-box">
+        <h1 class="header-title">★ BLOG ADMIN STUDIO [管理室] ★</h1>
+        <p class="header-sub">記事の執筆・アップロード・索引データベース管理</p>
+    </div>
+
+    <!-- 運行模式提示 -->
+    <div id="modeNotice" class="mode-notice">
+        正在檢測後端運行模式...
+    </div>
+
+    <!-- 標籤頁選項卡 -->
+    <div class="tabs-bar">
+        <button class="tab-btn active" onclick="switchTab('write')">✍️ 在線寫作發布</button>
+        <button class="tab-btn" onclick="switchTab('upload')">📤 上傳本地文件</button>
+        <button class="tab-btn" onclick="switchTab('manage')">📚 記事列表管理</button>
+        <button class="tab-btn" onclick="switchTab('export')">💾 靜態備份/導出</button>
+    </div>
+
+    <!-- TAB 1: 在線寫作發布 -->
+    <div id="tab-write" class="tab-pane active">
+        <div class="admin-card" style="padding: 18px 20px; margin-bottom: 20px; background: #12001c; border: 1px solid #ff3385;">
+            <h2 style="color: #ff8ad6; font-size: 15px; border-bottom: 1px dashed #b266ff; padding-bottom: 6px; margin-bottom: 15px;">■ 在線 Markdown 記事執筆與發布</h2>
+            <form id="writeForm">
+                <table class="form-table">
+                    <tr>
+                        <td class="form-label">記事標題 (Title) *：</td>
+                        <td><input type="text" id="writeTitle" required placeholder="例：矩陣快速冪與線性遞推關係"></td>
+                    </tr>
+                    <tr>
+                        <td class="form-label">分類 (Category) *：</td>
+                        <td>
+                            <select id="writeCategory">
+                                <option value="算法">算法</option>
+                                <option value="数学">数学</option>
+                                <option value="计算机">计算机</option>
+                                <option value="生活">生活</option>
+                                <option value="哲学">哲学</option>
+                                <option value="未分类">未分类</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="form-label">標籤 (Tags，逗號分隔)：</td>
+                        <td><input type="text" id="writeTags" placeholder="例：算法, 快速幂, 矩阵"></td>
+                    </tr>
+                    <tr>
+                        <td class="form-label">發布日期 (Date)：</td>
+                        <td><input type="date" id="writeDate"></td>
+                    </tr>
+                    <tr>
+                        <td class="form-label">記事摘要 (Summary)：</td>
+                        <td><textarea id="writeSummary" rows="2" placeholder="簡述文章主要內容，將顯示在首頁卡片中..."></textarea></td>
+                    </tr>
+                </table>
+
+                <!-- 站內文章互聯助手 -->
+                <div class="link-helper-box">
+                    <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td width="130" style="color: #7dffbf; font-weight: bold; font-size: 12px;">🔗 站內互聯導讀：</td>
+                            <td>
+                                <select id="articleLinkPicker" style="margin-right: 8px;">
+                                    <option value="">-- 選擇已有記事自動生成鏈接 --</option>
+                                </select>
+                            </td>
+                            <td width="150" align="right">
+                                <button type="button" class="btn-retro-secondary" onclick="insertArticleLink()">+ 插入到正文</button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                <!-- 雙欄編輯與預覽 -->
+                <table class="editor-table">
+                    <tr>
+                        <td width="50%">
+                            <div style="color: #ff8ad6; font-weight: bold; margin-bottom: 4px; font-size: 12px;">Markdown 本文 (LaTeX $...$ 支持)：</div>
+                            <textarea id="writeContent" rows="18" placeholder="# 你的文章標題&#10;&#10;開始撰寫內容..." oninput="updatePreview()"></textarea>
+                        </td>
+                        <td width="50%">
+                            <div style="color: #7dffbf; font-weight: bold; margin-bottom: 4px; font-size: 12px;">即時效果預覽 (Live Preview)：</div>
+                            <div id="writePreview" class="editor-preview-box">
+                                <p style="color: #777777;">在左側輸入 Markdown 即可在此處預覽效果...</p>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+
+                <div style="margin-top: 15px;">
+                    <button type="submit" class="btn-retro" id="writeSubmitBtn">🚀 發布記事 (Publish)</button>
+                    <button type="button" class="btn-retro-secondary" style="margin-left: 8px;" onclick="exportCurrentAsFile()">📥 下載為 .md 文件</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- TAB 2: 上傳本地文件 -->
+    <div id="tab-upload" class="tab-pane">
+        <div class="admin-card" style="padding: 18px 20px; margin-bottom: 20px; background: #12001c; border: 1px solid #ff3385;">
+            <h2 style="color: #ff8ad6; font-size: 15px; border-bottom: 1px dashed #b266ff; padding-bottom: 6px; margin-bottom: 15px;">■ 上傳本地 Markdown (.md) 或 HTML (.html) 記事</h2>
+            <form id="uploadForm" enctype="multipart/form-data">
+                <table class="form-table">
+                    <tr>
+                        <td class="form-label">選擇本地文件：</td>
+                        <td><input type="file" id="uploadFileInput" name="articleFile" accept=".md,.html,.txt" required onchange="handleFileSelect(event)"></td>
+                    </tr>
+                    <tr>
+                        <td class="form-label">自定義標題：</td>
+                        <td><input type="text" id="uploadTitle" name="title" placeholder="留空將自動從文件名或 FrontMatter 提取"></td>
+                    </tr>
+                    <tr>
+                        <td class="form-label">分類 (Category)：</td>
+                        <td>
+                            <select id="uploadCategory" name="category">
+                                <option value="算法">算法</option>
+                                <option value="数学">数学</option>
+                                <option value="计算机">计算机</option>
+                                <option value="生活">生活</option>
+                                <option value="哲学">哲学</option>
+                                <option value="未分类">未分类</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="form-label">標籤 (逗號分隔)：</td>
+                        <td><input type="text" id="uploadTags" name="tags" placeholder="例：数学, 组合数学"></td>
+                    </tr>
+                    <tr>
+                        <td class="form-label">日期：</td>
+                        <td><input type="date" id="uploadDate" name="date"></td>
+                    </tr>
+                    <tr>
+                        <td class="form-label">摘要：</td>
+                        <td><textarea id="uploadSummary" name="summary" rows="2" placeholder="留空將自動截取前 150 字..."></textarea></td>
+                    </tr>
+                </table>
+
+                <div style="margin-top: 15px;">
+                    <button type="submit" class="btn-retro" id="uploadSubmitBtn">📤 開始上傳並添加到博客 (Upload)</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- TAB 3: 記事列表管理 -->
+    <div id="tab-manage" class="tab-pane">
+        <div class="admin-card" style="padding: 18px 20px; margin-bottom: 20px; background: #12001c; border: 1px solid #ff3385;">
+            <h2 style="color: #ff8ad6; font-size: 15px; border-bottom: 1px dashed #b266ff; padding-bottom: 6px; margin-bottom: 15px;">■ 登錄記事管理 (<span id="totalArticlesCount">0</span> 篇)</h2>
+            <div style="margin-bottom: 15px;">
+                <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td>
+                            <input type="text" id="manageSearchInput" placeholder="檢索標題 / 摘要 / 分類..." oninput="filterManageList()">
+                        </td>
+                        <td width="150" style="padding-left: 10px;">
+                            <select id="manageCategorySelect" onchange="filterManageList()">
+                                <option value="ALL">全部類別</option>
+                            </select>
+                        </td>
+                        <td width="100" style="padding-left: 10px;">
+                            <button class="btn-retro-secondary" style="width: 100%;" onclick="loadArticles()">🔄 刷新</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div id="articlesGrid">
+                <!-- 動態加載條目 -->
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 4: 靜態導出與備份 -->
+    <div id="tab-export" class="tab-pane">
+        <div class="admin-card" style="padding: 18px 20px; margin-bottom: 20px; background: #12001c; border: 1px solid #ff3385;">
+            <h2 style="color: #ff8ad6; font-size: 15px; border-bottom: 1px dashed #b266ff; padding-bottom: 6px; margin-bottom: 15px;">■ articles.json 靜態備份與手動配置</h2>
+
+            <div id="staticModeHelp" class="mode-notice warn" style="display: none;">
+                <b>⚠️ 純靜態 Apache 模式</b><br>
+                當前未檢測到 Node.js 後端。在純 Apache 環境下，請使用「下載 .md 文件」功能生成文章，
+                然後手動將文件上傳到 <code>markdown/</code> 目錄，並將以下 JSON 條目追加到 <code>articles.json</code>。
+                完成後請同步更新 <code>rss.xml</code> 與 <code>sitemap.html</code> 中的文章列表。
+            </div>
+
+            <p style="margin-bottom: 12px; font-size: 12px; color: #ffb3e6;">
+                在純靜態環境（Apache）中，可複製或下載此 articles.json 覆蓋至站點根目錄：
+            </p>
+            <div style="margin-bottom: 15px;">
+                <textarea id="jsonViewer" rows="15" style="color: #7dffbf;"></textarea>
+            </div>
+            <div>
+                <button class="btn-retro" onclick="downloadArticlesJson()">📥 下載 articles.json</button>
+                <button class="btn-retro-secondary" style="margin-left: 8px;" onclick="copyArticlesJson()">📋 複製到剪貼板</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="statusToast" class="status-msg"></div>
+
+<div class="retro-footer">
+    <p class="footer-quote">† 管理人だけが知る、裏側の電脳結界 †</p>
+    <p>✦ Best viewed with Internet Explorer 6.0 at 1024x768 resolution • Hosted on Apache HTTP Server ✦</p>
+    <p>Copyright (c) 2008-2026 2scomplement's Secret Diary. All rights reserved.</p>
+    <div class="footer-links" style="margin-top: 8px;">
+        <a href="./sitemap.html">SiteMap</a> |
+        <a href="./links.html">Links</a> |
+        <a href="./rss.xml">RSS</a> |
+        <a href="https://t.me/2scomplementblog">Telegram</a> |
+        <a href="./contact/contact.html">連絡板</a> |
+        <a href="./autouploader.html">管理室</a>
+    </div>
+</div>
+
+<script>
+let globalArticles = [];
+let apiBase = '';
+let backendReady = false;
+let staticMode = false;
+
+// Detect backend mode on load
+async function detectBackend() {
+    const notice = document.getElementById('modeNotice');
+    const writeBtn = document.getElementById('writeSubmitBtn');
+    const uploadBtn = document.getElementById('uploadSubmitBtn');
+    const staticHelp = document.getElementById('staticModeHelp');
+
+    try {
+        const res = await fetch('./api/articles', { method: 'GET', cache: 'no-store' });
+        if (res.ok) {
+            apiBase = '';
+            backendReady = true;
+            staticMode = false;
+            notice.innerHTML = '✅ <b>Node.js 後端模式</b>：檢測到 /api/articles，在線發布與刪除功能可用。';
+            notice.className = 'mode-notice';
+            if (staticHelp) staticHelp.style.display = 'none';
+            return;
+        }
+    } catch (e) {}
+
+    // Fallback: static Apache mode
+    backendReady = false;
+    staticMode = true;
+    notice.innerHTML = '⚠️ <b>純靜態 Apache 模式</b>：未檢測到 Node.js 後端。請使用「下載 .md」+ 手動更新 articles.json 的方式發布。';
+    notice.className = 'mode-notice warn';
+    if (writeBtn) writeBtn.textContent = '📥 下載 Markdown 與 JSON 條目';
+    if (uploadBtn) uploadBtn.textContent = '📥 下載處理後的文件包';
+    if (staticHelp) staticHelp.style.display = 'block';
+}
+
+document.getElementById('writeDate').value = new Date().toISOString().split('T')[0];
+document.getElementById('uploadDate').value = new Date().toISOString().split('T')[0];
+
+function showStatus(text, isError = false) {
+    const toast = document.getElementById('statusToast');
+    toast.textContent = text;
+    toast.className = 'status-msg ' + (isError ? 'status-error' : 'status-success');
+    toast.style.display = 'block';
+    setTimeout(() => { toast.style.display = 'none'; }, 4000);
+}
+
+function switchTab(name) {
+    document.querySelectorAll('.tab-pane').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+
+    document.getElementById(`tab-${name}`).classList.add('active');
+    event.target.classList.add('active');
+
+    if (name === 'manage' || name === 'export') {
+        loadArticles();
+    }
+}
+
+function updatePreview() {
+    const text = document.getElementById('writeContent').value;
+    const preview = document.getElementById('writePreview');
+    if (!text.trim()) {
+        preview.innerHTML = '<p style="color: #777;">在左側輸入 Markdown 即可在此處預覽效果...</p>';
+        return;
+    }
+    preview.innerHTML = marked.parse(text);
+}
+
+async function loadArticles() {
+    try {
+        const res = await fetch('./articles.json');
+        globalArticles = await res.json();
+
+        document.getElementById('totalArticlesCount').textContent = globalArticles.length;
+        populateLinkHelper();
+        populateManageCategorySelect();
+        filterManageList();
+
+        document.getElementById('jsonViewer').value = JSON.stringify(globalArticles, null, 2);
+    } catch (e) {
+        showStatus('無法讀取 articles.json: ' + e.message, true);
+    }
+}
+
+function populateLinkHelper() {
+    const select = document.getElementById('articleLinkPicker');
+    select.innerHTML = '<option value="">-- 選擇已有記事自動生成鏈接 --</option>' +
+        globalArticles.map(a => `<option value="${a.url}" data-title="${a.title}">[${a.category}] ${a.title}</option>`).join('');
+}
+
+function insertArticleLink() {
+    const select = document.getElementById('articleLinkPicker');
+    const selectedOption = select.options[select.selectedIndex];
+    if (!selectedOption || !selectedOption.value) {
+        showStatus('請先在下拉菜單中選擇一篇文章！', true);
+        return;
+    }
+    const title = selectedOption.getAttribute('data-title');
+    const url = selectedOption.value;
+    const linkMarkdown = `\n> 🔗 **相關文章導讀**：[${title}](${url})\n`;
+
+    const textarea = document.getElementById('writeContent');
+    const start = textarea.selectionStart;
+    const end = textarea.selectionEnd;
+    const val = textarea.value;
+
+    textarea.value = val.substring(0, start) + linkMarkdown + val.substring(end);
+    textarea.focus();
+    updatePreview();
+    showStatus(`已插入《${title}》的超鏈接！`);
+}
+
+function populateManageCategorySelect() {
+    const select = document.getElementById('manageCategorySelect');
+    const cats = [...new Set(globalArticles.map(a => a.category).filter(Boolean))];
+    select.innerHTML = '<option value="ALL">全部類別</option>' + cats.map(c => `<option value="${c}">${c}</option>`).join('');
+}
+
+function filterManageList() {
+    const q = document.getElementById('manageSearchInput').value.trim().toLowerCase();
+    const cat = document.getElementById('manageCategorySelect').value;
+    const grid = document.getElementById('articlesGrid');
+
+    let list = globalArticles;
+    if (cat !== 'ALL') {
+        list = list.filter(a => a.category === cat);
+    }
+    if (q) {
+        list = list.filter(a =>
+            (a.title && a.title.toLowerCase().includes(q)) ||
+            (a.summary && a.summary.toLowerCase().includes(q)) ||
+            (a.category && a.category.toLowerCase().includes(q))
+        );
+    }
+
+    if (list.length === 0) {
+        grid.innerHTML = '<p style="text-align: center; color: #888; padding: 25px;">未找到匹配的文章</p>';
+        return;
+    }
+
+    grid.innerHTML = list.map(a => `
+        <div class="article-item">
+            <div class="article-item-title">◆ ${a.title}</div>
+            <div class="article-item-meta">
+                <span>♡ ${a.category}</span> |
+                <span>日付：${a.date}</span> |
+                <span>[${a.type || 'html'}]</span>
+            </div>
+            <p style="font-size: 12px; margin-bottom: 8px;">${a.summary || "暫無摘要"}</p>
+            <div style="text-align: right;">
+                <a href="${a.url}" target="_blank" style="color: #7dffbf; margin-right: 15px;">[ 🔗 預覽閱讀 ]</a>
+                ${backendReady ? `<button class="btn-retro-secondary" style="padding: 2px 8px; font-size: 11px;" onclick="deleteArticle('${a.id || a.title}')">× 刪除</button>` : ''}
+            </div>
+        </div>
+    `).join('');
+}
+
+function buildArticlePayload() {
+    const title = document.getElementById('writeTitle').value.trim();
+    const category = document.getElementById('writeCategory').value;
+    const tags = document.getElementById('writeTags').value;
+    const date = document.getElementById('writeDate').value;
+    const summary = document.getElementById('writeSummary').value.trim();
+    const markdownContent = document.getElementById('writeContent').value;
+
+    if (!title) {
+        showStatus('請填寫標題', true);
+        return null;
+    }
+    if (!markdownContent.trim()) {
+        showStatus('請填寫正文', true);
+        return null;
+    }
+
+    return { title, category, tags, date, summary, markdownContent };
+}
+
+function generateSlug(text) {
+    if (!text) return 'post-' + Date.now();
+    return text.trim().toLowerCase()
+        .replace(/[^\w\u4e00-\u9fa5\-]+/g, '-')
+        .replace(/^-+|-+$/g, '') || 'post-' + Date.now();
+}
+
+function generateFrontMatter(payload) {
+    const tagList = payload.tags ? payload.tags.split(',').map(s => s.trim()).filter(Boolean) : [payload.category];
+    return `---\ntitle: ${payload.title}\ndate: ${payload.date || new Date().toISOString().split('T')[0]}\ncategory: ${payload.category}\ntags: ${JSON.stringify(tagList)}\nsummary: ${payload.summary || payload.markdownContent.substring(0, 150).replace(/[#*`\n]/g, ' ')}\n---\n\n${payload.markdownContent}\n`;
+}
+
+function generateArticleEntry(payload) {
+    const slug = generateSlug(payload.title);
+    const tagList = payload.tags ? payload.tags.split(',').map(s => s.trim()).filter(Boolean) : [payload.category];
+    return {
+        id: slug,
+        title: payload.title,
+        date: payload.date || new Date().toISOString().split('T')[0],
+        category: payload.category,
+        tags: tagList,
+        summary: payload.summary || payload.markdownContent.substring(0, 150).replace(/[#*`\n]/g, ' '),
+        url: `./markdown_reader.html?post=${slug}`,
+        type: 'markdown',
+        source: `./markdown/${slug}.md`
+    };
+}
+
+document.getElementById('writeForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const payload = buildArticlePayload();
+    if (!payload) return;
+
+    if (staticMode) {
+        // Static mode: download markdown + provide JSON snippet
+        const mdContent = generateFrontMatter(payload);
+        const entry = generateArticleEntry(payload);
+        downloadText(`${entry.id}.md`, mdContent);
+        showStatus('✅ 已下載 Markdown 文件，請手動上傳到 markdown/ 並更新 articles.json');
+        return;
+    }
+
+    try {
+        const res = await fetch(`${apiBase}/api/publish`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+
+        const data = await res.json();
+        if (data.success) {
+            showStatus(`🎉 文章《${data.article.title}》發布成功！已自動加入 articles.json`);
+            document.getElementById('writeForm').reset();
+            document.getElementById('writeDate').value = new Date().toISOString().split('T')[0];
+            updatePreview();
+            loadArticles();
+        } else {
+            showStatus(data.error || '發布失敗', true);
+        }
+    } catch (err) {
+        showStatus('發布失敗：請確保本地 server.js 已在後台運行 (npm start)', true);
+    }
+});
+
+document.getElementById('uploadForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+
+    if (staticMode) {
+        showStatus('純靜態模式下請直接使用「在線寫作」的下載功能，或手動上傳文件。', true);
+        return;
+    }
+
+    try {
+        const res = await fetch(`${apiBase}/api/upload`, {
+            method: 'POST',
+            body: formData
+        });
+        const data = await res.json();
+        if (data.success) {
+            showStatus(`🎉 文件上傳成功！已生成文章並加入索引！`);
+            e.target.reset();
+            document.getElementById('uploadDate').value = new Date().toISOString().split('T')[0];
+            loadArticles();
+        } else {
+            showStatus(data.error || '上傳失敗', true);
+        }
+    } catch (err) {
+        showStatus('上傳失敗：請檢查本地服務器是否正常運行', true);
+    }
+});
+
+async function deleteArticle(id) {
+    if (!confirm(`確定要刪除這篇文章記錄嗎？`)) return;
+    if (!backendReady) {
+        showStatus('純靜態模式下無法刪除，請手動編輯 articles.json', true);
+        return;
+    }
+
+    try {
+        const res = await fetch(`${apiBase}/api/articles/${encodeURIComponent(id)}?deleteFile=true`, {
+            method: 'DELETE'
+        });
+        const data = await res.json();
+        if (data.success) {
+            showStatus('文章記錄已成功刪除');
+            loadArticles();
+        } else {
+            showStatus(data.error || '刪除失敗', true);
+        }
+    } catch (err) {
+        showStatus('刪除請求失敗：請檢查本地服務器', true);
+    }
+}
+
+function downloadText(filename, text) {
+    const blob = new Blob([text], { type: 'text/markdown;charset=utf-8' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = filename;
+    a.click();
+}
+
+function exportCurrentAsFile() {
+    const payload = buildArticlePayload();
+    if (!payload) return;
+    const mdContent = generateFrontMatter(payload);
+    const entry = generateArticleEntry(payload);
+    downloadText(`${entry.id}.md`, mdContent);
+}
+
+function downloadArticlesJson() {
+    const text = document.getElementById('jsonViewer').value;
+    const blob = new Blob([text], { type: 'application/json;charset=utf-8' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'articles.json';
+    a.click();
+}
+
+function copyArticlesJson() {
+    const text = document.getElementById('jsonViewer').value;
+    navigator.clipboard.writeText(text).then(() => {
+        showStatus('已複製 articles.json 內容到剪貼板！');
+    });
+}
+
+function handleFileSelect(e) {
+    const file = e.target.files[0];
+    if (file) {
+        const nameWithoutExt = file.name.replace(/\.[^/.]+$/, "");
+        if (!document.getElementById('uploadTitle').value) {
+            document.getElementById('uploadTitle').value = nameWithoutExt;
+        }
+    }
+}
+
+// Initialize
+detectBackend();
+loadArticles();
+</script>
+
+</body>
+</html>

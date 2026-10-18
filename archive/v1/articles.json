@@ -1,0 +1,62 @@
+[
+  {
+    "id": "fibonacci-matrix",
+    "title": "矩陣快速冪與線性遞推關係",
+    "date": "2026-08-20",
+    "category": "算法",
+    "tags": [
+      "算法",
+      "线性代数",
+      "快速幂"
+    ],
+    "summary": "利用矩陣乘法在 O(log n) 時間內求解斐波那契數列與高階線性遞推，並結合生成函數深入剖析。",
+    "url": "./markdown_reader.html?post=fibonacci-matrix",
+    "type": "markdown",
+    "source": "./markdown/fibonacci-matrix.md"
+  },
+  {
+    "id": "generating-function",
+    "title": "Generating Function Learning Notes",
+    "date": "2026-07-12",
+    "category": "数学",
+    "tags": [
+      "数学",
+      "生成函数",
+      "递推数列"
+    ],
+    "summary": "利用生成函數由遞推式求通項公式，解析比內公式與母函數代數性質。",
+    "url": "./article/2026/generating_function_an.html",
+    "type": "html",
+    "source": "./article/2026/generating_function_an.html"
+  },
+  {
+    "id": "cpp-memory",
+    "title": "C++ 現代內存管理與指針機制",
+    "date": "2026-03-14",
+    "category": "计算机",
+    "tags": [
+      "计算机",
+      "C++",
+      "内存管理"
+    ],
+    "summary": "深入探討 C++11 以後的智能指針 (unique_ptr, shared_ptr)、RAII 原則與虛擬內存映射機制。",
+    "url": "./markdown_reader.html?post=cpp-memory",
+    "type": "markdown",
+    "source": "./markdown/cpp-memory.md"
+  },
+  {
+    "id": "sample-markdown",
+    "title": "Markdown Reader 使用與格式指南",
+    "date": "2026-01-01",
+    "category": "生活",
+    "tags": [
+      "指南",
+      "Markdown",
+      "博客"
+    ],
+    "summary": "介紹本博客 Markdown 閱讀器的代碼高亮、數學公式支持與文章間超鏈接語法。",
+    "url": "./markdown_reader.html?post=sample-markdown",
+    "type": "markdown",
+    "source": "./markdown/sample.md"
+  }
+]

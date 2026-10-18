@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>† 2's Complement Web Sanctuary †</title>
+    <link>./</link>
+    <description>二補數の個人電脳結界 — 離散數學、演算法競賽、C++ 與少女幻葬。</description>
+    <language>zh-CN</language>
+    <lastBuildDate>Tue, 18 Oct 2026 00:00:00 +0800</lastBuildDate>
+    <atom:link href="./rss.xml" rel="self" type="application/rss+xml" />
+    <image>
+      <url>./vectorImages/2scompliment-blog-icon.svg</url>
+      <title>† 2's Complement Web Sanctuary †</title>
+      <link>./</link>
+    </image>
+
+    <item>
+      <title>矩陣快速冪與線性遞推關係</title>
+      <link>./markdown_reader.html?post=fibonacci-matrix</link>
+      <guid isPermaLink="true">./markdown_reader.html?post=fibonacci-matrix</guid>
+      <pubDate>Thu, 20 Aug 2026 00:00:00 +0800</pubDate>
+      <category>算法</category>
+      <description><![CDATA[利用矩陣乘法在 O(log n) 時間內求解斐波那契數列與高階線性遞推，並結合生成函數深入剖析。]]></description>
+    </item>
+
+    <item>
+      <title>生成函數學習筆記</title>
+      <link>./article/2026/generating_function_an.html</link>
+      <guid isPermaLink="true">./article/2026/generating_function_an.html</guid>
+      <pubDate>Sun, 12 Jul 2026 00:00:00 +0800</pubDate>
+      <category>数学</category>
+      <description><![CDATA[利用生成函數由遞推式求通項公式，解析比內公式與母函數代數性質。]]></description>
+    </item>
+
+    <item>
+      <title>C++ 現代內存管理與指針機制</title>
+      <link>./markdown_reader.html?post=cpp-memory</link>
+      <guid isPermaLink="true">./markdown_reader.html?post=cpp-memory</guid>
+      <pubDate>Sat, 14 Mar 2026 00:00:00 +0800</pubDate>
+      <category>计算机</category>
+      <description><![CDATA[深入探討 C++11 以後的智能指針 (unique_ptr, shared_ptr)、RAII 原則與虛擬內存映射機制。]]></description>
+    </item>
+
+    <item>
+      <title>Markdown Reader 使用與格式指南</title>
+      <link>./markdown_reader.html?post=sample-markdown</link>
+      <guid isPermaLink="true">./markdown_reader.html?post=sample-markdown</guid>
+      <pubDate>Thu, 01 Jan 2026 00:00:00 +0800</pubDate>
+      <category>生活</category>
+      <description><![CDATA[介紹本博客 Markdown 閱讀器的代碼高亮、數學公式支持與文章間超鏈接語法。]]></description>
+    </item>
+  </channel>
+</rss>

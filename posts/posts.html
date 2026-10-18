@@ -1,89 +1,229 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
+
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="2scompliment's Weblog">
-    <meta name="author" content="2scompliment">
-    <title>2scompliment's Weblog</title>
-    <script src="./js/script.js"></script>
-    <link rel="icon" href="./vectorImages/2scompliment-blog-icon.svg" type="image/x-icon" />
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>†*:.｡. Posts Archive [日誌倉庫] .｡.:*† 2scomplement's Diary</title>
+<link rel="icon" href="../vectorImages/2scompliment-blog-icon.svg" type="image/x-icon" />
+<link rel="stylesheet" href="../css/style.css">
+<script src="../js/script.js"></script>
 </head>
 
 <body>
-    <header>2scompliment's Weblog
-        <ul direction="horizontal" style="list-style-type: none; margin: 0; padding: 0; display: inline-block;">
-            <li><a href="./index.html" style="color: #888888; text-decoration: none; margin: 0 10px;">Home</a></li>
-            <li><a href="./about/about.html" style="color: #888888; text-decoration: none; margin: 0 10px;">About</a></li>
-            <li><a href="./posts/posts.html" style="color: #888888; text-decoration: none; margin: 0 10px;">Posts</a></li>
-            <li><a href="./contact/contact.html" style="color: #888888; text-decoration: none; margin: 0 10px;">Contact</a></li>
-        </ul>
-    </header>
-    <div class="text-mihon">
-        <p>テキスト見本</p>
+
+<div class="crt-overlay"></div>
+
+<!-- 頂部跑馬燈 -->
+<div class="marquee-top">
+    <marquee behavior="scroll" direction="left" scrollamount="4">
+        ★*ﾟ*☆*ﾟ*★ 2's Complement Posts Archive • 全記事を時系列で読む • (*/ω＼*) ★*ﾟ*☆*ﾟ*★
+    </marquee>
+</div>
+<div class="marquee-sub">
+    <marquee behavior="scroll" direction="right" scrollamount="3">
+        [SYSTEM NOTICE] 日誌倉庫 • 年份歸檔 • 分類篩選 • 即時檢索
+    </marquee>
+</div>
+
+<!-- 頂部導航條 -->
+<div class="retro-nav-container">
+    <a href="../index.html" class="retro-nav-link">[ HOME (首頁) ]</a>
+    <span class="nav-sep">|</span>
+    <a href="../article/article_nav.html" class="retro-nav-link">[ ARTICLES (文章引導) ]</a>
+    <span class="nav-sep">|</span>
+    <a href="../markdown_reader.html" class="retro-nav-link">[ MARKDOWN READER ]</a>
+    <span class="nav-sep">|</span>
+    <a href="../about/about.html" class="retro-nav-link">[ ABOUT ME (自己紹介) ]</a>
+    <span class="nav-sep">|</span>
+    <a href="../contact/contact.html" class="retro-nav-link">[ CONTACT (連絡板) ]</a>
+    <span class="nav-sep">|</span>
+    <a href="../autouploader.html" class="retro-nav-link">[ ADMIN STUDIO (管理室) ]</a>
+</div>
+
+<div class="main-wrapper-narrow">
+    <div class="header-box">
+        <h1 class="header-title">★ Posts Archive [日誌倉庫] ★</h1>
+        <p class="header-desc">
+            二補數の全記事を時系列＆分類別にアーカイブ ✦
+        </p>
     </div>
 
-    <section id="content">
-        <script>
-            loadContent();
-        </script>
-    </section>
-    
-    <!--
-    <iframe width="100%" height="166" weight="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1210490998&color=%23b6b6b6&auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>-->
-    <!--<div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;">
-        <a href="https://soundcloud.com/n_n_n_5gou" title="5号" target="_blank" style="color: #cccccc; text-decoration: none;">5号</a> ·
-        <a href="https://soundcloud.com/n_n_n_5gou/mp3" title="表情をつけられた歌声.mp3" target="_blank" style="color: #cccccc; text-decoration: none;">表情をつけられた歌声.mp3</a>
+    <!-- 統計欄 -->
+    <div class="news-box" style="margin-bottom: 15px;">
+        <span class="news-title">📊 ARCHIVE STATISTICS</span>
+        <span id="archiveStats" style="font-size: 12px; color: #ffd8f2;">正在統計文章數據...</span>
     </div>
-    -->
+
+    <!-- 分類篩選與檢索欄 -->
+    <div class="filter-bar">
+        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+                <td align="left" id="categoryPills">
+                    <button class="filter-btn active" onclick="setCategoryFilter('ALL')">★ 全部</button>
+                </td>
+                <td align="right" width="180">
+                    <input type="text" id="filterSearch" class="search-input" placeholder="檢索記事 / 關鍵字..." oninput="handleSearchInput()">
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- 時間線容器 -->
+    <div id="archiveContainer">
+        <p style="text-align: center; padding: 25px; color: #ff8ad6;">正在整理日誌倉庫...</p>
+    </div>
+</div>
+
+<div class="retro-footer">
+    <p class="footer-quote">† 記憶は有限、でも漸化式は永遠に続く †</p>
+    <p>✦ Best viewed with Internet Explorer 6.0 at 1024x768 resolution • Hosted on Apache HTTP Server ✦</p>
+    <p>Copyright (c) 2008-2026 2scomplement's Secret Diary. All rights reserved.</p>
+    <div class="footer-links" style="margin-top: 8px;">
+        <a href="../sitemap.html">SiteMap</a> |
+        <a href="../links.html">Links</a> |
+        <a href="../rss.xml">RSS</a> |
+        <a href="https://t.me/2scomplementblog">Telegram</a> |
+        <a href="../autouploader.html">管理室 (Studio)</a>
+    </div>
+</div>
+
+<script>
+let allArticles = [];
+let currentCategory = "ALL";
+let searchQuery = "";
+
+function resolveUrl(url) {
+    if (url.startsWith("./")) {
+        return "../" + url.substring(2);
+    }
+    if (url.startsWith("../")) {
+        return url;
+    }
+    return url;
+}
+
+async function loadArticles() {
+    try {
+        const res = await fetch("../articles.json");
+        allArticles = await res.json();
+
+        const params = new URLSearchParams(window.location.search);
+        const urlCat = params.get("category");
+        if (urlCat) currentCategory = urlCat;
+
+        renderCategoryPills();
+        renderArchive();
+        updateStats();
+    } catch (e) {
+        document.getElementById("archiveContainer").innerHTML = "<p style='text-align:center; color:#ff3385;'>無法讀取 articles.json</p>";
+    }
+}
+
+function updateStats() {
+    const counts = {};
+    allArticles.forEach(a => counts[a.category] = (counts[a.category] || 0) + 1);
+    const catList = Object.entries(counts).map(([c, n]) => `${c}: ${n}篇`).join(" / ");
+    document.getElementById("archiveStats").innerHTML =
+        `總計 <b style="color:#ff3385;">${allArticles.length}</b> 篇日誌｜分類：${catList}`;
+}
+
+function renderCategoryPills() {
+    const container = document.getElementById("categoryPills");
+    const counts = {};
+    allArticles.forEach(a => counts[a.category] = (counts[a.category] || 0) + 1);
+
+    let html = `<button class="filter-btn ${currentCategory === 'ALL' ? 'active' : ''}" onclick="setCategoryFilter('ALL')">★ 全部 (${allArticles.length})</button>`;
+    for (const cat in counts) {
+        const isActive = currentCategory === cat ? 'active' : '';
+        html += `<button class="filter-btn ${isActive}" onclick="setCategoryFilter('${cat}')">♡ ${cat} (${counts[cat]})</button>`;
+    }
+    container.innerHTML = html;
+}
+
+function setCategoryFilter(cat) {
+    currentCategory = cat;
+    const url = new URL(window.location);
+    if (cat === "ALL") {
+        url.searchParams.delete("category");
+    } else {
+        url.searchParams.set("category", cat);
+    }
+    window.history.pushState({}, '', url);
+
+    renderCategoryPills();
+    renderArchive();
+}
+
+function handleSearchInput() {
+    searchQuery = document.getElementById("filterSearch").value.trim().toLowerCase();
+    renderArchive();
+}
+
+function renderArchive() {
+    const container = document.getElementById("archiveContainer");
+    let filtered = allArticles;
+
+    if (currentCategory !== "ALL") {
+        filtered = filtered.filter(a => a.category === currentCategory);
+    }
+
+    if (searchQuery) {
+        filtered = filtered.filter(a =>
+            (a.title && a.title.toLowerCase().includes(searchQuery)) ||
+            (a.summary && a.summary.toLowerCase().includes(searchQuery)) ||
+            (a.category && a.category.toLowerCase().includes(searchQuery)) ||
+            (a.tags && a.tags.some(t => t.toLowerCase().includes(searchQuery)))
+        );
+    }
+
+    if (filtered.length === 0) {
+        container.innerHTML = `
+            <div class="post-entry" style="text-align: center; padding: 30px;">
+                <p>⚠️ (TwT) 沒有找到符合條件的文章日誌...</p>
+                <button class="filter-btn" style="margin-top: 10px;" onclick="setCategoryFilter('ALL')">重置全部</button>
+            </div>
+        `;
+        return;
+    }
+
+    // Group by year
+    const byYear = {};
+    filtered.forEach(a => {
+        const year = a.date ? a.date.substring(0, 4) : '未知';
+        if (!byYear[year]) byYear[year] = [];
+        byYear[year].push(a);
+    });
+
+    const sortedYears = Object.keys(byYear).sort((a, b) => b.localeCompare(a));
+
+    container.innerHTML = sortedYears.map(year => `
+        <div class="section-box" style="margin-bottom: 15px;">
+            <div class="section-header">■ ${year} 年 [${byYear[year].length} 篇]</div>
+            <div class="section-body">
+                ${byYear[year].map(post => `
+                    <div class="post-entry" style="margin-bottom: 10px;">
+                        <div class="post-header" style="border-bottom: 1px dotted #330033; padding-bottom: 4px;">
+                            <a href="${resolveUrl(post.url)}" class="post-title-link">◆ ${post.title}</a>
+                            <div class="post-meta">
+                                <span class="category-tag" onclick="setCategoryFilter('${post.category}')">♡ ${post.category}</span>
+                                <span>日付：${post.date}</span>
+                                ${post.tags ? post.tags.map(t => `<span style="margin-left: 6px;">#${t}</span>`).join("") : ""}
+                            </div>
+                        </div>
+                        <div class="post-summary" style="margin-top: 8px;">${post.summary || "點擊查看詳細內容..."}</div>
+                        <div style="text-align: right; margin-top: 6px;">
+                            <a href="${resolveUrl(post.url)}" class="read-more-link">[ 続きを読む >> ]</a>
+                        </div>
+                    </div>
+                `).join('')}
+            </div>
+        </div>
+    `).join('');
+}
+
+loadArticles();
+</script>
 
 </body>
-
-<style>
-    body {
-    background-color: #000000;
-    margin: 0;
-    padding: 0;
-    position: static; /* 使 body 成为定位上下文 */
-    }
-
-    .text-mihon {
-        font-family: 'Times New Roman', Times, serif;
-        font-size: 50%; /* 使用相对单位 */
-        position: absolute; /* 绝对定位 */
-        top: 50%; /* 垂直居中 */
-        left: 50%; /* 水平居中 */
-        /*transform: translate(-50%, -50%);/* 调整位置使其真正居中 */
-        color: #ffffff; /* 白色文字 */
-        text-align: center; /* 文本居中对齐 */
-    }
-
-    header {
-        position: fixed;
-        top: 0;
-        width: 100%;
-        background-color: #111111;
-        color: #888888;
-        text-align: center;
-        padding: 10px 0;
-        font-size: 14px;
-        font-family: 'Open Sans', sans-serif;
-    }
-
-    footer {
-        position: fixed;
-        bottom: 0;
-        width: 100%;
-        background-color: #111111;
-        color: #888888;
-        text-align: center;
-        padding: 10px 0;
-        font-size: 14px;
-        font-family: 'Open Sans', sans-serif;
-    }
-
-</style>
-
-<footer>This website is designed and complicated by 2scompliment.</footer>
 </html>

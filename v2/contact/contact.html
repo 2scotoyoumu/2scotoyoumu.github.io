@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>†*:.｡. Contact & Guestbook [連絡板] .｡.:*† 2scomplement's Sanctuary</title>
+<link rel="icon" href="../vectorImages/2scompliment-blog-icon.svg" type="image/x-icon" />
+<link rel="stylesheet" href="../css/style.css">
+<script src="../js/script.js"></script>
+
+<style>
+/* Page-specific extras */
+.contact-grid {
+    width: 100%;
+    border-collapse: collapse;
+}
+.contact-grid td {
+    vertical-align: top;
+    padding: 8px;
+}
+.contact-icon {
+    color: #ff3385;
+    font-weight: bold;
+    width: 80px;
+}
+.kakiko-table td {
+    padding: 4px 6px;
+    vertical-align: top;
+}
+.kakiko-label {
+    color: #ff8ad6;
+    font-weight: bold;
+    font-size: 12px;
+    width: 80px;
+    white-space: nowrap;
+}
+</style>
+</head>
+
+<body>
+
+<div class="crt-overlay"></div>
+
+<!-- 頂部跑馬燈 -->
+<div class="marquee-top">
+    <marquee behavior="scroll" direction="left" scrollamount="4">
+        ★*ﾟ*☆*ﾟ*★ 管理人への連絡はこちらから！相互リンク・キリ番報告・数学相談大歓迎 ☆ (*/ω＼*) ★*ﾟ*☆*ﾟ*★
+    </marquee>
+</div>
+<div class="marquee-sub">
+    <marquee behavior="scroll" direction="right" scrollamount="3">
+        [SYSTEM NOTICE] 留言板由 Apache + PHP 驅動 ✦ 支持匿名留言 ✦ 請遵守網路禮儀
+    </marquee>
+</div>
+
+<!-- 頂部導航條 -->
+<div class="retro-nav-container">
+    <a href="../index.html" class="retro-nav-link">[ HOME (首頁) ]</a>
+    <span class="nav-sep">|</span>
+    <a href="../article/article_nav.html" class="retro-nav-link">[ ARTICLES (文章引導) ]</a>
+    <span class="nav-sep">|</span>
+    <a href="../markdown_reader.html" class="retro-nav-link">[ MARKDOWN READER ]</a>
+    <span class="nav-sep">|</span>
+    <a href="../about/about.html" class="retro-nav-link">[ ABOUT ME (自己紹介) ]</a>
+    <span class="nav-sep">|</span>
+    <a href="./contact.html" class="retro-nav-link">[ CONTACT (連絡板) ]</a>
+    <span class="nav-sep">|</span>
+    <a href="../autouploader.html" class="retro-nav-link">[ ADMIN STUDIO (管理室) ]</a>
+</div>
+
+<div class="main-wrapper">
+    <!-- 看板標題 -->
+    <div class="header-box">
+        <div style="color: #ff3385; font-size: 13px; font-weight: bold; margin-bottom: 4px;">† CONTACT & GUESTBOOK †</div>
+        <h1 style="font-size: 24px; color: #ff8ad6; letter-spacing: 2px; margin-bottom: 6px;">★ 連絡板 [Contact] ★</h1>
+        <p style="font-size: 12px; color: #ffb3e6; font-style: italic;">
+            「辺境の電脳結界へようこそ。キリ番報告・相互リンク・数学相談、何でもどうぞ。」
+        </p>
+    </div>
+
+    <table class="layout-table" style="width: 100%; margin: 0;">
+        <tr>
+            <!-- 左欄：管理人連絡先 -->
+            <td width="320" valign="top">
+                <div class="widget-box">
+                    <div class="widget-header">★ MASTER CONTACT [管理人連絡先] ★</div>
+                    <div class="widget-body">
+                        <table class="contact-grid">
+                            <tr>
+                                <td class="contact-icon">✉ MAIL:</td>
+                                <td><a href="mailto:2scotoyoumu@example.com">2scotoyoumu@example.com</a></td>
+                            </tr>
+                            <tr>
+                                <td class="contact-icon">✈ TG:</td>
+                                <td><a href="https://t.me/2scomplementblog" target="_blank" rel="noopener">@2scomplementblog</a></td>
+                            </tr>
+                            <tr>
+                                <td class="contact-icon">⚙ GITHUB:</td>
+                                <td><a href="https://github.com/2scotoyoumu" target="_blank" rel="noopener">github.com/2scotoyoumu</a></td>
+                            </tr>
+                            <tr>
+                                <td class="contact-icon">♡ KIRI:</td>
+                                <td>踏到整數番請在此留言！</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="widget-box">
+                    <div class="widget-header">✦ 相互リンクについて ✦</div>
+                    <div class="widget-body" style="font-size: 12px; line-height: 1.8;">
+                        <p>当サイトは完全リンクフリーです。</p>
+                        <p>相互リンク大歓迎！下記バナーをお持ち帰りください。</p>
+                        <div style="text-align: center; margin-top: 10px;">
+                            <img src="../vectorImages/btn_touhou.svg" class="badge-img" alt="Touhou Banner">
+                            <img src="../vectorImages/btn_math.svg" class="badge-img" alt="Math Banner">
+                            <img src="../vectorImages/btn_goth.svg" class="badge-img" alt="Goth Banner">
+                        </div>
+                        <p class="tiny muted" style="margin-top: 8px;">Banner size: 88x31 • 直リンク可</p>
+                    </div>
+                </div>
+
+                <div class="widget-box">
+                    <div class="widget-header">✦ 更新履歴 [UPDATES] ✦</div>
+                    <div class="widget-body">
+                        <ul class="news-list">
+                            <li><b>2026.10.18:</b> 連絡板 (Guestbook) 開設。Apache + PHP 驅動。</li>
+                            <li><b>2026.10.18:</b> 全站風格統一為 Web 1.0 哥特少女主題。</li>
+                            <li><b>2026.08.20:</b> 新記事《矩陣快速冪與線性遞推關係》公開。</li>
+                            <li><b>2026.07.12:</b> 新記事《生成函數學習筆記》公開。</li>
+                        </ul>
+                    </div>
+                </div>
+            </td>
+
+            <!-- 右欄：留言板 -->
+            <td valign="top" style="padding-left: 15px;">
+                <div class="guestbook-box" style="padding: 15px;">
+                    <h2 style="color: #ff8ad6; font-size: 16px; border-bottom: 1px dashed #ff3385; padding-bottom: 6px; margin-bottom: 15px;">
+                        ✉ 訪客留言板 [Guestbook]
+                    </h2>
+
+                    <div class="guestbook-form">
+                        <form id="guestbookForm">
+                            <table class="kakiko-table" width="100%">
+                                <tr>
+                                    <td class="kakiko-label">名前：</td>
+                                    <td><input type="text" id="gbName" placeholder="匿名訪客" maxlength="32"></td>
+                                </tr>
+                                <tr>
+                                    <td class="kakiko-label">心情：</td>
+                                    <td>
+                                        <select id="gbMood">
+                                            <option value="(*/ω＼*)">(*/ω＼*) 害羞</option>
+                                            <option value="(｡♥‿♥｡)">(｡♥‿♥｡) 喜歡</option>
+                                            <option value="(✿◠‿◠)">(✿◠‿◠) 開心</option>
+                                            <option value="(；一_一)">(；一_一) 沉思</option>
+                                            <option value="(╯°□°）╯">(╯°□°）╯ 震驚</option>
+                                            <option value="(´；ω；`)">(´；ω；`) 感動</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="kakiko-label">留言：</td>
+                                    <td><textarea id="gbBody" rows="4" placeholder="こんにちは！歡迎留下任何話語、數學問題或相互鏈接申請..." maxlength="500" required></textarea></td>
+                                </tr>
+                            </table>
+                            <div style="text-align: right; margin-top: 10px;">
+                                <button type="submit" class="btn-retro">✉ 提交留言 (Submit)</button>
+                            </div>
+                        </form>
+                        <div id="gbStatus" class="tiny" style="margin-top: 8px; color: #7dffbf;"></div>
+                    </div>
+
+                    <div id="guestbookEntries">
+                        <p style="text-align: center; color: #ff8ad6; padding: 20px;">正在加載留言板...</p>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div class="retro-footer">
+    <p class="footer-quote">† 闇と数学の境界線で待ってるよ。現実はただのバッドトリップ †</p>
+    <p>✦ Best viewed with Internet Explorer 6.0 at 1024x768 resolution • Hosted on Apache HTTP Server ✦</p>
+    <p>Copyright (c) 2008-2026 2scomplement's Secret Diary. All rights reserved.</p>
+    <div class="footer-links" style="margin-top: 8px;">
+        <a href="../sitemap.html">SiteMap</a> |
+        <a href="../links.html">Links</a> |
+        <a href="../rss.xml">RSS</a> |
+        <a href="https://t.me/2scomplementblog">Telegram</a> |
+        <a href="../autouploader.html">管理室 (Studio)</a>
+    </div>
+</div>
+
+<script>
+const gbForm = document.getElementById('guestbookForm');
+const gbEntries = document.getElementById('guestbookEntries');
+const gbStatus = document.getElementById('gbStatus');
+let phpAvailable = true;
+
+async function loadGuestbook() {
+    try {
+        const res = await fetch('../guestbook.php?ts=' + Date.now(), { cache: 'no-store' });
+        if (!res.ok) throw new Error('PHP unavailable');
+        const data = await res.json();
+
+        if (!data.messages || data.messages.length === 0) {
+            gbEntries.innerHTML = `
+                <div class="guestbook-entry" style="text-align: center; color: #888;">
+                    還沒有留言，成為第一位訪客吧！✨
+                </div>
+            `;
+            return;
+        }
+
+        gbEntries.innerHTML = data.messages.map(m => `
+            <div class="guestbook-entry">
+                <div class="guestbook-entry-header">
+                    <span style="color: #ff3385;">No.</span> ${window.SanctuaryUtils ? SanctuaryUtils.escapeHtml(m.id.replace('msg-', '')) : m.id.replace('msg-', '')}
+                    <span style="margin-left: 12px;">名前：${m.name}</span>
+                    <span style="margin-left: 12px; color: #7dffbf;">${m.mood}</span>
+                    <span style="float: right; color: #c9a0dc; font-weight: normal;">${m.date}</span>
+                </div>
+                <div class="guestbook-entry-body">${m.body}</div>
+            </div>
+        `).join('');
+    } catch (e) {
+        phpAvailable = false;
+        gbEntries.innerHTML = `
+            <div class="guestbook-entry" style="text-align: center; color: #ff8ad6;">
+                <p>⚠️ 留言板需要 Apache + PHP 環境才能運行。</p>
+                <p class="small">當前為靜態預覽模式，請通過上方郵箱聯繫管理人。</p>
+            </div>
+        `;
+    }
+}
+
+gbForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!phpAvailable) {
+        gbStatus.textContent = '⚠️ PHP 不可用，無法提交留言。';
+        gbStatus.style.color = '#ff3385';
+        return;
+    }
+
+    const name = document.getElementById('gbName').value.trim() || '匿名訪客';
+    const mood = document.getElementById('gbMood').value;
+    const body = document.getElementById('gbBody').value.trim();
+
+    if (!body) {
+        gbStatus.textContent = '⚠️ 請輸入留言內容。';
+        gbStatus.style.color = '#ff3385';
+        return;
+    }
+
+    try {
+        const res = await fetch('../guestbook.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name, mood, body })
+        });
+        const data = await res.json();
+
+        if (data.status === 'ok') {
+            gbStatus.textContent = '✨ 留言提交成功！感謝你的到訪！';
+            gbStatus.style.color = '#7dffbf';
+            gbForm.reset();
+            loadGuestbook();
+        } else {
+            gbStatus.textContent = '⚠️ ' + (data.error || '提交失敗');
+            gbStatus.style.color = '#ff3385';
+        }
+    } catch (err) {
+        gbStatus.textContent = '⚠️ 提交失敗：' + err.message;
+        gbStatus.style.color = '#ff3385';
+    }
+});
+
+loadGuestbook();
+</script>
+
+</body>
+</html>

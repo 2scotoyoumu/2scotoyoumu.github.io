@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="88" height="31" viewBox="0 0 88 31">
+  <rect width="88" height="31" fill="#111111" stroke="#ff3385" stroke-width="2"/>
+  <rect x="3" y="4" width="20" height="23" fill="#ffffff" stroke="#999999"/>
+  <line x1="6" y1="8" x2="20" y2="8" stroke="#333333" stroke-width="1"/>
+  <line x1="6" y1="12" x2="20" y2="12" stroke="#333333" stroke-width="1"/>
+  <line x1="6" y1="16" x2="18" y2="16" stroke="#333333" stroke-width="1"/>
+  <line x1="6" y1="20" x2="16" y2="20" stroke="#333333" stroke-width="1"/>
+  <text x="28" y="13" font-family="'Courier New', monospace" font-size="8" font-weight="bold" fill="#ff3385">NOTEPAD</text>
+  <text x="28" y="22" font-family="'Courier New', monospace" font-size="8" font-weight="bold" fill="#ffffff">HANDMADE</text>
+  <text x="28" y="28" font-family="'Courier New', monospace" font-size="6" fill="#7dffbf">100% RAW</text>
+</svg>
