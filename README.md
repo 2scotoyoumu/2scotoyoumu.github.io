@@ -1,2 +1,2 @@
-# 2scoyoumu.github.io
+# 2scotoyoumu.github.io
 repo for publishing novels and artworks
